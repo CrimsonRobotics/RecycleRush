@@ -62,7 +62,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
     
-    public void initDefaultCommand() {
+    protected void initDefaultCommand() {
     	setDefaultCommand((Command)driveChooser.getSelected());
     }
     

@@ -17,9 +17,8 @@ public class AlignmentWheels extends Subsystem {
 		rightMotor = new CANTalon(RobotMap.RIGHT_ALIGN_TALON);
 	}
 
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
+	protected void initDefaultCommand() {}
+	
+	
 }
 

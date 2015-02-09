@@ -30,6 +30,8 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
 		System.out.println("HI");
+		
+		driveTrain.initDefaultCommand();
     }
 	
 	public void disabledPeriodic() {
