@@ -12,4 +12,7 @@ public class RobotMap {
 	public static final int REAR_LEFT_TALON = 2;
 	public static final int FRONT_RIGHT_TALON = 3;
 	public static final int FRONT_LEFT_TALON = 4;
+	
+	public static final int LEFT_ALIGN_TALON = 5;
+	public static final int RIGHT_ALIGN_TALON = 6;
 }
