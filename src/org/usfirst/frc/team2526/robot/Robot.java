@@ -1,15 +1,12 @@
 
 package org.usfirst.frc.team2526.robot;
 
-import org.usfirst.frc.team2526.robot.commands.Drive;
-import org.usfirst.frc.team2526.robot.commands.PIDDrive;
+import org.usfirst.frc.team2526.robot.subsystems.AlignmentWheels;
 import org.usfirst.frc.team2526.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,17 +18,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static final DriveTrain driveTrain = new DriveTrain();
+	public static final AlignmentWheels alignment = new AlignmentWheels();
 	public static OI oi;
 
-    
-
-   
 
     public void robotInit() {
 		oi = new OI();
-		System.out.println("HI");
-		
-		driveTrain.initDefaultCommand();
     }
 	
 	public void disabledPeriodic() {
