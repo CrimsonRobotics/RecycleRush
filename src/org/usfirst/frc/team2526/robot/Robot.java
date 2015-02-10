@@ -24,6 +24,7 @@ public class Robot extends IterativeRobot {
 
     public void robotInit() {
 		oi = new OI();
+		
     }
 	
 	public void disabledPeriodic() {
