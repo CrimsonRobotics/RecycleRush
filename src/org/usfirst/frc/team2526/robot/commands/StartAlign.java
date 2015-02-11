@@ -17,11 +17,12 @@ public class StartAlign extends Command {
     protected void initialize() {
     	Robot.alignment.startAlign();
     }
+    
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {}
 
-    // Make this return true when this Comma  nd no longer needs to run execute()
+    // Set to false because we never want it to stop running until the user end the command by letting go of the button
     protected boolean isFinished() {
         return false;
     }
@@ -31,9 +32,7 @@ public class StartAlign extends Command {
     	Robot.alignment.stopAlign();
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
+    	end(); //End the command if we are interrupted
     }
 }
