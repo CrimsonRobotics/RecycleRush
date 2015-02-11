@@ -3,6 +3,7 @@ package org.usfirst.frc.team2526.robot;
 
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentWheels;
 import org.usfirst.frc.team2526.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team2526.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -19,12 +20,14 @@ public class Robot extends IterativeRobot {
 
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final AlignmentWheels alignment = new AlignmentWheels();
+	public static final Elevator elevator = new Elevator();
 	public static OI oi;
 
 
     public void robotInit() {
 		oi = new OI();
 		
+		LiveWindow.addActuator("Elevator", "PID", elevator);
     }
 	
 	public void disabledPeriodic() {

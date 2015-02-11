@@ -1,5 +1,8 @@
 package org.usfirst.frc.team2526.robot.subsystems;
 
+import org.usfirst.frc.team2526.robot.RobotMap;
+
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -10,10 +13,21 @@ public class Elevator extends PIDSubsystem {
 	public static double SKIM = 0.5,
 				SCORING = 1,
 				TOTE = 2; //NOT CALIBRATED TODO
+	
+	public CANTalon winchA,
+					winchB;
 
     public Elevator() {
     	super("Elevator", 1, 1, 1);
-        // Use these to get going
+    	
+    	winchA = new CANTalon(RobotMap.WINCH_A_TALON);
+    	winchB = new CANTalon(RobotMap.WINCH_B_TALON);
+    	
+    	winchA.changeControlMode(CANTalon.ControlMode.Position);
+    	winchA.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+    	
+    	winchB.changeControlMode(CANTalon.ControlMode.Follower);
+    	winchB.set(RobotMap.WINCH_A_TALON);
     }
     
     public void initDefaultCommand() {
@@ -22,14 +36,10 @@ public class Elevator extends PIDSubsystem {
     }
     
     protected double returnPIDInput() {
-        // Return your input value for the PID loop
-        // e.g. a sensor, like a potentiometer:
-        // yourPot.getAverageVoltage() / kYourMaxVoltage;
-    	return 0.0;
+    	return winchA.getEncPosition();
     }
     
     protected void usePIDOutput(double output) {
-        // Use output to drive your system, like a motor
-        // e.g. yourMotor.set(output);
+        winchA.set(output);
     }
 }
