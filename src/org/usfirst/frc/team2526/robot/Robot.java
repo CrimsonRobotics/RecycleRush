@@ -27,7 +27,6 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
 		
-		LiveWindow.addActuator("Elevator", "PID", elevator);
     }
 	
 	public void disabledPeriodic() {
