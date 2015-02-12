@@ -5,6 +5,7 @@ import org.usfirst.frc.team2526.robot.commands.Drive;
 import org.usfirst.frc.team2526.robot.commands.PIDDrive;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -21,6 +22,8 @@ public class DriveTrain extends Subsystem {
 						rRMotor;
 	
 	SendableChooser driveChooser;
+	
+	RobotDrive drive;
 	
 	public DriveTrain() {
 		super("Drive Train");
@@ -53,6 +56,8 @@ public class DriveTrain extends Subsystem {
         rLMotor.setPID(p, i, d, f, izone, ramprate, profile);
         rRMotor.setPID(p, i, d, f, izone, ramprate, profile);
         
+        drive = new RobotDrive(fLMotor, rLMotor, fRMotor, rRMotor);
+        
         driveChooser = new SendableChooser();
 		driveChooser.addDefault("Normal Drive", new Drive());
 		driveChooser.addObject("PID Drive", new PIDDrive());
@@ -63,21 +68,6 @@ public class DriveTrain extends Subsystem {
     
     protected void initDefaultCommand() {
     	setDefaultCommand((Command)driveChooser.getSelected());
-    }
-    
-    public void enablePID(boolean enable) {
-    	if (enable) {
-    		fLMotor.enableControl();
-    		fRMotor.enableControl();
-    		rLMotor.enableControl();
-    		rRMotor.enableControl();
-    	} else {
-    		fLMotor.disableControl();
-    		fRMotor.disableControl();
-    		rLMotor.disableControl();
-    		rRMotor.disableControl();
-    	}
-    		
     }
     
     /**
@@ -97,6 +87,10 @@ public class DriveTrain extends Subsystem {
         rLMotor.set(desiredRL);
         fRMotor.set(desiredFR);
         rRMotor.set(desiredRR);
+    }
+    
+    public void driveWithMech(double velocityY, double velocityX, double rotation) {
+    	drive.mecanumDrive_Cartesian(velocityX, velocityY, rotation, 0);
     }
 }
 
