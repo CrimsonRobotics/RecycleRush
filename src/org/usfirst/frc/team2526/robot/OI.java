@@ -24,6 +24,18 @@ public class OI {
 	}
 	
 	Button primaryTriggerStick = new JoystickButton(primaryStick, 1);
+	Button primaryStickTwo = new JoystickButton(primaryStick,2);
+	Button primaryStickThree = new JoystickButton(primaryStick,3);
+	Button primaryStickFour = new JoystickButton(primaryStick,4);
+	Button primaryStickFive = new JoystickButton(primaryStick,5);
+	//creates buttons on the primary stick (buttons 1-5)
+	
+	Button secondaryTriggerStick = new JoystickButton(secondaryStick,1);
+	Button secondaryStickTwo = new JoystickButton(secondaryStick,2);
+	Button secondaryStickThree = new JoystickButton(secondaryStick,3);
+	Button secondaryStickFour = new JoystickButton(secondaryStick,4);
+	Button secondaryStickFive = new JoystickButton(secondaryStick,5);
+	//creates buttons on the secondary stick (buttons 1-5)
 	
 	public OI() {
 		primaryTriggerStick.whileHeld(new StartAlign());
