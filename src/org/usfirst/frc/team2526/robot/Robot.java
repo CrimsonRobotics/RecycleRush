@@ -9,6 +9,7 @@ import org.usfirst.frc.team2526.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -22,7 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
+	Command autonomousCommand;
 	
 	public static DriveTrain driveTrain;
 	public static AlignmentWheels alignment;
@@ -35,6 +36,7 @@ public class Robot extends IterativeRobot {
 
 
     public void robotInit() {
+    	
 		compressor = new Compressor(RobotMap.PCM_MAIN);
 		compressor.setClosedLoopControl(true);
 		compressor.start();
@@ -50,6 +52,11 @@ public class Robot extends IterativeRobot {
 		driveChooser.addObject("PID Drive", new PIDDrive());
 		
 		SmartDashboard.putData("Drive Type", driveChooser);
+		
+		
+		SmartDashboard.putData(driveTrain);
+		SmartDashboard.putData(alignment);
+		SmartDashboard.putData(elevator);
     }
 	
 	public void disabledPeriodic() {
