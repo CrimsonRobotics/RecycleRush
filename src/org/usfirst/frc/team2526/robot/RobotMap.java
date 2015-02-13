@@ -10,16 +10,28 @@ public class RobotMap {
 	
 	public static final int WINCH_A_TALON = 1;
 	public static final int WINCH_B_TALON = 2;
+	//winch motors
 	
 	public static final int LEFT_ALIGN_TALON = 3;
 	public static final int RIGHT_ALIGN_TALON = 4;
+	//allignment wheels
 	
 	public static final int REAR_RIGHT_TALON = 5;
 	public static final int REAR_LEFT_TALON = 6;
 	public static final int FRONT_RIGHT_TALON = 7;
 	public static final int FRONT_LEFT_TALON = 8;
+	//drivetrain wheels
 	
 	public static final int PCM_MAIN = 9;
-	public static final int PCM_SECONDARY = 10;
+	
+	
+	// End CAN IDs
+	
+	// Start Pneumatic Channels
+	public static final int FLIPPER_RIGHT = 0;
+	public static final int FLIPPER_LEFT = 1;
+	public static final int WINCH_BRAKE = 2;
+	// End Pneumatic Channels
+	
 	
 }
