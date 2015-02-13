@@ -3,6 +3,7 @@ package org.usfirst.frc.team2526.robot.subsystems;
 import org.usfirst.frc.team2526.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -16,10 +17,12 @@ public class Elevator extends PIDSubsystem {
 	
 	public CANTalon winchA,
 					winchB;
-
+	
+	public Solenoid solenoidBrake;
+	
     public Elevator() {
     	super("Elevator", 1, 1, 1);
-    	
+    	solenoidBrake = new Solenoid(RobotMap.PCM_MAIN, RobotMap.WINCH_BRAKE);
     	winchA = new CANTalon(RobotMap.WINCH_A_TALON);
     	winchB = new CANTalon(RobotMap.WINCH_B_TALON);
     	
