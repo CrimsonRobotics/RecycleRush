@@ -18,5 +18,8 @@ public class RobotMap {
 	public static final int REAR_LEFT_TALON = 6;
 	public static final int FRONT_RIGHT_TALON = 7;
 	public static final int FRONT_LEFT_TALON = 8;
-
+	
+	public static final int PCM_MAIN = 9;
+	public static final int PCM_SECONDARY = 10;
+	
 }
