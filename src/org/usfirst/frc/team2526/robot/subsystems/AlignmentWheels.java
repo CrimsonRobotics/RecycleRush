@@ -20,13 +20,18 @@ public class AlignmentWheels extends Subsystem {
 	protected void initDefaultCommand() {}
 	
 	public void startAlign() {
-		leftMotor.set(1);
-		rightMotor.set(-1);
+		leftMotor.set(-1);
+		rightMotor.set(1);
 	}
 	
 	public void stopAlign() {
 		leftMotor.set(0);
 		rightMotor.set(0);
+	}
+	
+	public void reverseAlign() {
+		leftMotor.set(1);
+		rightMotor.set(-1);
 	}
 }
 
