@@ -32,6 +32,7 @@ public class DriveTrain extends Subsystem {
 		rLMotor = new CANTalon(RobotMap.REAR_LEFT_TALON);
 		rRMotor = new CANTalon(RobotMap.REAR_RIGHT_TALON);
 		
+ 		
 		fLMotor.changeControlMode(CANTalon.ControlMode.PercentVbus);
 		fRMotor.changeControlMode(CANTalon.ControlMode.PercentVbus);
 		rLMotor.changeControlMode(CANTalon.ControlMode.PercentVbus);
