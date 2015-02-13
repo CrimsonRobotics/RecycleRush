@@ -6,6 +6,7 @@ import org.usfirst.frc.team2526.robot.commands.PIDDrive;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentWheels;
 import org.usfirst.frc.team2526.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2526.robot.subsystems.Elevator;
+import org.usfirst.frc.team2526.robot.subsystems.Flipper;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -28,6 +29,7 @@ public class Robot extends IterativeRobot {
 	public static DriveTrain driveTrain;
 	public static AlignmentWheels alignment;
 	public static Elevator elevator;
+	public static Flipper flipper;
 	public static OI oi;
 	
 	Compressor compressor;
@@ -44,6 +46,7 @@ public class Robot extends IterativeRobot {
 		driveTrain = new DriveTrain();
 		alignment = new AlignmentWheels();
 		elevator = new Elevator();
+		flipper = new Flipper();
 		
 		oi = new OI();
 		
