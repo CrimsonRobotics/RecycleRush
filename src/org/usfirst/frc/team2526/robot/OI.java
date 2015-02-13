@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2526.robot;
 
+import org.usfirst.frc.team2526.robot.commands.ReverseAlign;
 import org.usfirst.frc.team2526.robot.commands.StartAlign;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -39,6 +40,7 @@ public class OI {
 	
 	public OI() {
 		primaryTriggerStick.whileHeld(new StartAlign());
+		primaryStickTwo.whileHeld(new ReverseAlign());
 	}
 }
 
