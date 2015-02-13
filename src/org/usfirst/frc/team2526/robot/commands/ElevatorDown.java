@@ -7,11 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Elevator extends Command {
+public class ElevatorDown extends Command {
 
-    public Elevator() {
+    public ElevatorDown() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.elevator);
+    	requires(Robot.elevator);
     }
 
     // Called just before this Command runs the first time
@@ -32,7 +32,7 @@ public class Elevator extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.elevator.solenoidBrake.set (false);
-    	//enables brake
+    	//enables brake when the command ends
     }
 
     // Called when another command which requires one or more of the same
