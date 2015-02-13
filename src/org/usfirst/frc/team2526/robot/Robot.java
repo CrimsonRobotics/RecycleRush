@@ -7,6 +7,7 @@ import org.usfirst.frc.team2526.robot.subsystems.AlignmentWheels;
 import org.usfirst.frc.team2526.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2526.robot.subsystems.Elevator;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -22,17 +23,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
+	
 	public static DriveTrain driveTrain;
 	public static AlignmentWheels alignment;
 	public static Elevator elevator;
 	public static OI oi;
 	
+	Compressor compressor;
+	
 	public static SendableChooser driveChooser;
 
 
     public void robotInit() {
-		
-		
+		compressor = new Compressor(RobotMap.PCM_MAIN);
+		compressor.setClosedLoopControl(true);
+		compressor.start();
+	
 		driveTrain = new DriveTrain();
 		alignment = new AlignmentWheels();
 		elevator = new Elevator();
