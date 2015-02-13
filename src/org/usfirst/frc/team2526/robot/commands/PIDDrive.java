@@ -19,7 +19,7 @@ public class PIDDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.driveWithPIDMech(Robot.oi.getPrimaryStick().getY(), Robot.oi.getSecondaryStick().getX(), Robot.oi.getPrimaryStick().getX());
+    	Robot.driveTrain.driveWithPIDMech(Robot.oi.getPrimaryStick().getY(), Robot.oi.getPrimaryStick().getX(), Robot.oi.getPrimaryStick().getZ());
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team2526.robot;
 
+import org.usfirst.frc.team2526.robot.commands.Drive;
+import org.usfirst.frc.team2526.robot.commands.PIDDrive;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentWheels;
 import org.usfirst.frc.team2526.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2526.robot.subsystems.Elevator;
@@ -8,6 +10,8 @@ import org.usfirst.frc.team2526.robot.subsystems.Elevator;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -18,15 +22,28 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class Robot extends IterativeRobot {
 
-	public static final DriveTrain driveTrain = new DriveTrain();
-	public static final AlignmentWheels alignment = new AlignmentWheels();
-	public static final Elevator elevator = new Elevator();
+	public static DriveTrain driveTrain;
+	public static AlignmentWheels alignment;
+	public static Elevator elevator;
 	public static OI oi;
+	
+	public static SendableChooser driveChooser;
 
 
     public void robotInit() {
+		
+		
+		driveTrain = new DriveTrain();
+		alignment = new AlignmentWheels();
+		elevator = new Elevator();
+		
 		oi = new OI();
 		
+		driveChooser = new SendableChooser();
+		driveChooser.addDefault("Normal Drive", new Drive());
+		driveChooser.addObject("PID Drive", new PIDDrive());
+		
+		SmartDashboard.putData("Drive Type", driveChooser);
     }
 	
 	public void disabledPeriodic() {

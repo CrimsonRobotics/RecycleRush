@@ -28,5 +28,10 @@ public class AlignmentWheels extends Subsystem {
 		leftMotor.set(0);
 		rightMotor.set(0);
 	}
+	
+	public void reverseAlign() {
+		leftMotor.set(-1);
+		rightMotor.set(1);
+	}
 }
 

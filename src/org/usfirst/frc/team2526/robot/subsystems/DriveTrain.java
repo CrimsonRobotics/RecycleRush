@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2526.robot.subsystems;
 
+import org.usfirst.frc.team2526.robot.Robot;
 import org.usfirst.frc.team2526.robot.RobotMap;
 import org.usfirst.frc.team2526.robot.commands.Drive;
 import org.usfirst.frc.team2526.robot.commands.PIDDrive;
@@ -20,8 +21,6 @@ public class DriveTrain extends Subsystem {
 						fRMotor,
 						rLMotor,
 						rRMotor;
-	
-	SendableChooser driveChooser;
 	
 	RobotDrive drive;
 	
@@ -56,18 +55,14 @@ public class DriveTrain extends Subsystem {
         rLMotor.setPID(p, i, d, f, izone, ramprate, profile);
         rRMotor.setPID(p, i, d, f, izone, ramprate, profile);
         
-        drive = new RobotDrive(fLMotor, rLMotor, fRMotor, rRMotor);
+        drive = new RobotDrive(rLMotor, fLMotor, fRMotor, rRMotor);
         
-        driveChooser = new SendableChooser();
-		driveChooser.addDefault("Normal Drive", new Drive());
-		driveChooser.addObject("PID Drive", new PIDDrive());
-		
-		SmartDashboard.putData("Drive Type", driveChooser);
+        
 	}
 	
     
     protected void initDefaultCommand() {
-    	setDefaultCommand((Command)driveChooser.getSelected());
+    	setDefaultCommand((Command)Robot.driveChooser.getSelected());
     }
     
     /**
