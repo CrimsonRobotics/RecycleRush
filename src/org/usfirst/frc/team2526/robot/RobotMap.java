@@ -31,6 +31,8 @@ public class RobotMap {
 	public static final int FLIPPER_RIGHT = 0;
 	public static final int FLIPPER_LEFT = 1;
 	public static final int WINCH_BRAKE = 2;
+	public static final int STABLE_ELEVATOR = 3;
+	public static final int ALIGNMENT_ARM = 4;
 	// End Pneumatic Channels
 
 	// Start DIO Channels
