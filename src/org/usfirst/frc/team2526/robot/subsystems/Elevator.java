@@ -20,7 +20,7 @@ public class Elevator extends  PIDSubsystem {
 	public CANTalon winchA,
 					winchB;
 	
-	public Solenoid solenoidBrake, toteStablize;
+	public Solenoid brakeSolenoid, stabilizeSolenoid;
 	
 	public LimitSwitch upperLimitSwitch,
 						lowerLimitSwitch;
@@ -29,8 +29,8 @@ public class Elevator extends  PIDSubsystem {
     public Elevator() {
     	super("Elevator", 1, 1, 1);
     	
-    	solenoidBrake = new Solenoid(RobotMap.PCM_MAIN, RobotMap.WINCH_BRAKE);
-    	toteStablize = new Solenoid(RobotMap.PCM_MAIN, RobotMap.STABLE_ELEVATOR);
+    	brakeSolenoid = new Solenoid(RobotMap.PCM_MAIN, RobotMap.WINCH_BRAKE);
+    	stabilizeSolenoid = new Solenoid(RobotMap.PCM_MAIN, RobotMap.STABLE_ELEVATOR);
     	
     	winchA = new CANTalon(RobotMap.WINCH_A_TALON);
     	winchB = new CANTalon(RobotMap.WINCH_B_TALON);
@@ -91,19 +91,19 @@ public class Elevator extends  PIDSubsystem {
     }
     
     public void applyBreak() {
-    	solenoidBrake.set(true);
+    	brakeSolenoid.set(true);
     }
     
     public void releaseBreak() {
-    	solenoidBrake.set(false);
+    	brakeSolenoid.set(false);
     }
     
-    public void stablizeTote() {
-    	toteStablize.set(true);
+    public void stabilizeTote() {
+    	stabilizeSolenoid.set(true);
     }
     
     public void releaseTote() {
-    	toteStablize.set(false);
+    	stabilizeSolenoid.set(false);
     }
     
     public void initDefaultCommand() {
