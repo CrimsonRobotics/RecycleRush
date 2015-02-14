@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.LimitSwitch;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -24,6 +25,7 @@ public class Elevator extends  PIDSubsystem {
 	
 	public LimitSwitch upperLimitSwitch,
 						lowerLimitSwitch;
+	
 	private double maxPosition;
 	
     public Elevator() {
@@ -62,6 +64,10 @@ public class Elevator extends  PIDSubsystem {
     	this.setInputRange(0, maxPosition);
     }
     
+    public void pidBrake() {
+    	this.setSetpoint(this.getPosition());
+    }
+    
     public boolean moveToPosition(double position) {
     	if (position < maxPosition && position > 0) {
     		this.setSetpoint(position);
@@ -71,19 +77,11 @@ public class Elevator extends  PIDSubsystem {
     }
     
     public void moveUp() {
-    	winchA.set(0.5);
-    	
-    	if (upperLimitSwitch.isPressed()) {
-    		calibrateMax();
-    	}
+    	winchA.set(-0.5);
     }
     
     public void moveDown() {
-    	winchA.set(-0.5);
-    	
-    	if (lowerLimitSwitch.isPressed()) {
-    		calibrateMin();
-    	}
+    	winchA.set(0.5);
     }
     
     public void stopElevator() {
@@ -91,19 +89,23 @@ public class Elevator extends  PIDSubsystem {
     }
     
     public void applyBreak() {
-    	brakeSolenoid.set(true);
+    	//brakeSolenoid.set(true);
+    	System.out.println("Brake not installed yet");
     }
     
     public void releaseBreak() {
-    	brakeSolenoid.set(false);
+    	//brakeSolenoid.set(false);
+    	System.out.println("Brake not installed yet");
     }
     
     public void stabilizeTote() {
-    	stabilizeSolenoid.set(true);
+    	//stabilizeSolenoid.set(true);
+    	System.out.println("Tote Pneu not installed yet");
     }
     
     public void releaseTote() {
-    	stabilizeSolenoid.set(false);
+    	//stabilizeSolenoid.set(false);
+    	System.out.println("Totematics not installed yet");
     }
     
     public void initDefaultCommand() {
@@ -116,6 +118,7 @@ public class Elevator extends  PIDSubsystem {
     }
     
     protected void usePIDOutput(double output) {
-        winchA.set(output);
+    	SmartDashboard.putNumber("Elevator PID", output);
+       // winchA.set(output);
     }
 }

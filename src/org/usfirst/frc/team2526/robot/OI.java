@@ -1,7 +1,8 @@
 package org.usfirst.frc.team2526.robot;
 
 import org.usfirst.frc.team2526.robot.commands.ActivateFlipper;
-import org.usfirst.frc.team2526.robot.commands.MoveElevator;
+import org.usfirst.frc.team2526.robot.commands.ElevatorDown;
+import org.usfirst.frc.team2526.robot.commands.ElevatorUp;
 import org.usfirst.frc.team2526.robot.commands.ReverseAlign;
 import org.usfirst.frc.team2526.robot.commands.StartAlign;
 
@@ -42,10 +43,11 @@ public class OI {
 	
 	public OI() {
 		primaryTriggerStick.whileHeld(new StartAlign());
+		//secondaryTriggerStick.whileHeld(new OpenArm());
 		primaryStickTwo.whileHeld(new ReverseAlign());
 		
-		primaryStickThree.whileHeld(new MoveElevator(true));
-		primaryStickTwo.whileHeld(new MoveElevator(false));
+		primaryStickThree.whileHeld(new ElevatorUp());
+		primaryStickTwo.whileHeld(new ElevatorDown());
 		
 		secondaryStickThree.whileHeld(new ActivateFlipper(true, true));
 		secondaryStickFour.whileHeld(new ActivateFlipper(true, false));

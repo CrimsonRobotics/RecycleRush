@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2526.robot.subsystems;
 
+import org.usfirst.frc.team2526.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -10,6 +12,11 @@ public class Flipper extends Subsystem {
     
     Solenoid leftFlipper,
     		rightFlipper;
+    
+    public Flipper() {
+    	leftFlipper = new Solenoid(RobotMap.PCM_MAIN, RobotMap.FLIPPER_LEFT);
+    	rightFlipper = new Solenoid(RobotMap.PCM_MAIN, RobotMap.FLIPPER_RIGHT);
+    }
 
     public void initDefaultCommand() {}
     
