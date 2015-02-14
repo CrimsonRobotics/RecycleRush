@@ -4,88 +4,103 @@ import org.usfirst.frc.team2526.robot.RobotMap;
 import org.usfirst.frc.team2526.robot.commands.HoldElevator;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.LimitSwitch;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class Elevator extends  PIDSubsystem {
+public class Elevator extends Subsystem {
 	
-	public static double SKIM = 0.5,
-				SCORING = 1,
-				TOTE = 2; //NOT CALIBRATED TODO
+	public static double FLOOR = 0,
+				TOP = 56,
+				SKIM = 100,
+				SCORING = 180,
+				TOTE = 360;
 	
-	public CANTalon winchA,
-					winchB;
+	public CANTalon winchMain,
+					winchSlave;
 	
 	public Solenoid brakeSolenoid, stabilizeSolenoid;
-	
-	public LimitSwitch upperLimitSwitch,
-						lowerLimitSwitch;
 	
 	private double maxPosition;
 	
     public Elevator() {
-    	super("Elevator", 1, 1, 1);
+    	super("Elevator");
     	
     	brakeSolenoid = new Solenoid(RobotMap.PCM_MAIN, RobotMap.WINCH_BRAKE);
     	stabilizeSolenoid = new Solenoid(RobotMap.PCM_MAIN, RobotMap.STABLE_ELEVATOR);
     	
-    	winchA = new CANTalon(RobotMap.WINCH_A_TALON);
-    	winchB = new CANTalon(RobotMap.WINCH_B_TALON);
+    	winchMain = new CANTalon(RobotMap.WINCH_A_TALON);
+    	winchSlave = new CANTalon(RobotMap.WINCH_B_TALON);
     	
-    	winchA.changeControlMode(CANTalon.ControlMode.PercentVbus);
-    	winchA.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+    	winchMain.changeControlMode(CANTalon.ControlMode.Position);
+    	winchMain.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
     	
-    	winchB.changeControlMode(CANTalon.ControlMode.Follower);
-    	winchB.set(RobotMap.WINCH_A_TALON);
+    	winchMain.enableLimitSwitch(true, true);
+    	double p = 0.1; 
+        double i = 0.001; 
+        double d = 1; 
+        double f = 0.0001; 
+        int izone = 360; //Encoder Ticks
+        double ramprate = 36; //Volts per second
+        int profile = 0; //0 or 1
+        
+        winchMain.setPID(p, i, d, f, izone, ramprate, profile);
     	
-    	upperLimitSwitch = new LimitSwitch(RobotMap.UPPER_LIMIT_SWITCH);
-    	lowerLimitSwitch = new LimitSwitch(RobotMap.LOWER_LIMIT_SWITCH);
+    	winchSlave.changeControlMode(CANTalon.ControlMode.Follower);
+    	winchSlave.set(winchMain.getDeviceID());
+    	
     }
     
     public boolean isAtTop() {
-    	return upperLimitSwitch.isPressed();
+    	return winchSlave.isRevLimitSwitchClosed();
     }
     
     public boolean isAtBottom() {
-    	return lowerLimitSwitch.isPressed();
+    	return winchMain.isFwdLimitSwitchClosed();
     }
     
-    private void calibrateMin() {
-    	winchA.setPosition(0);
+    public boolean isAtTarget() {
+    	return winchMain.getEncPosition() == winchMain.getSetpoint();
     }
     
-    private void calibrateMax() {
-    	maxPosition = getPosition();
-    	this.setInputRange(0, maxPosition);
+    public void calibrateMin() {
+    	winchMain.setPosition(0);
+    }
+    
+    public void calibrateMax() {
+    	maxPosition = winchMain.getEncPosition();
     }
     
     public void pidBrake() {
-    	this.setSetpoint(this.getPosition());
+    	winchMain.enableBrakeMode(true);
     }
     
-    public boolean moveToPosition(double position) {
+    public double getPosition() {
+    	return winchMain.getEncPosition();
+    }
+    
+    public boolean moveToPosition(double inches) {
+    	double position = inches*maxPosition / 56;
     	if (position < maxPosition && position > 0) {
-    		this.setSetpoint(position);
+    		winchMain.set(position);
     		return true;
     	}
     	return false;
     }
     
     public void moveUp() {
-    	winchA.set(-0.5);
+    	winchMain.set(-0.5);
     }
     
     public void moveDown() {
-    	winchA.set(0.5);
+    	winchMain.set(0.5);
     }
     
     public void stopElevator() {
-    	winchA.set(0);
+    	winchMain.set(0);
     }
     
     public void applyBreak() {
@@ -114,7 +129,7 @@ public class Elevator extends  PIDSubsystem {
     }
     
     protected double returnPIDInput() {
-    	return winchA.getEncPosition();
+    	return winchMain.getEncPosition();
     }
     
     protected void usePIDOutput(double output) {

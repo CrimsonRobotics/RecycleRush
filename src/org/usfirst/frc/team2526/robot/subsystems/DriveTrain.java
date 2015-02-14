@@ -52,20 +52,6 @@ public class DriveTrain extends Subsystem {
 
 	}
 
-	public void activatePID(boolean activate) {
-		if (activate) {
-			fLMotor.changeControlMode(CANTalon.ControlMode.Speed);
-			fRMotor.changeControlMode(CANTalon.ControlMode.Speed);
-			rLMotor.changeControlMode(CANTalon.ControlMode.Speed);
-			rRMotor.changeControlMode(CANTalon.ControlMode.Speed);
-		} else {
-			fLMotor.changeControlMode(CANTalon.ControlMode.PercentVbus);
-			fRMotor.changeControlMode(CANTalon.ControlMode.PercentVbus);
-			rLMotor.changeControlMode(CANTalon.ControlMode.PercentVbus);
-			rRMotor.changeControlMode(CANTalon.ControlMode.PercentVbus);
-		}
-	}
-
 	protected void initDefaultCommand() {
 		setDefaultCommand((Command) Robot.driveChooser.getSelected());
 	}
@@ -85,22 +71,41 @@ public class DriveTrain extends Subsystem {
 
 		// calculates desired percentVbus, the -1 through 1 number
 		double desiredFL = -velocityY + rotation + velocityX;
-		double desiredRL = -velocityY + rotation - velocityX; 
-		double desiredFR = -velocityY - rotation - velocityX; 
+		double desiredRL = -velocityY + rotation - velocityX;
+		double desiredFR = -velocityY - rotation - velocityX;
 		double desiredRR = -velocityY - rotation + velocityX;
-		
+
 		// Translate -1 through 1 to position change per 10ms
-		double onefLMotorRev = fLMotor.getIZone()*4;
-		double onefRMotorRev = fRMotor.getIZone()*4;
-		double onerLMotorRev = rLMotor.getIZone()*4;
-		double onerRMotorRev = rRMotor.getIZone()*4;
-		
-		//double speed = oneRev/100; // per second
+		double onefLMotorRev = fLMotor.getIZone() * 4;
+		double onefRMotorRev = fRMotor.getIZone() * 4;
+		double onerLMotorRev = rLMotor.getIZone() * 4;
+		double onerRMotorRev = rRMotor.getIZone() * 4;
+
+		// double speed = oneRev/100; // per second
 
 		fLMotor.set(desiredFL);
 		rLMotor.set(desiredRL);
 		fRMotor.set(desiredFR);
 		rRMotor.set(desiredRR);
+	}
+
+	public double getCurrentPosition() {
+		return (fLMotor.getPosition() +
+				rLMotor.getPosition() +  
+				fRMotor.getPosition() + 
+				rRMotor.getPosition()) / 4.0d;
+	}
+
+	public void driveForward(double distance) {
+		fLMotor.changeControlMode(CANTalon.ControlMode.Position);
+		fRMotor.changeControlMode(CANTalon.ControlMode.Position);
+		rLMotor.changeControlMode(CANTalon.ControlMode.Position);
+		rRMotor.changeControlMode(CANTalon.ControlMode.Position);
+
+		fLMotor.set(fLMotor.getSetpoint() + distance);
+		fRMotor.set(fRMotor.getSetpoint() + distance);
+		rLMotor.set(rLMotor.getSetpoint() + distance);
+		rRMotor.set(rRMotor.getSetpoint() + distance);
 	}
 
 	public void driveWithMech(double velocityY, double velocityX,
