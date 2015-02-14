@@ -24,8 +24,8 @@ public class AlignmentWheels extends Subsystem {
 	protected void initDefaultCommand() {}
 	
 	public void startAlign() {
-		leftMotor.set(-1);
-		rightMotor.set(1);
+		leftMotor.set(-0.8);
+		rightMotor.set(0.8);
 	}
 	
 	public void stopAlign() {
@@ -34,8 +34,8 @@ public class AlignmentWheels extends Subsystem {
 	}
 	
 	public void reverseAlign() {
-		leftMotor.set(1);
-		rightMotor.set(-1);
+		leftMotor.set(0.8);
+		rightMotor.set(-0.8);
 	}
 	
 	public void openArms() {
