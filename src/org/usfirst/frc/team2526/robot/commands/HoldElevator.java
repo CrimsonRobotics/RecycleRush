@@ -7,47 +7,34 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class MoveElevator extends Command {
+public class HoldElevator extends Command {
 
-	boolean goUp;
-	
-    public MoveElevator(boolean up) {
-    	this.goUp = up;
+    public HoldElevator() {
+    	super(2);
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.elevator);
+    	requires(Robot.elevator);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.elevator.releaseBreak();
-    	
-    	if (goUp) {
-    		if (!Robot.elevator.isAtTop()) Robot.elevator.moveUp();
-    	} else {
-    		if (!Robot.elevator.isAtBottom()) Robot.elevator.moveDown();
-    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (Robot.elevator.isAtTop() || Robot.elevator.isAtBottom()) {
-    		Robot.elevator.stopElevator();
-    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.elevator.stopElevator();
+    	Robot.elevator.applyBreak();
     }
+    
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
-    protected void interrupted() {
-    	end();
-    }
+    protected void interrupted() {}
 }

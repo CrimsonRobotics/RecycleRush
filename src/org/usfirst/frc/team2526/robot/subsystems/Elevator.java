@@ -45,6 +45,14 @@ public class Elevator extends  PIDSubsystem {
     	lowerLimitSwitch = new LimitSwitch(RobotMap.LOWER_LIMIT_SWITCH);
     }
     
+    public boolean isAtTop() {
+    	return upperLimitSwitch.isPressed();
+    }
+    
+    public boolean isAtBottom() {
+    	return lowerLimitSwitch.isPressed();
+    }
+    
     private void calibrateMin() {
     	winchA.setPosition(0);
     }
@@ -80,6 +88,14 @@ public class Elevator extends  PIDSubsystem {
     
     public void stopElevator() {
     	winchA.set(0);
+    }
+    
+    public void applyBreak() {
+    	solenoidBrake.set(true);
+    }
+    
+    public void releaseBreak() {
+    	solenoidBrake.set(false);
     }
     
     public void stablizeTote() {
