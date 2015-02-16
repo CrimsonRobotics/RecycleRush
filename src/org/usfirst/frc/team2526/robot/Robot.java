@@ -2,11 +2,11 @@
 package org.usfirst.frc.team2526.robot;
 
 import org.usfirst.frc.team2526.robot.autonomous.ThreeTotesOnBin;
-import org.usfirst.frc.team2526.robot.autonomous.VisionCommunications;
 import org.usfirst.frc.team2526.robot.commands.LoadTote;
 import org.usfirst.frc.team2526.robot.commands.StackTote;
 import org.usfirst.frc.team2526.robot.commands.UnloadTote;
 import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevator;
+import org.usfirst.frc.team2526.robot.commands.vision.VisionCommunications;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentWheels;
 import org.usfirst.frc.team2526.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2526.robot.subsystems.Elevator;
@@ -45,7 +45,7 @@ public class Robot extends IterativeRobot {
     	
 		compressor = new Compressor(RobotMap.PCM_MAIN);
 		compressor.setClosedLoopControl(true);
-		compressor.start();
+		//compressor.start();
 	
 		driveTrain = new DriveTrain();
 		alignment = new AlignmentWheels();

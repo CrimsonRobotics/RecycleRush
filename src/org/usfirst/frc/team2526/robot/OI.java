@@ -53,9 +53,9 @@ public class OI {
 		secondaryStickThree.whileHeld(new ElevatorUp());
 		secondaryStickTwo.whileHeld(new ElevatorDown());
 		
-		secondaryStickThree.whileHeld(new ActivateFlipper(true, true));
-		secondaryStickFour.whileHeld(new ActivateFlipper(true, false));
-		secondaryStickFive.whileHeld(new ActivateFlipper(false, true));
+		//secondaryStickThree.whileHeld(new ActivateFlipper(true, true));
+		//secondaryStickFour.whileHeld(new ActivateFlipper(true, false));
+		//secondaryStickFive.whileHeld(new ActivateFlipper(false, true));
 	}
 }
 

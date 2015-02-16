@@ -19,8 +19,7 @@ public class Elevator extends Subsystem {
 				CARRY = 2.5,
 				TOTE = 13;
 	
-	public CANTalon winchMain,
-					winchSlave;
+	public CANTalon winch;
 	
 	public Solenoid brakeSolenoid, stabilizeSolenoid;
 	
@@ -30,13 +29,12 @@ public class Elevator extends Subsystem {
     	brakeSolenoid = new Solenoid(RobotMap.PCM_MAIN, RobotMap.WINCH_BRAKE);
     	stabilizeSolenoid = new Solenoid(RobotMap.PCM_MAIN, RobotMap.STABLE_ELEVATOR);
     	
-    	winchMain = new CANTalon(RobotMap.WINCH_A_TALON);
-    	winchSlave = new CANTalon(RobotMap.WINCH_B_TALON);
+    	winch = new CANTalon(RobotMap.WINCH_TALON);
     	
-    	winchMain.changeControlMode(CANTalon.ControlMode.Position);
-    	winchMain.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+    	winch.changeControlMode(CANTalon.ControlMode.Position);
+    	winch.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
     	
-    	winchMain.enableLimitSwitch(true, true);
+    	winch.enableLimitSwitch(true, true);
     	double p = 0.1; 
         double i = 0.001; 
         double d = 1; 
@@ -45,38 +43,35 @@ public class Elevator extends Subsystem {
         double ramprate = 36; //Volts per second
         int profile = 0; //0 or 1
         
-        winchMain.setPID(p, i, d, f, izone, ramprate, profile);
-    	
-    	winchSlave.changeControlMode(CANTalon.ControlMode.Follower);
-    	winchSlave.set(winchMain.getDeviceID());
-    	
+        winch.setPID(p, i, d, f, izone, ramprate, profile);
+        
     	SmartDashboard.putNumber("maxPosition", 1000);
     	SmartDashboard.putNumber("setInches", 12);
     }
     
     public boolean isAtTop() {
-    	return winchSlave.isRevLimitSwitchClosed();
+    	return winch.isRevLimitSwitchClosed();
     }
     
     public boolean isAtBottom() {
-    	return winchMain.isFwdLimitSwitchClosed();
+    	return winch.isFwdLimitSwitchClosed();
     }
     
     public boolean isAtTarget() {
-    	return winchMain.getEncPosition() == winchMain.getSetpoint();
+    	return winch.getEncPosition() == winch.getSetpoint();
     }
     
     public void calibrateMin() {
-    	winchMain.setPosition(0);
+    	winch.setPosition(0);
     }
     
     public void calibrateMax() {
-    	SmartDashboard.putNumber("maxPosition" , winchMain.getEncPosition());
+    	SmartDashboard.putNumber("maxPosition" , winch.getEncPosition());
     }
     
     
     public double getPosition() {
-    	return winchMain.getEncPosition();
+    	return winch.getEncPosition();
     }
     
     public boolean moveToPositionInches(double inches) {
@@ -92,22 +87,22 @@ public class Elevator extends Subsystem {
     public boolean moveToPositionTicks(double ticks) {
     	double maxPosition = SmartDashboard.getNumber("maxPosition");
     	if (ticks < maxPosition && ticks > 0) {
-    		winchMain.set(ticks);
+    		winch.set(ticks);
     		return true;
     	}
     	return false;
     }
     
     public void moveUp() {
-    	winchMain.set(-0.5);
+    	winch.set(-0.5);
     }
     
     public void moveDown() {
-    	winchMain.set(0.5);
+    	winch.set(0.5);
     }
     
     public void stopElevator() {
-    	winchMain.set(0);
+    	winch.set(0);
     }
     
     public void applyBreak() {

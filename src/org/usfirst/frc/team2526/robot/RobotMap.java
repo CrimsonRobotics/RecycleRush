@@ -9,8 +9,7 @@ package org.usfirst.frc.team2526.robot;
 public class RobotMap {
 	// CAN Device IDs
 
-	public static final int WINCH_A_TALON = 1;
-	public static final int WINCH_B_TALON = 2;
+	public static final int WINCH_TALON = 1;
 	// winch motors
 
 	public static final int LEFT_ALIGN_TALON = 3;

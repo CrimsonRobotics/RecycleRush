@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2526.robot.autonomous;
+package org.usfirst.frc.team2526.robot.commands.vision;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
@@ -7,8 +7,6 @@ public class VisionCommunications {
 	NetworkTable visionTable;
 
 	public VisionCommunications() {
-		NetworkTable.setClientMode();
-		NetworkTable.setIPAddress("10.25.26.3");
 		visionTable = NetworkTable.getTable("vision");
 		
 	}
