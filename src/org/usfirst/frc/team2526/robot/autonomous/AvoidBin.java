@@ -3,8 +3,6 @@ package org.usfirst.frc.team2526.robot.autonomous;
 import org.usfirst.frc.team2526.robot.commands.alignment.ReverseAlign;
 import org.usfirst.frc.team2526.robot.commands.drive.AutoPilotDrive;
 import org.usfirst.frc.team2526.robot.commands.drive.Rotate;
-import org.usfirst.frc.team2526.robot.commands.drive.RotateToTote;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AvoidBin extends CommandGroup {

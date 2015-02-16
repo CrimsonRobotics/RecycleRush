@@ -5,7 +5,6 @@ import org.usfirst.frc.team2526.robot.commands.elevator.SetElevatorPosition;
 import org.usfirst.frc.team2526.robot.commands.elevator.StabilizeTote;
 import org.usfirst.frc.team2526.robot.subsystems.Elevator;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
