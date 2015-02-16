@@ -86,7 +86,7 @@ public class Elevator extends Subsystem {
     
     public double inchesToPosition(double inches) {
     	double maxPosition = SmartDashboard.getNumber("maxPosition");
-    	return inches*maxPosition / 56.0;
+    	return inches*maxPosition / 55.0;
     }
     
     public boolean moveToPositionTicks(double ticks) {
