@@ -1,8 +1,8 @@
 package org.usfirst.frc.team2526.robot;
 
 import org.usfirst.frc.team2526.robot.commands.ActivateFlipper;
-import org.usfirst.frc.team2526.robot.commands.ReverseAlign;
-import org.usfirst.frc.team2526.robot.commands.StartAlign;
+import org.usfirst.frc.team2526.robot.commands.alignment.ReverseAlign;
+import org.usfirst.frc.team2526.robot.commands.alignment.StartAlign;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorDown;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorUp;
 

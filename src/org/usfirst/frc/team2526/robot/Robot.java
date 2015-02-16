@@ -1,9 +1,9 @@
 
 package org.usfirst.frc.team2526.robot;
 
-import org.usfirst.frc.team2526.robot.commands.Drive;
-import org.usfirst.frc.team2526.robot.commands.PIDDrive;
 import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevator;
+import org.usfirst.frc.team2526.robot.commands.drive.Drive;
+import org.usfirst.frc.team2526.robot.commands.drive.PIDDrive;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentWheels;
 import org.usfirst.frc.team2526.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2526.robot.subsystems.Elevator;

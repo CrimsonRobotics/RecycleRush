@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2526.robot.commands;
+package org.usfirst.frc.team2526.robot.commands.drive;
 
 import org.usfirst.frc.team2526.robot.Robot;
 
@@ -7,20 +7,19 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ReverseAlign extends Command {
+public class PIDDrive extends Command {
 
-    public ReverseAlign() {
-        // Use requires() here to declare subsystem dependencies
-        requires(Robot.alignment);
+    public PIDDrive() {
+        requires(Robot.driveTrain);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.alignment.reverseAlign();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.driveTrain.driveWithPIDMech(Robot.oi.getPrimaryStick().getY(), Robot.oi.getPrimaryStick().getX(), Robot.oi.getPrimaryStick().getZ());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -30,12 +29,10 @@ public class ReverseAlign extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.alignment.stopAlign();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }
