@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team2526.robot;
 
+import org.usfirst.frc.team2526.robot.autonomous.VisionCommunications;
 import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevator;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentWheels;
 import org.usfirst.frc.team2526.robot.subsystems.DriveTrain;
@@ -31,9 +32,12 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	
 	Compressor compressor;
+	
+	public static VisionCommunications vision;
 
 
     public void robotInit() {
+    	vision = new VisionCommunications();
     	
 		compressor = new Compressor(RobotMap.PCM_MAIN);
 		compressor.setClosedLoopControl(true);
@@ -59,7 +63,7 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
-        //if (autonomousCommand != null) autonomousCommand.start();
+        if (autonomousCommand != null) autonomousCommand.start();
     }
 
     /**
@@ -74,7 +78,7 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        // if (autonomousCommand != null) autonomousCommand.cancel();
+        if (autonomousCommand != null) autonomousCommand.cancel();
     }
 
     /**
