@@ -74,6 +74,20 @@ public class DriveTrain extends Subsystem {
 		rLMotor.set(rLMotor.getSetpoint() + distance);
 		rRMotor.set(rRMotor.getSetpoint() + distance);
 	}
+	
+	
+	// 1000 encoder ticks is about 60 degrees on robot
+	public void rotate(double distance) {
+		fLMotor.changeControlMode(CANTalon.ControlMode.Position);
+		fRMotor.changeControlMode(CANTalon.ControlMode.Position);
+		rLMotor.changeControlMode(CANTalon.ControlMode.Position);
+		rRMotor.changeControlMode(CANTalon.ControlMode.Position);
+
+		fLMotor.set(fLMotor.getSetpoint() + distance);
+		fRMotor.set(fRMotor.getSetpoint() - distance);
+		rLMotor.set(rLMotor.getSetpoint() + distance);
+		rRMotor.set(rRMotor.getSetpoint() - distance);
+	}
 
 	public void driveWithMech(double velocityY, double velocityX,
 			double rotation) {

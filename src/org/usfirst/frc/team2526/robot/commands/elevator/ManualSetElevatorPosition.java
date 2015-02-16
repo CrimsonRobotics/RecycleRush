@@ -3,18 +3,19 @@ package org.usfirst.frc.team2526.robot.commands.elevator;
 import org.usfirst.frc.team2526.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class SetElevatorPosition extends Command {
+public class ManualSetElevatorPosition extends Command {
 	double position;
 
-	public SetElevatorPosition(double position) {
+	public ManualSetElevatorPosition() {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.elevator);
 		
-		this.position = position;
+		this.position = SmartDashboard.getNumber("setInches");
 	}
 
 	// Called just before this Command runs the first time

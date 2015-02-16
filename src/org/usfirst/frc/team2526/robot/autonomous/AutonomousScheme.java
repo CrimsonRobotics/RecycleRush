@@ -20,9 +20,9 @@ public class AutonomousScheme {
 		ArrayList<Command> commands = new ArrayList<Command>();
 		
 		if (toteSide) {
-			commands.add(new SmartTotePickup());
+			commands.add(new TotePickup());
 		} else {
-			commands.add(new SmartBinPickup());
+			commands.add(new BinPickup());
 			commands.add(new AutoPilotDrive(1500));
 		}
 		

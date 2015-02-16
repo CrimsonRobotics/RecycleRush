@@ -28,9 +28,9 @@ public class AlignmentWheels extends Subsystem {
 		rightMotor.set(0.8);
 	}
 	
-	public void rotate() {
-		leftMotor.set(0.4);
-		rightMotor.set(0.4);
+	public void rotate(boolean clockwise) {
+		leftMotor.set(clockwise ? 0.8 : -0.8);
+		rightMotor.set(clockwise ? 0.8 : -0.8);
 	}
 	
 	public void stopAlign() {
@@ -44,13 +44,11 @@ public class AlignmentWheels extends Subsystem {
 	}
 	
 	public void openArms() {
-		//arms.set(true);
-		System.out.println("Pneumatics not installed yet");
+		arms.set(true);
 	}
 	
 	public void closeArms() {
-		//arms.set(false);
-		System.out.println("Pneumatics not installed yet");
+		arms.set(false);
 	}
 }
 

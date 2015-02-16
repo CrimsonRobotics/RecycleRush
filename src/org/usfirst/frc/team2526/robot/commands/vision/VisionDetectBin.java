@@ -14,7 +14,7 @@ public class VisionDetectBin extends Command {
     }
 
     protected void initialize() {
-    	Robot.alignment.rotate();
+    	Robot.alignment.rotate(true);
     }
 
     // Called repeatedly when this Command is scheduled to run

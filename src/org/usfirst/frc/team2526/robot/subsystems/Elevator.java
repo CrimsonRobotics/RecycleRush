@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Elevator extends Subsystem {
 	
 	public static double FLOOR = 0,
+				BIN = 25,
 				TOP = 56,
 				CARRY = 2.5,
 				TOTE = 13;
@@ -50,6 +51,7 @@ public class Elevator extends Subsystem {
     	winchSlave.set(winchMain.getDeviceID());
     	
     	SmartDashboard.putNumber("maxPosition", 1000);
+    	SmartDashboard.putNumber("setInches", 12);
     }
     
     public boolean isAtTop() {
@@ -72,19 +74,25 @@ public class Elevator extends Subsystem {
     	SmartDashboard.putNumber("maxPosition" , winchMain.getEncPosition());
     }
     
-    public void pidBrake() {
-    	winchMain.enableBrakeMode(true);
-    }
     
     public double getPosition() {
     	return winchMain.getEncPosition();
     }
     
-    public boolean moveToPosition(double inches) {
+    public boolean moveToPositionInches(double inches) {
+    	double position = inchesToPosition(inches);
+    	return moveToPositionTicks(position);
+    }
+    
+    public double inchesToPosition(double inches) {
     	double maxPosition = SmartDashboard.getNumber("maxPosition");
-    	double position = inches*maxPosition / 56;
-    	if (position < maxPosition && position > 0) {
-    		winchMain.set(position);
+    	return inches*maxPosition / 56.0;
+    }
+    
+    public boolean moveToPositionTicks(double ticks) {
+    	double maxPosition = SmartDashboard.getNumber("maxPosition");
+    	if (ticks < maxPosition && ticks > 0) {
+    		winchMain.set(ticks);
     		return true;
     	}
     	return false;
@@ -103,36 +111,23 @@ public class Elevator extends Subsystem {
     }
     
     public void applyBreak() {
-    	//brakeSolenoid.set(true);
-    	System.out.println("Brake not installed yet");
+    	brakeSolenoid.set(true);
     }
     
     public void releaseBreak() {
-    	//brakeSolenoid.set(false);
-    	System.out.println("Brake not installed yet");
+    	brakeSolenoid.set(false);
     }
     
     public void stabilizeTote() {
-    	//stabilizeSolenoid.set(true);
-    	System.out.println("Tote Pneu not installed yet");
+    	stabilizeSolenoid.set(true);
     }
     
     public void releaseTote() {
-    	//stabilizeSolenoid.set(false);
-    	System.out.println("Totematics not installed yet");
+    	stabilizeSolenoid.set(false);
     }
     
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
         setDefaultCommand(new HoldElevator());
     }
     
-    protected double returnPIDInput() {
-    	return winchMain.getEncPosition();
-    }
-    
-    protected void usePIDOutput(double output) {
-    	SmartDashboard.putNumber("Elevator PID", output);
-       // winchA.set(output);
-    }
 }
