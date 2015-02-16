@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class LoadTote extends CommandGroup {
     
     public  LoadTote() {
+    	super("Load Tote");
         addSequential(new SetElevatorPosition(Robot.elevator.getPosition()+10));
     	addSequential(new StabilizeTote());
     	addSequential(new SetElevatorPosition(Elevator.CARRY));
@@ -23,4 +24,6 @@ public class LoadTote extends CommandGroup {
 //    		}
 //    	});
     }
+    
+    
 }
