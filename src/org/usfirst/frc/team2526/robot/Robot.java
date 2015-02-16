@@ -2,8 +2,6 @@
 package org.usfirst.frc.team2526.robot;
 
 import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevator;
-import org.usfirst.frc.team2526.robot.commands.drive.Drive;
-import org.usfirst.frc.team2526.robot.commands.drive.PIDDrive;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentWheels;
 import org.usfirst.frc.team2526.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2526.robot.subsystems.Elevator;
@@ -14,7 +12,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -34,8 +31,6 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	
 	Compressor compressor;
-	
-	public static SendableChooser driveChooser;
 
 
     public void robotInit() {
@@ -50,13 +45,6 @@ public class Robot extends IterativeRobot {
 		flipper = new Flipper();
 		
 		oi = new OI();
-		
-		driveChooser = new SendableChooser();
-		driveChooser.addDefault("Normal Drive", new Drive());
-		driveChooser.addObject("PID Drive", new PIDDrive());
-		
-		SmartDashboard.putData("Drive Type", driveChooser);
-		
 		
 		SmartDashboard.putData(driveTrain);
 		SmartDashboard.putData(alignment);

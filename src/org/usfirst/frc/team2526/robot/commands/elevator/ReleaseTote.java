@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2526.robot.commands.drive;
+package org.usfirst.frc.team2526.robot.commands.elevator;
 
 import org.usfirst.frc.team2526.robot.Robot;
 
@@ -7,19 +7,20 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class PIDDrive extends Command {
+public class ReleaseTote extends Command {
 
-    public PIDDrive() {
-        requires(Robot.driveTrain);
+    public ReleaseTote() {
+        // Use requires() here to declare subsystem dependencies
+        requires(Robot.elevator);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.elevator.releaseTote();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.driveWithPIDMech(Robot.oi.getPrimaryStick().getY(), Robot.oi.getPrimaryStick().getX(), Robot.oi.getPrimaryStick().getZ());
     }
 
     // Make this return true when this Command no longer needs to run execute()

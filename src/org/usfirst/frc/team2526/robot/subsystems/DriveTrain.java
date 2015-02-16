@@ -1,11 +1,10 @@
 package org.usfirst.frc.team2526.robot.subsystems;
 
-import org.usfirst.frc.team2526.robot.Robot;
 import org.usfirst.frc.team2526.robot.RobotMap;
+import org.usfirst.frc.team2526.robot.commands.drive.Drive;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -53,41 +52,9 @@ public class DriveTrain extends Subsystem {
 	}
 
 	protected void initDefaultCommand() {
-		setDefaultCommand((Command) Robot.driveChooser.getSelected());
+		setDefaultCommand(new Drive());
 	}
 
-	/**
-	 * Drive with Mecanum. with PID
-	 * 
-	 * @param yDistance
-	 *            the forward and back value. -1 full back, 1 full forward
-	 * @param xDistance
-	 *            the left and right value (Strafing) -1 left, 1 right
-	 * @param zDistance
-	 *            the rotational value -1 counter-clockwise 1 clockwise
-	 */
-	public void driveWithPIDMech(double velocityY, double velocityX,
-			double rotation) {
-
-		// calculates desired percentVbus, the -1 through 1 number
-		double desiredFL = -velocityY + rotation + velocityX;
-		double desiredRL = -velocityY + rotation - velocityX;
-		double desiredFR = -velocityY - rotation - velocityX;
-		double desiredRR = -velocityY - rotation + velocityX;
-
-		// Translate -1 through 1 to position change per 10ms
-		double onefLMotorRev = fLMotor.getIZone() * 4;
-		double onefRMotorRev = fRMotor.getIZone() * 4;
-		double onerLMotorRev = rLMotor.getIZone() * 4;
-		double onerRMotorRev = rRMotor.getIZone() * 4;
-
-		// double speed = oneRev/100; // per second
-
-		fLMotor.set(desiredFL);
-		rLMotor.set(desiredRL);
-		fRMotor.set(desiredFR);
-		rRMotor.set(desiredRR);
-	}
 
 	public double getCurrentPosition() {
 		return (fLMotor.getPosition() +
