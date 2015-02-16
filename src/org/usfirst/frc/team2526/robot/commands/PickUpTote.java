@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2526.robot.commands;
 
 import org.usfirst.frc.team2526.robot.Robot;
+import org.usfirst.frc.team2526.robot.commands.elevator.SetElevatorPosition;
 import org.usfirst.frc.team2526.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -16,11 +17,11 @@ public class PickUpTote extends CommandGroup {
         //      addSequential(new Command2());
         // these will run in order.
     	
-    	addSequential(new SetElevatorPosition(Elevator.FLOOR));
-    	addSequential(new AutoPilotDrive(250));
+    	//addSequential(new SetElevatorPosition(Elevator.FLOOR));
+    	//addSequential(new AutoPilotDrive(250));
     	addSequential(new SetElevatorPosition(Robot.elevator.getPosition()+10));
     	addSequential(new StabilizeTote());
-    	addSequential(new SetElevatorPosition(Elevator.TOTE));
+    	addSequential(new SetElevatorPosition(Elevator.CARRY));
 
         // To run multiple commands at the same time,
         // use addParallel()

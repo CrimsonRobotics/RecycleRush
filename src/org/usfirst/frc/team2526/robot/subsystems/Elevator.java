@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2526.robot.subsystems;
 
 import org.usfirst.frc.team2526.robot.RobotMap;
-import org.usfirst.frc.team2526.robot.commands.HoldElevator;
+import org.usfirst.frc.team2526.robot.commands.elevator.HoldElevator;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -15,16 +15,13 @@ public class Elevator extends Subsystem {
 	
 	public static double FLOOR = 0,
 				TOP = 56,
-				SKIM = 100,
-				SCORING = 180,
-				TOTE = 360;
+				CARRY = 2.5,
+				TOTE = 13;
 	
 	public CANTalon winchMain,
 					winchSlave;
 	
 	public Solenoid brakeSolenoid, stabilizeSolenoid;
-	
-	private double maxPosition;
 	
     public Elevator() {
     	super("Elevator");
@@ -52,6 +49,7 @@ public class Elevator extends Subsystem {
     	winchSlave.changeControlMode(CANTalon.ControlMode.Follower);
     	winchSlave.set(winchMain.getDeviceID());
     	
+    	SmartDashboard.putNumber("maxPosition", 1000);
     }
     
     public boolean isAtTop() {
@@ -71,7 +69,7 @@ public class Elevator extends Subsystem {
     }
     
     public void calibrateMax() {
-    	maxPosition = winchMain.getEncPosition();
+    	SmartDashboard.putNumber("maxPosition" , winchMain.getEncPosition());
     }
     
     public void pidBrake() {
@@ -83,6 +81,7 @@ public class Elevator extends Subsystem {
     }
     
     public boolean moveToPosition(double inches) {
+    	double maxPosition = SmartDashboard.getNumber("maxPosition");
     	double position = inches*maxPosition / 56;
     	if (position < maxPosition && position > 0) {
     		winchMain.set(position);

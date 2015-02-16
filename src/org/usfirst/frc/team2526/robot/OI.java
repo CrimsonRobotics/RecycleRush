@@ -1,10 +1,10 @@
 package org.usfirst.frc.team2526.robot;
 
 import org.usfirst.frc.team2526.robot.commands.ActivateFlipper;
-import org.usfirst.frc.team2526.robot.commands.ElevatorDown;
-import org.usfirst.frc.team2526.robot.commands.ElevatorUp;
 import org.usfirst.frc.team2526.robot.commands.ReverseAlign;
 import org.usfirst.frc.team2526.robot.commands.StartAlign;
+import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorDown;
+import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorUp;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
