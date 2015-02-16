@@ -1,12 +1,14 @@
 package org.usfirst.frc.team2526.robot;
 
-import org.usfirst.frc.team2526.robot.commands.ActivateFlipper;
 import org.usfirst.frc.team2526.robot.commands.alignment.OpenArm;
 import org.usfirst.frc.team2526.robot.commands.alignment.ReverseAlign;
 import org.usfirst.frc.team2526.robot.commands.alignment.RotateAlignment;
 import org.usfirst.frc.team2526.robot.commands.alignment.StartAlign;
+import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevatorMax;
+import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevatorMin;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorDown;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorUp;
+import org.usfirst.frc.team2526.robot.commands.elevator.ManualSetElevatorPosition;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -41,6 +43,10 @@ public class OI {
 	Button secondaryStickThree = new JoystickButton(secondaryStick,3);
 	Button secondaryStickFour = new JoystickButton(secondaryStick,4);
 	Button secondaryStickFive = new JoystickButton(secondaryStick,5);
+	
+	Button secondaryStickSix = new JoystickButton(secondaryStick,6);
+	Button secondaryStickSeven = new JoystickButton(secondaryStick,7);
+	Button secondaryStickEight = new JoystickButton(secondaryStick,8);
 	//creates buttons on the secondary stick (buttons 1-5)
 	
 	public OI() {
@@ -52,6 +58,11 @@ public class OI {
 		
 		secondaryStickThree.whileHeld(new ElevatorUp());
 		secondaryStickTwo.whileHeld(new ElevatorDown());
+		
+		secondaryStickSix.whenPressed(new CalibrateElevatorMax());
+		secondaryStickSeven.whenPressed(new CalibrateElevatorMin());
+		
+		secondaryStickEight.whenPressed(new ManualSetElevatorPosition());
 		
 		//secondaryStickThree.whileHeld(new ActivateFlipper(true, true));
 		//secondaryStickFour.whileHeld(new ActivateFlipper(true, false));

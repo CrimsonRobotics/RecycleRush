@@ -5,7 +5,8 @@ import org.usfirst.frc.team2526.robot.autonomous.ThreeTotesOnBin;
 import org.usfirst.frc.team2526.robot.commands.LoadTote;
 import org.usfirst.frc.team2526.robot.commands.StackTote;
 import org.usfirst.frc.team2526.robot.commands.UnloadTote;
-import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevator;
+import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevatorMax;
+import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevatorMin;
 import org.usfirst.frc.team2526.robot.commands.vision.VisionCommunications;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentWheels;
 import org.usfirst.frc.team2526.robot.subsystems.DriveTrain;
@@ -60,12 +61,12 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(alignment);
 		SmartDashboard.putData(elevator);
 		
-		SmartDashboard.putData(new CalibrateElevator());
-		
 		SmartDashboard.putData(new LoadTote());
 		SmartDashboard.putData(new UnloadTote());
 		SmartDashboard.putData(new StackTote());
-		SmartDashboard.putData(new CalibrateElevator());
+		
+		
+		
     }
 	
 	public void disabledPeriodic() {
@@ -90,6 +91,10 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        
+//        while (true) {
+//        	SmartDashboard.putNumber("Current Position", elevator.getPosition());
+//        }
     }
 
     /**
@@ -105,6 +110,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        SmartDashboard.putNumber("Current Position", elevator.getPosition());
     }
     
     /**

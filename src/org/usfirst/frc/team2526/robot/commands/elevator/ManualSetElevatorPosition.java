@@ -15,16 +15,17 @@ public class ManualSetElevatorPosition extends Command {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.elevator);
 		
-		this.position = SmartDashboard.getNumber("setInches");
+		this.position = SmartDashboard.getNumber("setPosition");
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.elevator.moveToPositionInches(position);
+		Robot.elevator.setToSmartValue();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		SmartDashboard.putNumber("Current Position", Robot.elevator.getPosition());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -34,7 +35,7 @@ public class ManualSetElevatorPosition extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		// Robot.elevator.applyBreak();
+		Robot.elevator.applyBreak();
 	}
 
 	// Called when another command which requires one or more of the same

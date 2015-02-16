@@ -31,10 +31,10 @@ public class Elevator extends Subsystem {
     	
     	winch = new CANTalon(RobotMap.WINCH_TALON);
     	
-    	winch.changeControlMode(CANTalon.ControlMode.Position);
+    	winch.changeControlMode(CANTalon.ControlMode.PercentVbus);
     	winch.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
     	
-    	winch.enableLimitSwitch(true, true);
+    	//winch.enableLimitSwitch(true, true);
     	double p = 0.1; 
         double i = 0.001; 
         double d = 1; 
@@ -45,8 +45,8 @@ public class Elevator extends Subsystem {
         
         winch.setPID(p, i, d, f, izone, ramprate, profile);
         
-    	SmartDashboard.putNumber("maxPosition", 1000);
-    	SmartDashboard.putNumber("setInches", 12);
+    	SmartDashboard.putNumber("maxPosition", 6000);
+    	SmartDashboard.putNumber("setPosition", 1000);
     }
     
     public boolean isAtTop() {
@@ -84,20 +84,27 @@ public class Elevator extends Subsystem {
     	return inches*maxPosition / 55.0;
     }
     
-    public boolean moveToPositionTicks(double ticks) {
+    public boolean moveToPositionTicks(double position) {
     	double maxPosition = SmartDashboard.getNumber("maxPosition");
-    	if (ticks < maxPosition && ticks > 0) {
-    		winch.set(ticks);
+    	if (position < maxPosition && position > 0) {
+    		winch.changeControlMode(CANTalon.ControlMode.Position);
+    		winch.set(position);
     		return true;
     	}
     	return false;
     }
     
+    public void setToSmartValue() {
+    	moveToPositionTicks(SmartDashboard.getNumber("setPosition"));
+    }
+    
     public void moveUp() {
+    	winch.changeControlMode(CANTalon.ControlMode.PercentVbus);
     	winch.set(-0.5);
     }
     
     public void moveDown() {
+    	winch.changeControlMode(CANTalon.ControlMode.PercentVbus);
     	winch.set(0.5);
     }
     
