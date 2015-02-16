@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2526.robot.commands;
+package org.usfirst.frc.team2526.robot.commands.elevator;
 
 import org.usfirst.frc.team2526.robot.Robot;
 
@@ -7,32 +7,32 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class StartAlign extends Command {
+public class StabilizeTote extends Command {
 
-    public StartAlign() {
-        requires(Robot.alignment);
+    public StabilizeTote() {
+        // Use requires() here to declare subsystem dependencies
+        requires(Robot.elevator);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.alignment.startAlign();
+    	Robot.elevator.stabilizeTote();
     }
-    
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {}
 
-    // Set to false because we never want it to stop running until the user end the command by letting go of the button
+    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.alignment.stopAlign();
     }
 
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
     protected void interrupted() {
-    	end(); //End the command if we are interrupted
     }
 }

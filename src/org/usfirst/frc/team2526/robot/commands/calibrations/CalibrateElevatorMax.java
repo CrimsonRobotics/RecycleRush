@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2526.robot.commands;
+package org.usfirst.frc.team2526.robot.commands.calibrations;
 
 import org.usfirst.frc.team2526.robot.Robot;
 
@@ -7,16 +7,16 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class StabilizeTote extends Command {
+public class CalibrateElevatorMax extends Command {
 
-    public StabilizeTote() {
+    public CalibrateElevatorMax() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.elevator);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.elevator.stabilizeTote();
+    	Robot.elevator.moveUp();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -24,11 +24,12 @@ public class StabilizeTote extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.elevator.isAtTop();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.elevator.calibrateMax();
     }
 
     // Called when another command which requires one or more of the same
