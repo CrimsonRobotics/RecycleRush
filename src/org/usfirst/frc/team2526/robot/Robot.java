@@ -4,6 +4,7 @@ package org.usfirst.frc.team2526.robot;
 import org.usfirst.frc.team2526.robot.autonomous.ThreeTotesOnBin;
 import org.usfirst.frc.team2526.robot.autonomous.VisionCommunications;
 import org.usfirst.frc.team2526.robot.commands.LoadTote;
+import org.usfirst.frc.team2526.robot.commands.StackTote;
 import org.usfirst.frc.team2526.robot.commands.UnloadTote;
 import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevator;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentWheels;
@@ -60,9 +61,10 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(elevator);
 		
 		SmartDashboard.putData(new CalibrateElevator());
+		
 		SmartDashboard.putData(new LoadTote());
 		SmartDashboard.putData(new UnloadTote());
-		SmartDashboard.putData(new CalibrateElevator());
+		SmartDashboard.putData(new StackTote());
 		SmartDashboard.putData(new CalibrateElevator());
     }
 	
