@@ -1,8 +1,11 @@
 
 package org.usfirst.frc.team2526.robot;
 
-import org.usfirst.frc.team2526.robot.commands.Drive;
-import org.usfirst.frc.team2526.robot.commands.PIDDrive;
+import org.usfirst.frc.team2526.robot.autonomous.ThreeTotesOnBin;
+import org.usfirst.frc.team2526.robot.autonomous.VisionCommunications;
+import org.usfirst.frc.team2526.robot.commands.LoadTote;
+import org.usfirst.frc.team2526.robot.commands.UnloadTote;
+import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevator;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentWheels;
 import org.usfirst.frc.team2526.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2526.robot.subsystems.Elevator;
@@ -13,7 +16,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -34,10 +36,11 @@ public class Robot extends IterativeRobot {
 	
 	Compressor compressor;
 	
-	public static SendableChooser driveChooser;
+	public static VisionCommunications vision;
 
 
     public void robotInit() {
+    	vision = new VisionCommunications();
     	
 		compressor = new Compressor(RobotMap.PCM_MAIN);
 		compressor.setClosedLoopControl(true);
@@ -50,16 +53,17 @@ public class Robot extends IterativeRobot {
 		
 		oi = new OI();
 		
-		driveChooser = new SendableChooser();
-		driveChooser.addDefault("Normal Drive", new Drive());
-		driveChooser.addObject("PID Drive", new PIDDrive());
-		
-		SmartDashboard.putData("Drive Type", driveChooser);
-		
+		autonomousCommand = new ThreeTotesOnBin();
 		
 		SmartDashboard.putData(driveTrain);
 		SmartDashboard.putData(alignment);
 		SmartDashboard.putData(elevator);
+		
+		SmartDashboard.putData(new CalibrateElevator());
+		SmartDashboard.putData(new LoadTote());
+		SmartDashboard.putData(new UnloadTote());
+		SmartDashboard.putData(new CalibrateElevator());
+		SmartDashboard.putData(new CalibrateElevator());
     }
 	
 	public void disabledPeriodic() {
@@ -68,7 +72,7 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
-        //if (autonomousCommand != null) autonomousCommand.start();
+        if (autonomousCommand != null) autonomousCommand.start();
     }
 
     /**
@@ -83,7 +87,7 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        // if (autonomousCommand != null) autonomousCommand.cancel();
+        if (autonomousCommand != null) autonomousCommand.cancel();
     }
 
     /**

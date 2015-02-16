@@ -1,13 +1,13 @@
-package org.usfirst.frc.team2526.robot.commands;
+package org.usfirst.frc.team2526.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class AutoPilotDrive extends Command {
+public class ElevatorDown extends Command {
 
-    public AutoPilotDrive() {
+    public ElevatorDown() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }

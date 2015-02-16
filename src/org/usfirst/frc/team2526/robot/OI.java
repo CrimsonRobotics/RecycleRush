@@ -1,10 +1,12 @@
 package org.usfirst.frc.team2526.robot;
 
 import org.usfirst.frc.team2526.robot.commands.ActivateFlipper;
-import org.usfirst.frc.team2526.robot.commands.ElevatorDown;
-import org.usfirst.frc.team2526.robot.commands.ElevatorUp;
-import org.usfirst.frc.team2526.robot.commands.ReverseAlign;
-import org.usfirst.frc.team2526.robot.commands.StartAlign;
+import org.usfirst.frc.team2526.robot.commands.alignment.OpenArm;
+import org.usfirst.frc.team2526.robot.commands.alignment.ReverseAlign;
+import org.usfirst.frc.team2526.robot.commands.alignment.RotateAlignment;
+import org.usfirst.frc.team2526.robot.commands.alignment.StartAlign;
+import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorDown;
+import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorUp;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -43,11 +45,13 @@ public class OI {
 	
 	public OI() {
 		primaryTriggerStick.whileHeld(new StartAlign());
-		//secondaryTriggerStick.whileHeld(new OpenArm());
+		secondaryTriggerStick.whileHeld(new OpenArm());
 		primaryStickTwo.whileHeld(new ReverseAlign());
+		primaryStickFour.whileHeld(new RotateAlignment(true));
+		primaryStickFive.whileHeld(new RotateAlignment(false));
 		
-		primaryStickThree.whileHeld(new ElevatorUp());
-		primaryStickTwo.whileHeld(new ElevatorDown());
+		secondaryStickThree.whileHeld(new ElevatorUp());
+		secondaryStickTwo.whileHeld(new ElevatorDown());
 		
 		secondaryStickThree.whileHeld(new ActivateFlipper(true, true));
 		secondaryStickFour.whileHeld(new ActivateFlipper(true, false));

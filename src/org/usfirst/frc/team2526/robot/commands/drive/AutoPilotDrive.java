@@ -1,19 +1,25 @@
-package org.usfirst.frc.team2526.robot.commands;
+package org.usfirst.frc.team2526.robot.commands.drive;
+
+import org.usfirst.frc.team2526.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ElevatorDown extends Command {
+public class AutoPilotDrive extends Command {
 
-    public ElevatorDown() {
+	double initialPosition, distance;
+    public AutoPilotDrive(double distance) {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+        requires(Robot.driveTrain);
+        this.distance = distance;
+        this.initialPosition = Robot.driveTrain.getCurrentPosition();
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.driveTrain.driveForward(distance);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -22,7 +28,7 @@ public class ElevatorDown extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return initialPosition + distance >= Robot.driveTrain.getCurrentPosition();
     }
 
     // Called once after isFinished returns true
