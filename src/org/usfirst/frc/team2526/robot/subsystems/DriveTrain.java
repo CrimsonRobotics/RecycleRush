@@ -91,6 +91,6 @@ public class DriveTrain extends Subsystem {
 
 	public void driveWithMech(double velocityY, double velocityX,
 			double rotation) {
-		drive.mecanumDrive_Cartesian(velocityX, velocityY, rotation, 0);
+		drive.mecanumDrive_Cartesian(Math.pow(velocityX, 2), Math.pow(velocityY, 2), Math.pow(rotation, 2), 0);
 	}
 }
