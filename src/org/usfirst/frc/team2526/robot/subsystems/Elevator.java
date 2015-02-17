@@ -27,7 +27,6 @@ public class Elevator extends Subsystem {
 
 		winch = new CANTalon(RobotMap.WINCH_TALON);
 		
-		//usePID(true);
 		winch.changeControlMode(CANTalon.ControlMode.Position);
 		winch.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		winch.reverseOutput(true);
@@ -72,12 +71,23 @@ public class Elevator extends Subsystem {
 	public void calibrateMax() {
 		SmartDashboard.putNumber("maxPosition", winch.getEncPosition());
 	}
+	
+	public void prepareMotor() {
+		if (!winch.isControlEnabled()) {
+			winch.enableControl();
+		}
+		
+		if (brakeSolenoid.get() == DoubleSolenoid.Value.kReverse) {
+			releaseBrake();
+		}
+	}
 
 	public double getPosition() {
 		return winch.getEncPosition();
 	}
 
 	public boolean moveToPositionTicks(double position) {
+		prepareMotor();
 		double maxPosition = SmartDashboard.getNumber("maxPosition");
 		if (position < maxPosition && position > 0) {
 			winch.set(position);
@@ -90,31 +100,24 @@ public class Elevator extends Subsystem {
 		moveToPositionTicks(SmartDashboard.getNumber("setPosition"));
 	}
 	
-	public void usePID(boolean pid) {
-		if (pid) 
-			winch.changeControlMode(CANTalon.ControlMode.Position);
-		else
-			winch.changeControlMode(CANTalon.ControlMode.PercentVbus);
-	}
-
 	public void moveUp() {
-		winch.set(-0.5);
+		winch.set(SmartDashboard.getNumber("maxPosition"));
 	}
 
 	public void moveDown() {
-		winch.set(0.5);
-	}
-
-	public void stopElevator() {
 		winch.set(0);
 	}
 
-	public void applyBreak() {
-		brakeSolenoid.set(DoubleSolenoid.Value.kForward);
+	public void stopElevator() {
+		winch.disableControl();
 	}
 
-	public void releaseBreak() {
+	public void applyBrake() {
 		brakeSolenoid.set(DoubleSolenoid.Value.kReverse);
+	}
+
+	public void releaseBrake() {
+		brakeSolenoid.set(DoubleSolenoid.Value.kForward);
 	}
 
 	public void stabilizeTote() {
@@ -129,4 +132,10 @@ public class Elevator extends Subsystem {
 		setDefaultCommand(new HoldElevator());
 	}
 
+	public void updateCalibration() {
+		if (isAtTop())
+			calibrateMax();
+		if (isAtBottom())
+			calibrateMin();
+	}
 }

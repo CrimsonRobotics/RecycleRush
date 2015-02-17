@@ -11,14 +11,10 @@ public class HoldElevator extends Command {
 
     public HoldElevator() {
     	super(2);
-        // Use requires() here to declare subsystem dependencies
     	requires(Robot.elevator);
     }
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	//Robot.elevator.moveToPositionTicks(Robot.elevator.getPosition());
-    }
+    protected void initialize() {}
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {}
@@ -30,7 +26,7 @@ public class HoldElevator extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.elevator.applyBreak();
+    	Robot.elevator.applyBrake();
     }
     
 

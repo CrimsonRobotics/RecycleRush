@@ -1,40 +1,22 @@
 package org.usfirst.frc.team2526.robot.commands.alignment;
 
 import org.usfirst.frc.team2526.robot.Robot;
-
-import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team2526.robot.commands.SimpleCommand;
 
 /**
  *
  */
-public class OpenArm extends Command {
+public class OpenArm extends SimpleCommand {
 
     public OpenArm() {
-        // Use requires() here to declare subsystem dependencies
-        requires(Robot.alignmentArms);
+        super(Robot.alignmentArms);
     }
-
-    // Called just before this Command runs the first time
-    protected void initialize() {
+    
+    public void initialize() {
     	Robot.alignmentArms.openArms();
     }
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {}
-
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
-
-    // Called once after isFinished returns true
     protected void end() {
     	Robot.alignmentArms.closeArms();
-    }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    	end();
     }
 }
