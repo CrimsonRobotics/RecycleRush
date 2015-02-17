@@ -18,7 +18,9 @@ public class Flipper extends Subsystem {
     	rightFlipper = new Solenoid(RobotMap.PCM_MAIN, RobotMap.FLIPPER_RIGHT);
     }
 
-    public void initDefaultCommand() {}
+    public void initDefaultCommand() {
+//    	this.setDefaultCommand(new RetractFlipper());
+    }
     
     public void extendLeft() {
     	rightFlipper.set(true);
@@ -28,12 +30,12 @@ public class Flipper extends Subsystem {
     	leftFlipper.set(true);
     }
     
-    public void retractRight() {
+    public void retractLeft() {
     	rightFlipper.set(false);
     }
     
-    public void retractLeft() {
-    	rightFlipper.set(false);
+    public void retractRight() {
+    	leftFlipper.set(false);
     }
 }
 

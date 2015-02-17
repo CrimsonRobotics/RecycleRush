@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2526.robot;
 
+import org.usfirst.frc.team2526.robot.commands.ActivateFlipper;
 import org.usfirst.frc.team2526.robot.commands.alignment.OpenArm;
 import org.usfirst.frc.team2526.robot.commands.alignment.ReverseAlign;
 import org.usfirst.frc.team2526.robot.commands.alignment.RotateAlignment;
@@ -9,6 +10,8 @@ import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevatorMin
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorDown;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorUp;
 import org.usfirst.frc.team2526.robot.commands.elevator.ManualSetElevatorPosition;
+import org.usfirst.frc.team2526.robot.commands.elevator.ReleaseTote;
+import org.usfirst.frc.team2526.robot.commands.elevator.StabilizeTote;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -36,6 +39,8 @@ public class OI {
 	Button primaryStickThree = new JoystickButton(primaryStick,3);
 	Button primaryStickFour = new JoystickButton(primaryStick,4);
 	Button primaryStickFive = new JoystickButton(primaryStick,5);
+	Button primaryStickEight = new JoystickButton(primaryStick,8);
+	Button primaryStickNine = new JoystickButton(primaryStick,9);
 	//creates buttons on the primary stick (buttons 1-5)
 	
 	Button secondaryTriggerStick = new JoystickButton(secondaryStick,1);
@@ -51,10 +56,14 @@ public class OI {
 	
 	public OI() {
 		primaryTriggerStick.whileHeld(new StartAlign());
+		
 		secondaryTriggerStick.whileHeld(new OpenArm());
 		primaryStickTwo.whileHeld(new ReverseAlign());
-		primaryStickFour.whileHeld(new RotateAlignment(true));
-		primaryStickFive.whileHeld(new RotateAlignment(false));
+		primaryStickEight.whileHeld(new RotateAlignment(true));
+		primaryStickNine.whileHeld(new RotateAlignment(false));
+		
+		secondaryStickFour.whenPressed(new StabilizeTote());
+		secondaryStickFive.whenPressed(new ReleaseTote());
 		
 		secondaryStickThree.whileHeld(new ElevatorUp());
 		secondaryStickTwo.whileHeld(new ElevatorDown());
@@ -64,9 +73,10 @@ public class OI {
 		
 		secondaryStickEight.whenPressed(new ManualSetElevatorPosition());
 		
-		//secondaryStickThree.whileHeld(new ActivateFlipper(true, true));
-		//secondaryStickFour.whileHeld(new ActivateFlipper(true, false));
-		//secondaryStickFive.whileHeld(new ActivateFlipper(false, true));
+		
+		primaryStickThree.whileHeld(new ActivateFlipper(true, true));
+		primaryStickFour.whileHeld(new ActivateFlipper(true, false));
+		primaryStickFive.whileHeld(new ActivateFlipper(false, true));
 	}
 }
 

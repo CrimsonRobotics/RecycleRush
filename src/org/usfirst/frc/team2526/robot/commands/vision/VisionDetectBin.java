@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj.command.Command;
 public class VisionDetectBin extends Command {
 
     public VisionDetectBin() {
-    	requires(Robot.alignment);
+    	requires(Robot.alignmentWheels);
     }
 
     protected void initialize() {
-    	Robot.alignment.rotate(true);
+    	Robot.alignmentWheels.rotate(true);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -27,7 +27,7 @@ public class VisionDetectBin extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.alignment.stopAlign();
+    	Robot.alignmentWheels.stopAlign();
     }
 
     // Called when another command which requires one or more of the same

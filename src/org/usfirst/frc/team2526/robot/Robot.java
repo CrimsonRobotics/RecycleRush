@@ -5,9 +5,8 @@ import org.usfirst.frc.team2526.robot.autonomous.ThreeTotesOnBin;
 import org.usfirst.frc.team2526.robot.commands.LoadTote;
 import org.usfirst.frc.team2526.robot.commands.StackTote;
 import org.usfirst.frc.team2526.robot.commands.UnloadTote;
-import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevatorMax;
-import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevatorMin;
 import org.usfirst.frc.team2526.robot.commands.vision.VisionCommunications;
+import org.usfirst.frc.team2526.robot.subsystems.AlignmentArms;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentWheels;
 import org.usfirst.frc.team2526.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2526.robot.subsystems.Elevator;
@@ -31,7 +30,8 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	
 	public static DriveTrain driveTrain;
-	public static AlignmentWheels alignment;
+	public static AlignmentWheels alignmentWheels;
+	public static AlignmentArms alignmentArms;
 	public static Elevator elevator;
 	public static Flipper flipper;
 	public static OI oi;
@@ -45,11 +45,11 @@ public class Robot extends IterativeRobot {
     	vision = new VisionCommunications();
     	
 		compressor = new Compressor(RobotMap.PCM_MAIN);
-		compressor.setClosedLoopControl(true);
-		//compressor.start();
+		compressor.start();
 	
 		driveTrain = new DriveTrain();
-		alignment = new AlignmentWheels();
+		alignmentWheels = new AlignmentWheels();
+		alignmentArms = new AlignmentArms();
 		elevator = new Elevator();
 		flipper = new Flipper();
 		
@@ -58,8 +58,9 @@ public class Robot extends IterativeRobot {
 		autonomousCommand = new ThreeTotesOnBin();
 		
 		SmartDashboard.putData(driveTrain);
-		SmartDashboard.putData(alignment);
+		SmartDashboard.putData(alignmentWheels);
 		SmartDashboard.putData(elevator);
+		SmartDashboard.putData(flipper);
 		
 		SmartDashboard.putData(new LoadTote());
 		SmartDashboard.putData(new UnloadTote());
@@ -111,6 +112,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         SmartDashboard.putNumber("Current Position", elevator.getPosition());
+        Robot.elevator.updatePID();
     }
     
     /**

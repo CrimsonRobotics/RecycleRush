@@ -11,12 +11,12 @@ public class ReverseAlign extends Command {
 
     public ReverseAlign() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.alignment);
+        requires(Robot.alignmentWheels);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.alignment.reverseAlign();
+    	Robot.alignmentWheels.reverseAlign();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -30,7 +30,7 @@ public class ReverseAlign extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.alignment.stopAlign();
+    	Robot.alignmentWheels.stopAlign();
     }
 
     // Called when another command which requires one or more of the same

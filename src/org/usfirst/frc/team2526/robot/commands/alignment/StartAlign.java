@@ -10,12 +10,12 @@ import edu.wpi.first.wpilibj.command.Command;
 public class StartAlign extends Command {
 
     public StartAlign() {
-        requires(Robot.alignment);
+        requires(Robot.alignmentWheels);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.alignment.startAlign();
+    	Robot.alignmentWheels.startAlign();
     }
     
 
@@ -29,7 +29,7 @@ public class StartAlign extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.alignment.stopAlign();
+    	Robot.alignmentWheels.stopAlign();
     }
 
     protected void interrupted() {

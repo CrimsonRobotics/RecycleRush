@@ -9,13 +9,13 @@ public class RotateAlignment extends Command {
 	private boolean clockwise;
 
 	public RotateAlignment(boolean clockwise) {
-		requires(Robot.alignment);
+		requires(Robot.alignmentWheels);
 		
 		this.clockwise = clockwise;
 	}
 
 	protected void initialize() {
-		Robot.alignment.rotate(clockwise);
+		Robot.alignmentWheels.rotate(clockwise);
 	}
 
 	protected void execute() {
@@ -27,7 +27,7 @@ public class RotateAlignment extends Command {
 	}
 
 	protected void end() {
-		Robot.alignment.stopAlign();
+		Robot.alignmentWheels.stopAlign();
 	}
 
 	protected void interrupted() {

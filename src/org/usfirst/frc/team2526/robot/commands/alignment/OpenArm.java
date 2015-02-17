@@ -11,12 +11,12 @@ public class OpenArm extends Command {
 
     public OpenArm() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.alignment);
+        requires(Robot.alignmentArms);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.alignment.openArms();
+    	Robot.alignmentArms.openArms();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -29,7 +29,7 @@ public class OpenArm extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.alignment.closeArms();
+    	Robot.alignmentArms.closeArms();
     }
 
     // Called when another command which requires one or more of the same
