@@ -6,6 +6,7 @@ import org.usfirst.frc.team2526.robot.commands.drive.Drive;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -48,6 +49,7 @@ public class DriveTrain extends Subsystem {
 		rRMotor.setPID(p, i, d, f, izone, ramprate, profile);
 
 		drive = new RobotDrive(rLMotor, fLMotor, fRMotor, rRMotor);
+		SmartDashboard.putNumber("Power", 1);
 
 	}
 
@@ -55,12 +57,9 @@ public class DriveTrain extends Subsystem {
 		setDefaultCommand(new Drive());
 	}
 
-
 	public double getCurrentPosition() {
-		return (fLMotor.getPosition() +
-				rLMotor.getPosition() +  
-				fRMotor.getPosition() + 
-				rRMotor.getPosition()) / 4.0d;
+		return (Math.abs(fLMotor.getPosition()) + Math.abs(rLMotor.getPosition())
+				+ Math.abs(fRMotor.getPosition()) + Math.abs(rRMotor.getPosition())) / 4.0d;
 	}
 
 	public void driveForward(double distance) {
@@ -74,8 +73,7 @@ public class DriveTrain extends Subsystem {
 		rLMotor.set(rLMotor.getSetpoint() + distance);
 		rRMotor.set(rRMotor.getSetpoint() + distance);
 	}
-	
-	
+
 	// 1000 encoder ticks is about 60 degrees on robot
 	public void rotate(double distance) {
 		fLMotor.changeControlMode(CANTalon.ControlMode.Position);
@@ -91,6 +89,36 @@ public class DriveTrain extends Subsystem {
 
 	public void driveWithMech(double velocityY, double velocityX,
 			double rotation) {
-		drive.mecanumDrive_Cartesian(Math.pow(velocityX, 2), Math.pow(velocityY, 2), Math.pow(rotation, 2), 0);
+		drive.mecanumDrive_Cartesian(velocityX,
+				velocityY,
+				rotation, 0);
+
+	}
+
+	public void driveWithExponentialMech(double velocityY, double velocityX,
+			double rotation) {
+		
+		double power = SmartDashboard.getNumber("power");
+		
+		velocityY = Math.pow(Math.abs(velocityY), power) * velocityY > 0 ? 1 : -1;
+		velocityX = Math.pow(Math.abs(velocityX), power) * velocityX > 0 ? 1 : -1;
+		rotation = Math.pow(Math.abs(rotation), power) * rotation > 0 ? 1 : -1;
+		
+
+		double desiredFL = -velocityY + rotation + velocityX;
+		double desiredRL = -velocityY + rotation - velocityX; 
+		double desiredFR = -velocityY - rotation - velocityX; 
+		double desiredRR = -velocityY - rotation + velocityX; 
+
+		fLMotor.set(desiredFL);
+		rLMotor.set(desiredRL);
+		fRMotor.set(desiredFR);
+		rRMotor.set(desiredRR);
+	}
+
+	public void update() {
+		SmartDashboard.putNumber("Encoders: ", getCurrentPosition());
+		SmartDashboard
+				.putNumber("Encoder velocity: ", rLMotor.getEncVelocity());
 	}
 }

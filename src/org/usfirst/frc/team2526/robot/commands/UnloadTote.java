@@ -13,6 +13,6 @@ public class UnloadTote extends CommandGroup {
     
     public  UnloadTote() {
     	addSequential(new ReleaseTote());
-    	addSequential(new SetElevatorPosition(Robot.elevator.getPosition()+10));
+    	addSequential(new SetElevatorPosition(Robot.elevator.getPosition()-300));
     }
 }

@@ -16,6 +16,7 @@ public class ElevatorUp extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.elevator.usePID(false);
     	Robot.elevator.moveUp();
     }
 

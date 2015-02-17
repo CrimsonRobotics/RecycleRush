@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Elevator extends Subsystem {
 
-	public static double FLOOR = 0, BIN = 25, TOP = 56, CARRY = 2.5, TOTE = 13;
+	public static double FLOOR = 0, GRAB = 300, SCORING = 700, TOTE = 1800;
 
 	public CANTalon winch;
 
@@ -26,8 +26,9 @@ public class Elevator extends Subsystem {
 		stabilizeSolenoid = new DoubleSolenoid(RobotMap.PCM_MAIN, RobotMap.STABLE_ELEVATOR_A, RobotMap.STABLE_ELEVATOR_B);
 
 		winch = new CANTalon(RobotMap.WINCH_TALON);
-
-		winch.changeControlMode(CANTalon.ControlMode.PercentVbus); //Changed this
+		
+		//usePID(true);
+		winch.changeControlMode(CANTalon.ControlMode.Position);
 		winch.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		winch.reverseOutput(true);
 		
@@ -38,6 +39,7 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putNumber("RAMP", 1);
 		
 		updatePID();
+		
 
 		SmartDashboard.putNumber("maxPosition", 6000);
 		SmartDashboard.putNumber("setPosition", 1000);
@@ -60,7 +62,7 @@ public class Elevator extends Subsystem {
 	}
 
 	public boolean isAtTarget() {
-		return Math.abs(winch.getEncPosition() - winch.getSetpoint()) < 20;
+		return Math.abs(winch.getEncPosition() - winch.getSetpoint()) < 150;
 	}
 
 	public void calibrateMin() {
@@ -75,16 +77,6 @@ public class Elevator extends Subsystem {
 		return winch.getEncPosition();
 	}
 
-	public boolean moveToPositionInches(double inches) {
-		double position = inchesToPosition(inches);
-		return moveToPositionTicks(position);
-	}
-
-	public double inchesToPosition(double inches) {
-		double maxPosition = SmartDashboard.getNumber("maxPosition");
-		return inches * maxPosition / 55.0;
-	}
-
 	public boolean moveToPositionTicks(double position) {
 		double maxPosition = SmartDashboard.getNumber("maxPosition");
 		if (position < maxPosition && position > 0) {
@@ -97,23 +89,24 @@ public class Elevator extends Subsystem {
 	public void setToSmartValue() {
 		moveToPositionTicks(SmartDashboard.getNumber("setPosition"));
 	}
+	
+	public void usePID(boolean pid) {
+		if (pid) 
+			winch.changeControlMode(CANTalon.ControlMode.Position);
+		else
+			winch.changeControlMode(CANTalon.ControlMode.PercentVbus);
+	}
 
 	public void moveUp() {
-		winch.changeControlMode(CANTalon.ControlMode.PercentVbus);
 		winch.set(-0.5);
-		//winch.changeControlMode(CANTalon.ControlMode.Position);
 	}
 
 	public void moveDown() {
-		winch.changeControlMode(CANTalon.ControlMode.PercentVbus);
 		winch.set(0.5);
-		//winch.changeControlMode(CANTalon.ControlMode.Position);
 	}
 
 	public void stopElevator() {
-		winch.changeControlMode(CANTalon.ControlMode.PercentVbus);
 		winch.set(0);
-		//winch.changeControlMode(CANTalon.ControlMode.Position);
 	}
 
 	public void applyBreak() {
@@ -125,11 +118,11 @@ public class Elevator extends Subsystem {
 	}
 
 	public void stabilizeTote() {
-		stabilizeSolenoid.set(DoubleSolenoid.Value.kForward);
+		stabilizeSolenoid.set(DoubleSolenoid.Value.kReverse);
 	}
 
 	public void releaseTote() {
-		stabilizeSolenoid.set(DoubleSolenoid.Value.kReverse);
+		stabilizeSolenoid.set(DoubleSolenoid.Value.kForward);
 	}
 
 	public void initDefaultCommand() {

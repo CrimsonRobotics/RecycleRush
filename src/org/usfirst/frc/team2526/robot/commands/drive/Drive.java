@@ -20,7 +20,7 @@ public class Drive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.driveWithMech(-Robot.oi.getPrimaryStick().getX(), Robot.oi.getSecondaryStick().getX(), -Robot.oi.getPrimaryStick().getY());
+    	Robot.driveTrain.driveWithMech(-Robot.oi.getPrimaryStick().getY(), Robot.oi.getPrimaryStick().getX(), -Robot.oi.getSecondaryStick().getY());
     }
 
     // Make this return true when this Command no longer needs to run execute()

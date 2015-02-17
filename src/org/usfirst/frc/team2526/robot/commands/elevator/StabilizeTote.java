@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class StabilizeTote extends Command {
 
     public StabilizeTote() {
+    	super(0.35);
         // Use requires() here to declare subsystem dependencies
         requires(Robot.elevator);
     }
@@ -24,7 +25,7 @@ public class StabilizeTote extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true

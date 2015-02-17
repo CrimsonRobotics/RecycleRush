@@ -1,6 +1,8 @@
 package org.usfirst.frc.team2526.robot;
 
 import org.usfirst.frc.team2526.robot.commands.ActivateFlipper;
+import org.usfirst.frc.team2526.robot.commands.LoadTote;
+import org.usfirst.frc.team2526.robot.commands.UnloadTote;
 import org.usfirst.frc.team2526.robot.commands.alignment.OpenArm;
 import org.usfirst.frc.team2526.robot.commands.alignment.ReverseAlign;
 import org.usfirst.frc.team2526.robot.commands.alignment.RotateAlignment;
@@ -9,7 +11,6 @@ import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevatorMax
 import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevatorMin;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorDown;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorUp;
-import org.usfirst.frc.team2526.robot.commands.elevator.ManualSetElevatorPosition;
 import org.usfirst.frc.team2526.robot.commands.elevator.ReleaseTote;
 import org.usfirst.frc.team2526.robot.commands.elevator.StabilizeTote;
 
@@ -52,6 +53,7 @@ public class OI {
 	Button secondaryStickSix = new JoystickButton(secondaryStick,6);
 	Button secondaryStickSeven = new JoystickButton(secondaryStick,7);
 	Button secondaryStickEight = new JoystickButton(secondaryStick,8);
+	Button secondaryStickNine = new JoystickButton(secondaryStick,9);
 	//creates buttons on the secondary stick (buttons 1-5)
 	
 	public OI() {
@@ -71,7 +73,8 @@ public class OI {
 		secondaryStickSix.whenPressed(new CalibrateElevatorMax());
 		secondaryStickSeven.whenPressed(new CalibrateElevatorMin());
 		
-		secondaryStickEight.whenPressed(new ManualSetElevatorPosition());
+		secondaryStickEight.whenPressed(new LoadTote());
+		secondaryStickNine.whenPressed(new UnloadTote());
 		
 		
 		primaryStickThree.whileHeld(new ActivateFlipper(true, true));

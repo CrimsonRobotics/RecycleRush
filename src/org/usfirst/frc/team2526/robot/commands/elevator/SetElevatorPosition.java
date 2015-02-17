@@ -19,7 +19,8 @@ public class SetElevatorPosition extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.elevator.moveToPositionInches(position);
+		Robot.elevator.usePID(true);
+		Robot.elevator.moveToPositionTicks(position);
 	}
 
 	// Called repeatedly when this Command is scheduled to run

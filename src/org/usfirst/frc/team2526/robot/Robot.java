@@ -5,6 +5,7 @@ import org.usfirst.frc.team2526.robot.autonomous.ThreeTotesOnBin;
 import org.usfirst.frc.team2526.robot.commands.LoadTote;
 import org.usfirst.frc.team2526.robot.commands.StackTote;
 import org.usfirst.frc.team2526.robot.commands.UnloadTote;
+import org.usfirst.frc.team2526.robot.commands.elevator.SetElevatorPosition;
 import org.usfirst.frc.team2526.robot.commands.vision.VisionCommunications;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentArms;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentWheels;
@@ -67,7 +68,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(new StackTote());
 		
 		
-		
+		SmartDashboard.putData(new SetElevatorPosition(SmartDashboard.getNumber("setPosition")));
     }
 	
 	public void disabledPeriodic() {
@@ -113,6 +114,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         SmartDashboard.putNumber("Current Position", elevator.getPosition());
         Robot.elevator.updatePID();
+        Robot.driveTrain.update();
     }
     
     /**

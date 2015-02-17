@@ -15,21 +15,21 @@ public class ThreeTotesOnBin extends CommandGroup {
     
     public  ThreeTotesOnBin() {
         addSequential(new TotePickup());
-        addSequential(new SetElevatorPosition(Elevator.BIN+10));
+        //addSequential(new SetElevatorPosition(Elevator.BIN+10));
         addSequential(new AvoidBin());
         addSequential(new RotateToTote());
         addSequential(new AutoPilotDrive(2000));
         
         addSequential(new SetElevatorPosition(Elevator.TOTE));
         addSequential(new TotePickup());
-        addSequential(new SetElevatorPosition(Elevator.BIN+22));
+        //addSequential(new SetElevatorPosition(Elevator.BIN+22));
         addSequential(new AvoidBin());
         addSequential(new RotateToTote());
         addSequential(new AutoPilotDrive(2000));
         
-        addSequential(new SetElevatorPosition(Elevator.TOTE));
+        //addSequential(new SetElevatorPosition(Elevator.TOTE));
         addSequential(new TotePickup());
-        addSequential(new SetElevatorPosition(Elevator.BIN+34));
+        //addSequential(new SetElevatorPosition(Elevator.BIN+34));
         addSequential(new GrabBin());
         
         addSequential(new Rotate(1500));
