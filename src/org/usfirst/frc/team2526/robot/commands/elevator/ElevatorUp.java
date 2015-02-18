@@ -13,8 +13,12 @@ public class ElevatorUp extends SimpleCommand {
     }
 
     protected void initialize() {
-    	Robot.elevator.moveUp();
+		Robot.elevator.setGoalToCurrent();
+		
+	}
+    
+    protected void execute() {
+    	Robot.elevator.shiftUp();
     }
-
     
 }

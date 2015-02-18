@@ -14,13 +14,15 @@ public class CalibrateElevatorMin extends Command {
         requires(Robot.elevator);
     }
 
-    // Called just before this Command runs the first time
+ // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.elevator.moveDown();
+    	Robot.elevator.setGoalToCurrent();
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {}
+    protected void execute() {
+    	Robot.elevator.shiftDown();
+    }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
@@ -30,12 +32,10 @@ public class CalibrateElevatorMin extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.elevator.calibrateMin();
-    	Robot.elevator.stopElevator();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.elevator.stopElevator();
     }
 }

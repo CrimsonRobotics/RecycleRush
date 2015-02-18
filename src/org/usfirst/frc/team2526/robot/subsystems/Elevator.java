@@ -16,8 +16,11 @@ public class Elevator extends Subsystem {
 	public static double FLOOR = 0, GRAB = 300, SCORING = 700, TOTE = 1800;
 
 	public CANTalon winch;
+	
 
 	public DoubleSolenoid brakeSolenoid, stabilizeSolenoid;
+	
+	double goal;
 
 	public Elevator() {
 		super("Elevator");
@@ -69,47 +72,45 @@ public class Elevator extends Subsystem {
 	}
 
 	public void calibrateMax() {
-		SmartDashboard.putNumber("maxPosition", winch.getEncPosition());
-	}
-	
-	public void prepareMotor() {
-		if (!winch.isControlEnabled()) {
-			winch.enableControl();
-		}
 		
-		if (brakeSolenoid.get() == DoubleSolenoid.Value.kReverse) {
-			releaseBrake();
-		}
+		SmartDashboard.putNumber("maxPosition", winch.getEncPosition());
 	}
 
 	public double getPosition() {
 		return winch.getEncPosition();
 	}
 
-	public boolean moveToPositionTicks(double position) {
-		prepareMotor();
-		double maxPosition = SmartDashboard.getNumber("maxPosition");
-		if (position < maxPosition && position > 0) {
-			winch.set(position);
-			return true;
-		}
-		return false;
+	public void moveToPositionTicks(double position) {
+		releaseBrake();
+		winch.set(position);
 	}
 
 	public void setToSmartValue() {
 		moveToPositionTicks(SmartDashboard.getNumber("setPosition"));
 	}
 	
-	public void moveUp() {
-		winch.set(SmartDashboard.getNumber("maxPosition"));
+	public void moveTop() {
+		moveToPositionTicks(SmartDashboard.getNumber("maxPosition"));
 	}
-
-	public void moveDown() {
-		winch.set(0);
+	
+	public void moveBottom() {
+		moveToPositionTicks(0);
 	}
-
-	public void stopElevator() {
-		winch.disableControl();
+	
+	public void setGoalToCurrent() {
+		goal = winch.getEncPosition();
+	}
+	
+	public void shiftUp() {
+		goal += 50;
+		moveToPositionTicks(goal);
+		SmartDashboard.putNumber("goal", goal);
+	}
+	
+	public void shiftDown() {
+		goal -= 50;
+		moveToPositionTicks(goal);
+		SmartDashboard.putNumber("goal", goal);
 	}
 
 	public void applyBrake() {
@@ -129,7 +130,7 @@ public class Elevator extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new HoldElevator());
+		//setDefaultCommand(new HoldElevator());
 	}
 
 	public void updateCalibration() {

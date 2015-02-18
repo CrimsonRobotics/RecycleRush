@@ -1,41 +1,33 @@
-package org.usfirst.frc.team2526.robot.commands.drive;
+package org.usfirst.frc.team2526.robot.commands.elevator;
 
 import org.usfirst.frc.team2526.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class AutoPilotDrive extends Command {
-
-	double distance;
-    public AutoPilotDrive(double distance) {
+public class ShiftElevator extends Command {
+	double shiftDistance;
+	
+    public ShiftElevator(double shift) {
+    	this.shiftDistance = shift;
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.driveTrain);
-        this.distance = distance;
+        requires(Robot.elevator);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.driveTrain.resetCurrentPosition();
-    	//Robot.driveTrain.driveForward(0.2);
+    	Robot.elevator.moveToPositionTicks(Robot.elevator.getPosition()+shiftDistance);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (distance > 0)
-    		Robot.driveTrain.driveForward(0.3);
-    	else
-    		Robot.driveTrain.driveBackward(0.3);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	double error = distance - Robot.driveTrain.getCurrentPosition();
-    	SmartDashboard.putNumber("Drive Error ", error);
-        return error < 10;
+    	return Robot.elevator.isAtTarget();
     }
 
     // Called once after isFinished returns true

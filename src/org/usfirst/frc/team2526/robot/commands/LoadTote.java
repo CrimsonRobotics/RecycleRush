@@ -16,12 +16,11 @@ public class LoadTote extends CommandGroup {
     public  LoadTote() {
     	super("Load Tote");
     	addParallel(new OpenArm());
-    	//addSequential(new WaitCommand(0.4));
+    	addSequential(new WaitCommand(1));
         addSequential(new SetElevatorPosition(Elevator.GRAB));
-        addSequential(new WaitCommand(0.3));
+        addSequential(new WaitCommand(1));
         addParallel(new StabilizeTote());
-        //addSequential(new StopAlign());
-    	addSequential(new WaitCommand(0.35));
+    	addSequential(new WaitCommand(1));
     	addSequential(new SetElevatorPosition(Elevator.SCORING));
     	
     }

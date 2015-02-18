@@ -23,7 +23,8 @@ public class Drive extends Command {
     	double straight = Robot.oi.getPrimaryStick().getY();
     	double strafe = Robot.oi.getPrimaryStick().getX();
     	double rotation = Robot.oi.getSecondaryStick().getX();
-    	Robot.driveTrain.driveWithMech(straight, strafe, rotation);
+    	
+    	Robot.driveTrain.driveWithMech(-rotation, -strafe, -straight);
     }
 
     // Make this return true when this Command no longer needs to run execute()

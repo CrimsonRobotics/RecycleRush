@@ -6,16 +6,16 @@ import org.usfirst.frc.team2526.robot.commands.SimpleCommand;
 /**
  *
  */
-public class OpenArm extends SimpleCommand {
+public class CloseArm extends SimpleCommand {
 
-    public OpenArm() {
+    public CloseArm() {
         super(Robot.alignmentArms);
     }
     
     public void initialize() {
-    	Robot.alignmentArms.openArms();
+    	Robot.alignmentArms.closeArms();
     }
-
+    
     public boolean isFinished() {
     	return true;
     }

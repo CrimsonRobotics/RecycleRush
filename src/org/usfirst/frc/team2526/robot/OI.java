@@ -1,17 +1,18 @@
 package org.usfirst.frc.team2526.robot;
 
 import org.usfirst.frc.team2526.robot.commands.ActivateFlipper;
+import org.usfirst.frc.team2526.robot.commands.DropAndLoadTote;
 import org.usfirst.frc.team2526.robot.commands.LoadTote;
 import org.usfirst.frc.team2526.robot.commands.UnloadTote;
 import org.usfirst.frc.team2526.robot.commands.alignment.OpenArm;
 import org.usfirst.frc.team2526.robot.commands.alignment.ReverseAlign;
 import org.usfirst.frc.team2526.robot.commands.alignment.RotateAlignment;
 import org.usfirst.frc.team2526.robot.commands.alignment.StartAlign;
-import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevatorMax;
-import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevatorMin;
+import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevator;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorDown;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorUp;
 import org.usfirst.frc.team2526.robot.commands.elevator.ReleaseTote;
+import org.usfirst.frc.team2526.robot.commands.elevator.SetElevatorPosition;
 import org.usfirst.frc.team2526.robot.commands.elevator.StabilizeTote;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -40,8 +41,12 @@ public class OI {
 	Button primaryStickThree = new JoystickButton(primaryStick,3);
 	Button primaryStickFour = new JoystickButton(primaryStick,4);
 	Button primaryStickFive = new JoystickButton(primaryStick,5);
+	Button primaryStickSix = new JoystickButton(primaryStick,6);
+	Button primaryStickSeven = new JoystickButton(primaryStick,7);
 	Button primaryStickEight = new JoystickButton(primaryStick,8);
 	Button primaryStickNine = new JoystickButton(primaryStick,9);
+	Button primaryStickTen = new JoystickButton(primaryStick,10);
+	Button primaryStickEleven = new JoystickButton(primaryStick,11);
 	//creates buttons on the primary stick (buttons 1-5)
 	
 	Button secondaryTriggerStick = new JoystickButton(secondaryStick,1);
@@ -54,6 +59,10 @@ public class OI {
 	Button secondaryStickSeven = new JoystickButton(secondaryStick,7);
 	Button secondaryStickEight = new JoystickButton(secondaryStick,8);
 	Button secondaryStickNine = new JoystickButton(secondaryStick,9);
+	
+	
+	Button secondaryStickTen = new JoystickButton(secondaryStick, 10);
+	Button secondaryStickEleven = new JoystickButton(secondaryStick, 11);
 	//creates buttons on the secondary stick (buttons 1-5)
 	
 	public OI() {
@@ -64,18 +73,19 @@ public class OI {
 		primaryStickEight.whileHeld(new RotateAlignment(true));
 		primaryStickNine.whileHeld(new RotateAlignment(false));
 		
-		secondaryStickFour.whenPressed(new StabilizeTote());
-		secondaryStickFive.whenPressed(new ReleaseTote());
+		secondaryStickFive.whenPressed(new StabilizeTote());
+		secondaryStickFour.whenPressed(new ReleaseTote());
 		
 		secondaryStickThree.whileHeld(new ElevatorUp());
 		secondaryStickTwo.whileHeld(new ElevatorDown());
 		
-		secondaryStickSix.whenPressed(new CalibrateElevatorMax());
-		secondaryStickSeven.whenPressed(new CalibrateElevatorMin());
+		secondaryStickSeven.whenPressed(new CalibrateElevator());
 		
-		secondaryStickEight.whenPressed(new LoadTote());
-		secondaryStickNine.whenPressed(new UnloadTote());
+		primaryStickSix.whenPressed(new LoadTote());
+		primaryStickSeven.whenPressed(new UnloadTote());
 		
+		primaryStickEleven.whenPressed(new DropAndLoadTote());
+		primaryStickTen.whenPressed(new SetElevatorPosition(Robot.elevator.TOTE));
 		
 		primaryStickThree.whileHeld(new ActivateFlipper(true, true));
 		primaryStickFour.whileHeld(new ActivateFlipper(true, false));

@@ -49,7 +49,7 @@ public class DriveTrain extends Subsystem {
 		rRMotor.setPID(p, i, d, f, izone, ramprate, profile);
 
 		drive = new RobotDrive(rLMotor, fLMotor, fRMotor, rRMotor);
-		SmartDashboard.putNumber("Power", 1);
+		SmartDashboard.putNumber("Power", 3);
 
 	}
 
@@ -58,28 +58,35 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public double getCurrentPosition() {
-		return (Math.abs(fLMotor.getPosition()) + Math.abs(rLMotor.getPosition())
-				+ Math.abs(fRMotor.getPosition()) + Math.abs(rRMotor.getPosition())) / 4.0d;
+		return (Math.abs(fLMotor.getPosition())
+				+ Math.abs(rLMotor.getPosition())
+				+ Math.abs(fRMotor.getPosition()) + Math.abs(rRMotor
+				.getPosition())) / 4.0d;
+	}
+	
+	public void resetCurrentPosition() {
+		fLMotor.setPosition(0);
+		rLMotor.setPosition(0);
+		fRMotor.setPosition(0);
+		rRMotor.setPosition(0);
 	}
 
-	public void driveForward(double distance) {
-		fLMotor.changeControlMode(CANTalon.ControlMode.Position);
-		fRMotor.changeControlMode(CANTalon.ControlMode.Position);
-		rLMotor.changeControlMode(CANTalon.ControlMode.Position);
-		rRMotor.changeControlMode(CANTalon.ControlMode.Position);
-
-		fLMotor.set(fLMotor.getSetpoint() + distance);
-		fRMotor.set(fRMotor.getSetpoint() + distance);
-		rLMotor.set(rLMotor.getSetpoint() + distance);
-		rRMotor.set(rRMotor.getSetpoint() + distance);
+	public void driveForward(double speed) {
+		fLMotor.set(speed);
+		fRMotor.set(-speed);
+		rLMotor.set(speed);
+		rRMotor.set(-speed);
+	}
+	
+	public void driveBackward(double speed) {
+		fLMotor.set(-speed);
+		fRMotor.set(speed);
+		rLMotor.set(-speed);
+		rRMotor.set(speed);
 	}
 
 	// 1000 encoder ticks is about 60 degrees on robot
 	public void rotate(double distance) {
-		fLMotor.changeControlMode(CANTalon.ControlMode.Position);
-		fRMotor.changeControlMode(CANTalon.ControlMode.Position);
-		rLMotor.changeControlMode(CANTalon.ControlMode.Position);
-		rRMotor.changeControlMode(CANTalon.ControlMode.Position);
 
 		fLMotor.set(fLMotor.getSetpoint() + distance);
 		fRMotor.set(fRMotor.getSetpoint() - distance);
@@ -89,26 +96,44 @@ public class DriveTrain extends Subsystem {
 
 	public void driveWithMech(double velocityY, double velocityX,
 			double rotation) {
-		drive.mecanumDrive_Cartesian(velocityX,
-				velocityY,
-				rotation, 0);
+
+		double power = SmartDashboard.getNumber("Power");
+
+		int signY = velocityY > 0 ? 1 : -1;
+		velocityY = Math.pow(Math.abs(velocityY), power) * signY;
+		
+		int signX = velocityX > 0 ? 1 : -1;
+		velocityX = Math.pow(Math.abs(velocityX), power) * signX;
+		
+		int signR = rotation > 0 ? 1 : -1;
+		rotation = Math.pow(Math.abs(rotation), power) * signR;
+		
+		SmartDashboard.putNumber("Y", velocityY);
+		SmartDashboard.putNumber("X", velocityX);
+		SmartDashboard.putNumber("R", rotation);
+
+		drive.mecanumDrive_Cartesian(velocityX, velocityY, rotation, 0);
 
 	}
 
 	public void driveWithExponentialMech(double velocityY, double velocityX,
 			double rotation) {
+
+		double power = SmartDashboard.getNumber("Power");
+		int signY = velocityY > 0 ? 1 : -1;
+		velocityY = Math.pow(Math.abs(velocityY), power) * signY;
+		int signX = velocityX > 0 ? 1 : -1;
+		velocityX = Math.pow(Math.abs(velocityX), power) * signX;
 		
-		double power = SmartDashboard.getNumber("power");
+		int signR = rotation > 0 ? 1 : -1;
+		rotation = Math.pow(Math.abs(rotation), power) * signR;
 		
-		velocityY = Math.pow(Math.abs(velocityY), power) * velocityY > 0 ? 1 : -1;
-		velocityX = Math.pow(Math.abs(velocityX), power) * velocityX > 0 ? 1 : -1;
-		rotation = Math.pow(Math.abs(rotation), power) * rotation > 0 ? 1 : -1;
 		
 
 		double desiredFL = -velocityY + rotation + velocityX;
-		double desiredRL = -velocityY + rotation - velocityX; 
-		double desiredFR = -velocityY - rotation - velocityX; 
-		double desiredRR = -velocityY - rotation + velocityX; 
+		double desiredRL = -velocityY + rotation - velocityX;
+		double desiredFR = -velocityY - rotation - velocityX;
+		double desiredRR = -velocityY - rotation + velocityX;
 
 		fLMotor.set(desiredFL);
 		rLMotor.set(desiredRL);

@@ -15,7 +15,8 @@ public class StopAlign extends SimpleCommand {
     protected void initialize() {
     	Robot.alignmentWheels.stopAlign();
     }
-    protected void end() {
-    	Robot.alignmentWheels.stopAlign();
+    
+    protected boolean isFinished() {
+    	return true;
     }
 }
