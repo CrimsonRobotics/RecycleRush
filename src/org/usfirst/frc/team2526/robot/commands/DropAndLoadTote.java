@@ -23,7 +23,7 @@ public class DropAndLoadTote extends CommandGroup {
     	addSequential(new ShiftElevator(-450));
     	addParallel(new ReverseAlign());
     	addParallel(new ReleaseTote());
-    	addSequential(new AutoPilotDrive(-200));
+    	addSequential(new AutoPilotDrive(-400));
     	
     	addSequential(new StopAlign());
     	addSequential(new WaitCommand(0.5));

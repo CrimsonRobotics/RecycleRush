@@ -1,7 +1,6 @@
 package org.usfirst.frc.team2526.robot.subsystems;
 
 import org.usfirst.frc.team2526.robot.RobotMap;
-import org.usfirst.frc.team2526.robot.commands.elevator.HoldElevator;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -17,15 +16,13 @@ public class Elevator extends Subsystem {
 
 	public CANTalon winch;
 	
-
-	public DoubleSolenoid brakeSolenoid, stabilizeSolenoid;
+	public DoubleSolenoid stabilizeSolenoid;
 	
 	double goal;
 
 	public Elevator() {
 		super("Elevator");
 
-		brakeSolenoid = new DoubleSolenoid(RobotMap.PCM_MAIN, RobotMap.WINCH_BRAKE_A, RobotMap.WINCH_BRAKE_B);
 		stabilizeSolenoid = new DoubleSolenoid(RobotMap.PCM_MAIN, RobotMap.STABLE_ELEVATOR_A, RobotMap.STABLE_ELEVATOR_B);
 
 		winch = new CANTalon(RobotMap.WINCH_TALON);
@@ -81,12 +78,7 @@ public class Elevator extends Subsystem {
 	}
 
 	public void moveToPositionTicks(double position) {
-		releaseBrake();
 		winch.set(position);
-	}
-
-	public void setToSmartValue() {
-		moveToPositionTicks(SmartDashboard.getNumber("setPosition"));
 	}
 	
 	public void moveTop() {
@@ -113,14 +105,6 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putNumber("goal", goal);
 	}
 
-	public void applyBrake() {
-		brakeSolenoid.set(DoubleSolenoid.Value.kReverse);
-	}
-
-	public void releaseBrake() {
-		brakeSolenoid.set(DoubleSolenoid.Value.kForward);
-	}
-
 	public void stabilizeTote() {
 		stabilizeSolenoid.set(DoubleSolenoid.Value.kReverse);
 	}
@@ -129,9 +113,7 @@ public class Elevator extends Subsystem {
 		stabilizeSolenoid.set(DoubleSolenoid.Value.kForward);
 	}
 
-	public void initDefaultCommand() {
-		//setDefaultCommand(new HoldElevator());
-	}
+	public void initDefaultCommand() {}
 
 	public void updateCalibration() {
 		if (isAtTop())

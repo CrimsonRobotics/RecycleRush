@@ -21,9 +21,7 @@ public class TotePickup extends CommandGroup {
 		// To run multiple commands at the same time,
 		// use addParallel()
 		
-		addParallel(new StartAlign());
-		addSequential(new SetElevatorPosition(Elevator.FLOOR));
-		addSequential(new LoadTote());
+		
 		
 	}
 }

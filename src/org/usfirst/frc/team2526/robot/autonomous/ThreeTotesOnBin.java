@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2526.robot.autonomous;
 
+import org.usfirst.frc.team2526.robot.commands.LoadTote;
+import org.usfirst.frc.team2526.robot.commands.alignment.StartAlign;
 import org.usfirst.frc.team2526.robot.commands.drive.AutoPilotDrive;
 import org.usfirst.frc.team2526.robot.commands.drive.Rotate;
 import org.usfirst.frc.team2526.robot.commands.drive.RotateToTote;
@@ -14,8 +16,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class ThreeTotesOnBin extends CommandGroup {
     
     public  ThreeTotesOnBin() {
-        addSequential(new TotePickup());
-        //addSequential(new SetElevatorPosition(Elevator.BIN+10));
+    	addParallel(new StartAlign());
+		addSequential(new LoadTote());
         addSequential(new AvoidBin());
         addSequential(new RotateToTote());
         addSequential(new AutoPilotDrive(2000));

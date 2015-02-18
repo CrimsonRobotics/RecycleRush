@@ -11,22 +11,26 @@ public class Rotate extends Command {
 	double clicks;
 	
     public Rotate(double clicks) {
+    	super(0.1);
         requires(Robot.driveTrain);
         this.clicks = clicks;
     }
 
     protected void initialize() {
-    	Robot.driveTrain.rotate(clicks);
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
+    	if (clicks > 0)
+    		Robot.driveTrain.rotate(0.1);
+    	else
+    		Robot.driveTrain.rotate(-0.1);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true

@@ -86,12 +86,12 @@ public class DriveTrain extends Subsystem {
 	}
 
 	// 1000 encoder ticks is about 60 degrees on robot
-	public void rotate(double distance) {
+	public void rotate(double speed) {
 
-		fLMotor.set(fLMotor.getSetpoint() + distance);
-		fRMotor.set(fRMotor.getSetpoint() - distance);
-		rLMotor.set(rLMotor.getSetpoint() + distance);
-		rRMotor.set(rRMotor.getSetpoint() - distance);
+		fLMotor.set(speed);
+		fRMotor.set(speed);
+		rLMotor.set(speed);
+		rRMotor.set(speed);
 	}
 
 	public void driveWithMech(double velocityY, double velocityX,
@@ -143,7 +143,6 @@ public class DriveTrain extends Subsystem {
 
 	public void update() {
 		SmartDashboard.putNumber("Encoders: ", getCurrentPosition());
-		SmartDashboard
-				.putNumber("Encoder velocity: ", rLMotor.getEncVelocity());
+		SmartDashboard.putNumber("Encoder velocity: ", rLMotor.getEncVelocity());
 	}
 }
