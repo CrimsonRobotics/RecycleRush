@@ -9,6 +9,6 @@ public class GrabBin extends CommandGroup {
 
 	public GrabBin() {
 		addSequential(new StartAlign());
-		addSequential(new AutoPilotDrive(500));
+		addSequential(new AutoPilotDrive(500, 2));
 	}
 }

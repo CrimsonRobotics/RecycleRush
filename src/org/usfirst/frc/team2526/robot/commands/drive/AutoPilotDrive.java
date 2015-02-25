@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2526.robot.commands.drive;
 
 import org.usfirst.frc.team2526.robot.Robot;
+import org.usfirst.frc.team2526.robot.RobotValues;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -11,24 +12,34 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class AutoPilotDrive extends Command {
 
 	double distance;
-    public AutoPilotDrive(double distance) {
-        // Use requires() here to declare subsystem dependencies
-        requires(Robot.driveTrain);
+	double speed;
+	
+    public AutoPilotDrive(double distance, double timeout) {
+    	super(timeout);
+    	
+    	requires(Robot.driveTrain);
         this.distance = distance;
+        this.speed = RobotValues.AUTO_PILOT_SPEED;
+    }
+    
+    public AutoPilotDrive(double distance, double timeout, double speed) {
+    	super(timeout);
+    	
+    	requires(Robot.driveTrain);
+        this.distance = distance;
+        this.speed = speed;
     }
 
-    // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.driveTrain.resetCurrentPosition();
-    	//Robot.driveTrain.driveForward(0.2);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (distance > 0)
-    		Robot.driveTrain.driveForward(0.3);
+    		Robot.driveTrain.driveForward(speed);
     	else
-    		Robot.driveTrain.driveBackward(0.3);
+    		Robot.driveTrain.driveBackward(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()

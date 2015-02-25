@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2526.robot.commands;
 
-import org.usfirst.frc.team2526.robot.Robot;
+import org.usfirst.frc.team2526.robot.RobotValues;
 import org.usfirst.frc.team2526.robot.commands.alignment.CloseArm;
 import org.usfirst.frc.team2526.robot.commands.alignment.OpenArm;
 import org.usfirst.frc.team2526.robot.commands.alignment.ReverseAlign;
@@ -20,10 +20,10 @@ public class UnloadTote extends CommandGroup {
     public  UnloadTote() {
     	addSequential(new ShiftElevator(-450));
     	addParallel(new ReverseAlign());
-    	addSequential(new AutoPilotDrive(-700));
+    	addSequential(new AutoPilotDrive(-700, 2));
     	addSequential(new StopAlign());
     	addSequential(new OpenArm());
-    	addSequential(new SetElevatorPosition(Robot.elevator.FLOOR));
+    	addSequential(new SetElevatorPosition(RobotValues.FLOOR));
     	addSequential(new CloseArm());
     	addSequential(new ReleaseTote());
 //    }

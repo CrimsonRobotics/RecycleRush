@@ -25,6 +25,11 @@ public class AlignmentWheels extends Subsystem {
 		rightMotor.set(0.8);
 	}
 	
+	public void startSlowAlign() {
+		leftMotor.set(-0.4);
+		rightMotor.set(0.4);
+	}
+	
 	public void rotate(boolean clockwise) {
 		leftMotor.set(clockwise ? 0.8 : -0.8);
 		rightMotor.set(clockwise ? 0.8 : -0.8);

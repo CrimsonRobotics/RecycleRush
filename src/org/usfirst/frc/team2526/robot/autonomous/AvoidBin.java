@@ -10,9 +10,9 @@ public class AvoidBin extends CommandGroup {
 	public AvoidBin() {
 		addParallel(new ReverseAlign());
 		addSequential(new Rotate(250));
-		addSequential(new AutoPilotDrive(500));
+		addSequential(new AutoPilotDrive(500, 2));
 		addSequential(new Rotate(-500));
-		addSequential(new AutoPilotDrive(500));
+		addSequential(new AutoPilotDrive(500, 2));
 		addSequential(new Rotate(250));
 		
 	}

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2526.robot.subsystems;
 
 import org.usfirst.frc.team2526.robot.RobotMap;
+import org.usfirst.frc.team2526.robot.RobotValues;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -11,13 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Elevator extends Subsystem {
-
-	public static double FLOOR = 0, GRAB = 300, SCORING = 700, TOTE = 1800;
-
+	
 	public CANTalon winch;
-	
 	public DoubleSolenoid stabilizeSolenoid;
-	
 	double goal;
 
 	public Elevator() {
@@ -38,10 +35,6 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putNumber("RAMP", 1);
 		
 		updatePID();
-		
-
-		SmartDashboard.putNumber("maxPosition", 6000);
-		SmartDashboard.putNumber("setPosition", 1000);
 	}
 
 	public void updatePID() {
@@ -59,9 +52,13 @@ public class Elevator extends Subsystem {
 	public boolean isAtBottom() {
 		return winch.isFwdLimitSwitchClosed();
 	}
+	
+	public boolean isAt(double position) {
+		return Math.abs(getPosition() - position) < RobotValues.WINCH_TOLERANCE;
+	}
 
 	public boolean isAtTarget() {
-		return Math.abs(winch.getEncPosition() - winch.getSetpoint()) < 150;
+		return Math.abs(getPosition() - winch.getSetpoint()) < RobotValues.WINCH_TOLERANCE;
 	}
 
 	public void calibrateMin() {
@@ -69,7 +66,7 @@ public class Elevator extends Subsystem {
 	}
 
 	public void calibrateMax() {
-		
+		RobotValues.MAX_POSITION = winch.getEncPosition();
 		SmartDashboard.putNumber("maxPosition", winch.getEncPosition());
 	}
 
@@ -78,31 +75,36 @@ public class Elevator extends Subsystem {
 	}
 
 	public void moveToPositionTicks(double position) {
-		winch.set(position);
+		goal = position;
+		updateGoal();
 	}
 	
 	public void moveTop() {
-		moveToPositionTicks(SmartDashboard.getNumber("maxPosition"));
+		goal = RobotValues.MAX_POSITION;
+		updateGoal();
 	}
 	
 	public void moveBottom() {
-		moveToPositionTicks(0);
+		goal = 0;
+		updateGoal();
 	}
 	
 	public void setGoalToCurrent() {
 		goal = winch.getEncPosition();
 	}
 	
-	public void shiftUp() {
+	public void shiftGoalUp() {
 		goal += 50;
-		moveToPositionTicks(goal);
-		SmartDashboard.putNumber("goal", goal);
+		updateGoal();
 	}
 	
-	public void shiftDown() {
+	public void shiftGoalDown() {
 		goal -= 50;
+		updateGoal();
+	}
+	
+	private void updateGoal() {
 		moveToPositionTicks(goal);
-		SmartDashboard.putNumber("goal", goal);
 	}
 
 	public void stabilizeTote() {
@@ -114,11 +116,4 @@ public class Elevator extends Subsystem {
 	}
 
 	public void initDefaultCommand() {}
-
-	public void updateCalibration() {
-		if (isAtTop())
-			calibrateMax();
-		if (isAtBottom())
-			calibrateMin();
-	}
 }

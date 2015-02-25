@@ -1,9 +1,9 @@
 package org.usfirst.frc.team2526.robot.commands.calibrations;
 
+import org.usfirst.frc.team2526.robot.RobotValues;
 import org.usfirst.frc.team2526.robot.commands.elevator.SetElevatorPosition;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -14,7 +14,7 @@ public class CalibrateElevator extends CommandGroup {
 		
 		addSequential(new CalibrateElevatorMin());
 		addSequential(new CalibrateElevatorMax());
-		addSequential(new SetElevatorPosition(SmartDashboard.getNumber("maxPosition")/2));
+		addSequential(new SetElevatorPosition(RobotValues.MAX_POSITION/2));
 		
 	}
 }

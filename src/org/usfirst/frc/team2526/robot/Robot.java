@@ -63,11 +63,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(elevator);
 		SmartDashboard.putData(flipper);
 		
-		SmartDashboard.putData(new LoadTote());
-		SmartDashboard.putData(new UnloadTote());
-		SmartDashboard.putData(new StackTote());
-		
-		
 		SmartDashboard.putData(new SetElevatorPosition(SmartDashboard.getNumber("setPosition")));
     }
 	

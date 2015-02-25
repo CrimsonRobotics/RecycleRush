@@ -8,13 +8,18 @@ public class SimpleCommand extends Command {
 	public SimpleCommand(Subsystem system) {
 		requires(system);
 	}
+	
+	public SimpleCommand(Subsystem system, double timeout) {
+		super(timeout);
+		requires(system);
+	}
 
 	protected void initialize() {}
 
 	protected void execute() {}
 
 	protected boolean isFinished() {
-		return false;
+		return isTimedOut();
 	}
 
 	protected void end() {}

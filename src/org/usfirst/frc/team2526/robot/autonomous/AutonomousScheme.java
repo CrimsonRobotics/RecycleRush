@@ -23,7 +23,7 @@ public class AutonomousScheme {
 			commands.add(new TotePickup());
 		} else {
 			commands.add(new BinPickup());
-			commands.add(new AutoPilotDrive(1500));
+			commands.add(new AutoPilotDrive(1500, 2));
 		}
 		
 		return commands;

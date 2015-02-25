@@ -14,6 +14,7 @@ public class OpenArm extends SimpleCommand {
     
     public void initialize() {
     	Robot.alignmentArms.openArms();
+    	
     }
 
     public boolean isFinished() {

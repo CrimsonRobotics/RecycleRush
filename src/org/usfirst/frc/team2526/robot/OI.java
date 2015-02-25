@@ -96,11 +96,12 @@ public class OI {
 		
 		secondaryStickSeven.whenPressed(new CalibrateElevator());
 		
-		primaryStickSix.whenPressed(new LoadTote());
-		primaryStickSeven.whenPressed(new UnloadTote());
+		controlTopLeft.whenPressed(new LoadTote());
+		controlTopRight.whenPressed(new UnloadTote());
+		controlTopMiddle.whenPressed(new DropAndLoadTote(true));
+		controlBottomRight.whenPressed(new SetElevatorPosition(RobotValues.TOTE));
 		
-		primaryStickEleven.whenPressed(new DropAndLoadTote());
-		primaryStickTen.whenPressed(new SetElevatorPosition(Robot.elevator.TOTE));
+		controlMiddleRight.whenPressed(new SetElevatorPosition(RobotValues.CHUTE));
 		
 		primaryStickThree.whileHeld(new ActivateFlipper(true, true));
 		primaryStickFour.whileHeld(new ActivateFlipper(true, false));
