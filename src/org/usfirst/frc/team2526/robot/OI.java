@@ -27,6 +27,7 @@ public class OI {
 	
 	Joystick primaryStick = new Joystick(0);
 	Joystick secondaryStick = new Joystick(1);
+	Joystick controlPanel = new Joystick(2);
 	
 	public Joystick getPrimaryStick() {
 		return primaryStick;
@@ -34,6 +35,10 @@ public class OI {
 	
 	public Joystick getSecondaryStick() {
 		return secondaryStick;
+	}
+	
+	public Joystick getControlPanel() {
+		return controlPanel;
 	}
 	
 	Button primaryTriggerStick = new JoystickButton(primaryStick, 1);
@@ -64,6 +69,16 @@ public class OI {
 	Button secondaryStickTen = new JoystickButton(secondaryStick, 10);
 	Button secondaryStickEleven = new JoystickButton(secondaryStick, 11);
 	//creates buttons on the secondary stick (buttons 1-5)
+	
+	Button controlTopLeft = new JoystickButton(controlPanel, 1);
+	Button controlTopMiddle = new JoystickButton(controlPanel, 2);
+	Button controlTopRight = new JoystickButton(controlPanel, 3);
+	Button controlMiddleLeft = new JoystickButton(controlPanel, 4);
+	Button controlMiddleMiddle = new JoystickButton(controlPanel, 5);
+	Button controlMiddleRight = new JoystickButton(controlPanel, 6);
+	Button controlBottomLeft = new JoystickButton(controlPanel, 7);
+	Button controlBottomMiddle = new JoystickButton(controlPanel, 8);
+	Button controlBottomRight = new JoystickButton(controlPanel, 9);
 	
 	public OI() {
 		primaryTriggerStick.whileHeld(new StartAlign());
