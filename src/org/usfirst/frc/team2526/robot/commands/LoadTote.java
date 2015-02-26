@@ -16,8 +16,8 @@ public class LoadTote extends CommandGroup {
 		super("Load Tote");
 
 		addParallel(new FrictionRelease());
-		addSequential(new ShiftElevator(RobotValues.GRAB));
-
+		addSequential(new ShiftElevator(RobotValues.TOTE_ONE_GRAB));
+		
 		// addSequential(new WaitCommand(.5));
 		addSequential(new StabilizeTote());
 

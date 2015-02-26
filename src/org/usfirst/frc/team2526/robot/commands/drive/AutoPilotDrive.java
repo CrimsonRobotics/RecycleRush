@@ -12,22 +12,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class AutoPilotDrive extends Command {
 
 	double distance;
-	double speed;
+	double maxSpeed;
 	
     public AutoPilotDrive(double distance, double timeout) {
     	super(timeout);
     	
     	requires(Robot.driveTrain);
         this.distance = distance;
-        this.speed = RobotValues.AUTO_PILOT_SPEED;
+        this.maxSpeed = RobotValues.AUTO_PILOT_MAX_SPEED;
     }
     
-    public AutoPilotDrive(double distance, double timeout, double speed) {
+    public AutoPilotDrive(double distance, double timeout, double maxSpeed) {
     	super(timeout);
     	
     	requires(Robot.driveTrain);
         this.distance = distance;
-        this.speed = speed;
+        this.maxSpeed = maxSpeed;
     }
 
     protected void initialize() {
@@ -36,15 +36,19 @@ public class AutoPilotDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
+    	double speedP = (Math.abs(distance)-Robot.driveTrain.getCurrentPosition()/Math.abs(distance));
+    	double actualSpeed = 0.9 * maxSpeed * speedP + 0.1;
+    	
     	if (distance > 0)
-    		Robot.driveTrain.driveForward(speed);
+    		Robot.driveTrain.driveForward(actualSpeed);
     	else
-    		Robot.driveTrain.driveBackward(speed);
+    		Robot.driveTrain.driveBackward(actualSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	double error = distance - Robot.driveTrain.getCurrentPosition();
+    	double error = Math.abs(distance) - Robot.driveTrain.getCurrentPosition();
     	SmartDashboard.putNumber("Drive Error ", error);
         return error < 10;
     }

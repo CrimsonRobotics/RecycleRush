@@ -21,7 +21,7 @@ public class ThreeTotesOnBin extends CommandGroup {
         addSequential(new RotateToTote());
         //addSequential(new AutoPilotDrive(2000));
         
-        addSequential(new SetElevatorPosition(RobotValues.TOTE));
+        addSequential(new SetElevatorPosition(RobotValues.TOTE_TWO));
         addSequential(new TotePickup());
         //addSequential(new SetElevatorPosition(Elevator.BIN+22));
         addSequential(new AvoidBin());

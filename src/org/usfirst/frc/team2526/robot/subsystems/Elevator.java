@@ -25,6 +25,7 @@ public class Elevator extends Subsystem {
 		winch = new CANTalon(RobotMap.WINCH_TALON);
 		
 		winch.changeControlMode(CANTalon.ControlMode.Position);
+		winch.changeControlMode(CANTalon.ControlMode.Current);
 		winch.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		winch.reverseOutput(true);
 		
@@ -104,7 +105,7 @@ public class Elevator extends Subsystem {
 	}
 	
 	private void updateGoal() {
-		moveToPositionTicks(goal);
+		winch.set(goal);
 	}
 
 	public void stabilizeTote() {

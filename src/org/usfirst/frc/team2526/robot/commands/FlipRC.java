@@ -24,6 +24,7 @@ public class FlipRC extends CommandGroup {
     	addSequential(new OpenArm());
     	// If arms close soon after, check subsystem default command
     	addSequential(new AutoPilotDrive(-400, 2, 0.1));
+    	
     	addParallel(new ReleaseTote());
     	
     	addParallel(new StartAlign());

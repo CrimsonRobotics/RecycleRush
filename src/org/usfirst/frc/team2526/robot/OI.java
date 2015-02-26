@@ -99,7 +99,7 @@ public class OI {
 		controlTopLeft.whenPressed(new LoadTote());
 		controlTopRight.whenPressed(new UnloadTote());
 		controlTopMiddle.whenPressed(new DropAndLoadTote(true));
-		controlBottomRight.whenPressed(new SetElevatorPosition(RobotValues.TOTE));
+		controlBottomRight.whenPressed(new SetElevatorPosition(RobotValues.TOTE_TWO));
 		
 		controlMiddleRight.whenPressed(new SetElevatorPosition(RobotValues.CHUTE));
 		

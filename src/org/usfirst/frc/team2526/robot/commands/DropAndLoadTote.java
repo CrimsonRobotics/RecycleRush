@@ -29,7 +29,7 @@ public class DropAndLoadTote extends CommandGroup {
 		addSequential(new WaitCommand(0.5));
 		
 		if (wall)
-			addSequential(new SetElevatorPosition(RobotValues.TOTE));
+			addSequential(new SetElevatorPosition(RobotValues.TOTE_ONE));
 		else
 			addSequential(new SetElevatorPosition(RobotValues.FLOOR));
 
