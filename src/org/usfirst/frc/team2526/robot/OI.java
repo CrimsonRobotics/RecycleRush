@@ -2,6 +2,7 @@ package org.usfirst.frc.team2526.robot;
 
 import org.usfirst.frc.team2526.robot.commands.ActivateFlipper;
 import org.usfirst.frc.team2526.robot.commands.DropAndLoadTote;
+import org.usfirst.frc.team2526.robot.commands.FlipRC;
 import org.usfirst.frc.team2526.robot.commands.LoadTote;
 import org.usfirst.frc.team2526.robot.commands.UnloadTote;
 import org.usfirst.frc.team2526.robot.commands.alignment.OpenArm;
@@ -70,14 +71,14 @@ public class OI {
 	Button secondaryStickEleven = new JoystickButton(secondaryStick, 11);
 	//creates buttons on the secondary stick (buttons 1-5)
 	
-	Button controlTopLeft = new JoystickButton(controlPanel, 1);
+	Button controlTopLeft = new JoystickButton(controlPanel, 5);
 	Button controlTopMiddle = new JoystickButton(controlPanel, 2);
-	Button controlTopRight = new JoystickButton(controlPanel, 3);
-	Button controlMiddleLeft = new JoystickButton(controlPanel, 4);
-	Button controlMiddleMiddle = new JoystickButton(controlPanel, 5);
-	Button controlMiddleRight = new JoystickButton(controlPanel, 6);
-	Button controlBottomLeft = new JoystickButton(controlPanel, 7);
-	Button controlBottomMiddle = new JoystickButton(controlPanel, 8);
+	Button controlTopRight = new JoystickButton(controlPanel, 1);
+	Button controlMiddleLeft = new JoystickButton(controlPanel, 7);
+	Button controlMiddleMiddle = new JoystickButton(controlPanel, 4);
+	Button controlMiddleRight = new JoystickButton(controlPanel, 8);
+	Button controlBottomLeft = new JoystickButton(controlPanel, 6);
+	Button controlBottomMiddle = new JoystickButton(controlPanel, 3);
 	Button controlBottomRight = new JoystickButton(controlPanel, 9);
 	
 	public OI() {
@@ -98,10 +99,15 @@ public class OI {
 		
 		controlTopLeft.whenPressed(new LoadTote());
 		controlTopRight.whenPressed(new UnloadTote());
-		controlTopMiddle.whenPressed(new DropAndLoadTote(true));
+		controlTopMiddle.whenPressed(new DropAndLoadTote(false));
 		controlBottomRight.whenPressed(new SetElevatorPosition(RobotValues.TOTE_TWO));
 		
 		controlMiddleRight.whenPressed(new SetElevatorPosition(RobotValues.CHUTE));
+		controlMiddleMiddle.whenPressed(new SetElevatorPosition(RobotValues.STEP));
+		controlMiddleLeft.whenPressed(new SetElevatorPosition(RobotValues.TOTE_ONE_GRAB));
+		
+		controlBottomLeft.whenPressed(new SetElevatorPosition(RobotValues.SCORING));
+		controlBottomMiddle.whenPressed(new DropAndLoadTote(true));
 		
 		primaryStickThree.whileHeld(new ActivateFlipper(true, true));
 		primaryStickFour.whileHeld(new ActivateFlipper(true, false));

@@ -23,7 +23,7 @@ public class FlipRC extends CommandGroup {
     	addSequential(new SetElevatorPosition(RobotValues.RC_HUG));
     	addSequential(new OpenArm());
     	// If arms close soon after, check subsystem default command
-    	addSequential(new AutoPilotDrive(-400, 2, 0.1));
+    	addSequential(new AutoPilotDrive(-400, 2));
     	
     	addParallel(new ReleaseTote());
     	

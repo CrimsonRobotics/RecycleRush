@@ -6,7 +6,7 @@ package org.usfirst.frc.team2526.robot;
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
  */
-public class RobotMap {
+public interface RobotMap {
 	// CAN Device IDs
 
 	public static final int WINCH_TALON = 1;
@@ -24,9 +24,9 @@ public class RobotMap {
 
 	public static final int PCM_MAIN = 9;
 
-	// End CAN IDs
-
-	// Start Pneumatic Channels
+	/******************
+     ** PNEUMATICS ** 
+     ******************/  
 	public static final int FLIPPER_RIGHT = 0;
 	public static final int FLIPPER_LEFT = 1;
 	public static final int WINCH_BRAKE_A = 2;
@@ -36,7 +36,15 @@ public class RobotMap {
 	public static final int STABLE_ELEVATOR_B = 6;
 	// End Pneumatic Channels
 
-	// Start DIO Channel
-	// End DIO Channels
+	/******************
+     **PID CONTROLLER** 
+     ******************/    
+    public static final double ABS_TOL = 0.5;
+    public static final double DISTANCE_PER_PULSE = 0.005;
+    public static final double P = .4;
+    public static final double I = .01;
+    public static final double D = 11;
+    public static final double OUT_RANGE_L = -0.8;
+    public static final double OUT_RANGE_H = 0.8;
 
 }
