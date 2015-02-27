@@ -7,6 +7,8 @@ import org.usfirst.frc.team2526.robot.commands.drive.Drive;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.livewindow.LiveWindowSendable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -43,10 +45,16 @@ public class DriveTrain extends Subsystem implements RobotMap {
 		rLPID = new WheelPID("BackLeft", rLMotor);
 		rRPID = new WheelPID("BackRight", rRMotor);
 		
-		fLPID.setOutputRange(-0.8, 0.8);
-		fRPID.setOutputRange(-0.8, 0.8);
-		rLPID.setOutputRange(-0.8, 0.8);
-		rRPID.setOutputRange(-0.8, 0.8);
+		LiveWindow.addActuator("Drive Train", "Front Left", fLPID.getPIDController());
+		LiveWindow.addActuator("Drive Train", "Front Right", fRPID.getPIDController());
+		LiveWindow.addActuator("Drive Train", "Back Left", rLPID.getPIDController());
+		LiveWindow.addActuator("Drive Train", "Back Right", rRPID.getPIDController());
+		
+		
+		fLPID.setOutputRange(-0.4, 0.4);
+		fRPID.setOutputRange(-0.4, 0.4);
+		rLPID.setOutputRange(-0.4, 0.4);
+		rRPID.setOutputRange(-0.4, 0.4);
 
 		drive = new RobotDrive(rLMotor, fLMotor, fRMotor, rRMotor);
 		SmartDashboard.putNumber("Power", 3);
@@ -85,13 +93,26 @@ public class DriveTrain extends Subsystem implements RobotMap {
 		rRMotor.setPosition(0);
 	}
 
-	public void driveForward(double distance) {
+	public void driveForwardDistance(double distance) {
 		fLPID.setSetpoint(distance);
 		fRPID.setSetpoint(-distance);
 		rLPID.setSetpoint(distance);
 		rRPID.setSetpoint(-distance);
 	}
+	
+	public void driveForwardConstant(double speed) {
+		fLMotor.set(speed);
+		rLMotor.set(speed);
+		fRMotor.set(-speed);
+		rRMotor.set(-speed);
+	}
 
+	public void stopDriving() {
+		fLMotor.set(0);
+		rLMotor.set(0);
+		fRMotor.set(0);
+		rRMotor.set(0);
+	}
 	public void rotateFrame(boolean half, int direction){
     	if(half){
     		fLPID.setSetpoint(RobotValues.FL_180 * direction);

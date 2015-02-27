@@ -16,6 +16,8 @@ public class Elevator extends Subsystem {
 	public CANTalon winch;
 	public DoubleSolenoid stabilizeSolenoid;
 	double goal;
+	
+	boolean onStep = false;
 
 	public Elevator() {
 		super("Elevator");
@@ -114,6 +116,25 @@ public class Elevator extends Subsystem {
 	public void releaseTote() {
 		stabilizeSolenoid.set(DoubleSolenoid.Value.kForward);
 	}
+	
+	public boolean getOnStep() {
+		return onStep;
+	}
+	
+	public void setOnStep(boolean step) {
+		this.onStep = step; 
+	}
 
 	public void initDefaultCommand() {}
+	
+	public void updatePneumatics() {
+		if (this.isAtBottom()) {
+			releaseTote();
+		}
+	}
+
+	public void update() {
+		updatePID();
+		updatePneumatics();
+	}
 }

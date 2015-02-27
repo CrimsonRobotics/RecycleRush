@@ -2,7 +2,6 @@ package org.usfirst.frc.team2526.robot;
 
 import org.usfirst.frc.team2526.robot.commands.ActivateFlipper;
 import org.usfirst.frc.team2526.robot.commands.DropAndLoadTote;
-import org.usfirst.frc.team2526.robot.commands.FlipRC;
 import org.usfirst.frc.team2526.robot.commands.LoadTote;
 import org.usfirst.frc.team2526.robot.commands.UnloadTote;
 import org.usfirst.frc.team2526.robot.commands.alignment.OpenArm;
@@ -10,6 +9,7 @@ import org.usfirst.frc.team2526.robot.commands.alignment.ReverseAlign;
 import org.usfirst.frc.team2526.robot.commands.alignment.RotateAlignment;
 import org.usfirst.frc.team2526.robot.commands.alignment.StartAlign;
 import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevator;
+import org.usfirst.frc.team2526.robot.commands.drive.DriveForward;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorDown;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorUp;
 import org.usfirst.frc.team2526.robot.commands.elevator.ReleaseTote;
@@ -82,7 +82,7 @@ public class OI {
 	Button controlBottomRight = new JoystickButton(controlPanel, 9);
 	
 	public OI() {
-		primaryTriggerStick.whileHeld(new StartAlign());
+		primaryTriggerStick.whileHeld(new StartAlign(false));
 		
 		secondaryTriggerStick.whileHeld(new OpenArm());
 		primaryStickTwo.whileHeld(new ReverseAlign());
@@ -112,6 +112,8 @@ public class OI {
 		primaryStickThree.whileHeld(new ActivateFlipper(true, true));
 		primaryStickFour.whileHeld(new ActivateFlipper(true, false));
 		primaryStickFive.whileHeld(new ActivateFlipper(false, true));
+		
+		primaryStickSix.whenPressed(new DriveForward(2, 1000));
 	}
 }
 

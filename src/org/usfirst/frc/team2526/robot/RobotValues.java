@@ -8,20 +8,19 @@ public class RobotValues {
 			TOTE_ONE = 500,
 			TOTE_TWO_GRAB = 450, 
 			TOTE_TWO = 1800, 
-			SCORING = 700, 
+			SCORING = 1000, 
 			RC_TOP_TOTE = 2500,
 			RC_HUG = 1100, 
-			CHUTE = 3600,
+			CHUTE = 4500,
 			STEP = 900;
 
-	public static double MAX_POSITION = 6000;
+	public static double MAX_POSITION = 5827;
 	
 	public static final int RC_TO_TOTE_DISTANCE = 1000;
 	public static final int TOTE_TO_OP_TOTE_DISTANCE = 1500;
 	public static final int TOTE_TO_AUTOZONE_DISTANCE = 1500;
 	
 	
-	public static final double ABS_TOT = 0.5;
 	
 	public static final double DRIVE_P = 0.4;
 	public static final double DRIVE_I = 0.01;

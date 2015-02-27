@@ -1,16 +1,13 @@
 package org.usfirst.frc.team2526.robot.commands;
 
-import org.usfirst.frc.team2526.robot.RobotValues;
-import org.usfirst.frc.team2526.robot.commands.alignment.CloseArm;
-import org.usfirst.frc.team2526.robot.commands.alignment.OpenArm;
 import org.usfirst.frc.team2526.robot.commands.alignment.ReverseAlign;
 import org.usfirst.frc.team2526.robot.commands.alignment.StopAlign;
-import org.usfirst.frc.team2526.robot.commands.drive.AutoPilotDrive;
+import org.usfirst.frc.team2526.robot.commands.drive.DriveForward;
 import org.usfirst.frc.team2526.robot.commands.elevator.ReleaseTote;
-import org.usfirst.frc.team2526.robot.commands.elevator.SetElevatorPosition;
 import org.usfirst.frc.team2526.robot.commands.elevator.ShiftElevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**
  *
@@ -19,13 +16,14 @@ public class UnloadTote extends CommandGroup {
     
     public  UnloadTote() {
     	addSequential(new ShiftElevator(-450));
+    	//addParallel(new ReverseAlign());
+    	addParallel(new StopAlign());
+    	addParallel(new ReleaseTote());
+    	addSequential(new WaitCommand(0.3));
     	addParallel(new ReverseAlign());
-    	addSequential(new AutoPilotDrive(-700, 2));
-    	addSequential(new StopAlign());
-    	addSequential(new OpenArm());
-    	addSequential(new SetElevatorPosition(RobotValues.FLOOR));
-    	addSequential(new CloseArm());
-    	addSequential(new ReleaseTote());
+    	addSequential(new DriveForward(2, -1000));
+    	addParallel(new StopAlign());
+    	addSequential(new WaitCommand(0.1));
 //    }
     }
 }

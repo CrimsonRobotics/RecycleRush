@@ -36,8 +36,6 @@ public class Robot extends IterativeRobot {
 	public static Flipper flipper;
 	public static OI oi;
 	
-	SendableChooser autoChooser = new SendableChooser();
-	
 	Compressor compressor;
 	
 	public static VisionCommunications vision;
@@ -57,6 +55,8 @@ public class Robot extends IterativeRobot {
 		
 		oi = new OI();
 		
+		autonomousCommand = new SimpleAutonomous();
+		
 		SmartDashboard.putData(driveTrain);
 		SmartDashboard.putData(alignmentWheels);
 		SmartDashboard.putData(elevator);
@@ -69,7 +69,6 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
-    	autonomousCommand = (Command)autoChooser.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
@@ -98,7 +97,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         SmartDashboard.putNumber("Current Position", elevator.getPosition());
-        Robot.elevator.updatePID(); 
+        Robot.elevator.update(); 
         Robot.driveTrain.update();
     }
     

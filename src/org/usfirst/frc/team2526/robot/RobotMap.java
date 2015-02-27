@@ -39,8 +39,7 @@ public interface RobotMap {
 	/******************
      **PID CONTROLLER** 
      ******************/    
-    public static final double ABS_TOL = 0.5;
-    public static final double DISTANCE_PER_PULSE = 0.005;
+    public static final double ABS_TOL = 100;
     public static final double P = .4;
     public static final double I = .01;
     public static final double D = 11;

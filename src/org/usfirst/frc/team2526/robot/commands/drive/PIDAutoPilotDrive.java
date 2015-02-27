@@ -6,7 +6,7 @@ import org.usfirst.frc.team2526.robot.commands.SimpleCommand;
 /**
  *
  */
-public class AutoPilotDrive extends SimpleCommand {
+public class PIDAutoPilotDrive extends SimpleCommand {
 
 	double distance;
 	
@@ -16,7 +16,7 @@ public class AutoPilotDrive extends SimpleCommand {
 	 * 	1 inch = 39.8 ticks
 	 * @param timeout
 	 */
-    public AutoPilotDrive(double distance, double timeout) {
+    public PIDAutoPilotDrive(double distance, double timeout) {
     	super(Robot.driveTrain, timeout);
     	
         this.distance = distance;
@@ -25,7 +25,7 @@ public class AutoPilotDrive extends SimpleCommand {
     protected void initialize() {
     	Robot.driveTrain.resetCurrentPosition();
     	Robot.driveTrain.enable();
-    	Robot.driveTrain.driveForward(distance);
+    	Robot.driveTrain.driveForwardDistance(distance);
     }
     
     // Make this return true when this Command no longer needs to run execute()
