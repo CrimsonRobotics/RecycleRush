@@ -2,6 +2,7 @@ package org.usfirst.frc.team2526.robot.subsystems;
 
 import org.usfirst.frc.team2526.robot.RobotMap;
 import org.usfirst.frc.team2526.robot.RobotValues;
+import org.usfirst.frc.team2526.robot.commands.elevator.PIDInPlace;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -105,7 +106,7 @@ public class Elevator extends Subsystem {
 		updateGoal();
 	}
 	
-	private void updateGoal() {
+	public void updateGoal() {
 		winch.set(goal);
 	}
 
@@ -125,7 +126,9 @@ public class Elevator extends Subsystem {
 		this.onStep = step; 
 	}
 
-	public void initDefaultCommand() {}
+	public void initDefaultCommand() {
+		//setDefaultCommand(new PIDInPlace());
+	}
 	
 	public void updatePneumatics() {
 		if (this.isAtBottom()) {

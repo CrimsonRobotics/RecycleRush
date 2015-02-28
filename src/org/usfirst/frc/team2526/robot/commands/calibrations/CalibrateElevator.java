@@ -13,6 +13,7 @@ public class CalibrateElevator extends CommandGroup {
 	public CalibrateElevator() {
 		
 		addSequential(new CalibrateElevatorMin());
+		addSequential(new CalibrateOnRelease());
 		addSequential(new CalibrateElevatorMax());
 		addSequential(new SetElevatorPosition(RobotValues.MAX_POSITION/2));
 		

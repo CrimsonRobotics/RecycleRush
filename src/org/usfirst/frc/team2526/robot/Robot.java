@@ -2,8 +2,8 @@
 package org.usfirst.frc.team2526.robot;
 
 import org.usfirst.frc.team2526.robot.autonomous.Autonomous;
+import org.usfirst.frc.team2526.robot.autonomous.RCAutonomous;
 import org.usfirst.frc.team2526.robot.autonomous.SimpleAutonomous;
-import org.usfirst.frc.team2526.robot.commands.elevator.SetElevatorPosition;
 import org.usfirst.frc.team2526.robot.commands.vision.VisionCommunications;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentArms;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentWheels;
@@ -28,6 +28,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	Command autonomousCommand;
+	
+	SendableChooser autoChooser = new SendableChooser();
 	
 	public static DriveTrain driveTrain;
 	public static AlignmentWheels alignmentWheels;
@@ -54,6 +56,10 @@ public class Robot extends IterativeRobot {
 		flipper = new Flipper();
 		
 		oi = new OI();
+		
+		autoChooser.addDefault("One Tote Out", new SimpleAutonomous());
+		autoChooser.addObject("One tote one RX", new RCAutonomous());
+		autoChooser.addObject("Two tote RC", new Autonomous());
 		
 		autonomousCommand = new SimpleAutonomous();
 		

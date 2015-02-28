@@ -9,11 +9,12 @@ import org.usfirst.frc.team2526.robot.commands.alignment.ReverseAlign;
 import org.usfirst.frc.team2526.robot.commands.alignment.RotateAlignment;
 import org.usfirst.frc.team2526.robot.commands.alignment.StartAlign;
 import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevator;
-import org.usfirst.frc.team2526.robot.commands.drive.DriveForward;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorDown;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorUp;
+import org.usfirst.frc.team2526.robot.commands.elevator.OneTote;
 import org.usfirst.frc.team2526.robot.commands.elevator.ReleaseTote;
 import org.usfirst.frc.team2526.robot.commands.elevator.SetElevatorPosition;
+import org.usfirst.frc.team2526.robot.commands.elevator.SlowSetPosition;
 import org.usfirst.frc.team2526.robot.commands.elevator.StabilizeTote;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -82,7 +83,7 @@ public class OI {
 	Button controlBottomRight = new JoystickButton(controlPanel, 9);
 	
 	public OI() {
-		primaryTriggerStick.whileHeld(new StartAlign(false));
+		primaryTriggerStick.whileHeld(new StartAlign(true));
 		
 		secondaryTriggerStick.whileHeld(new OpenArm());
 		primaryStickTwo.whileHeld(new ReverseAlign());
@@ -100,20 +101,20 @@ public class OI {
 		controlTopLeft.whenPressed(new LoadTote());
 		controlTopRight.whenPressed(new UnloadTote());
 		controlTopMiddle.whenPressed(new DropAndLoadTote(false));
-		controlBottomRight.whenPressed(new SetElevatorPosition(RobotValues.TOTE_TWO));
+		controlBottomLeft.whenPressed(new SetElevatorPosition(RobotValues.SCORING));
 		
 		controlMiddleRight.whenPressed(new SetElevatorPosition(RobotValues.CHUTE));
 		controlMiddleMiddle.whenPressed(new SetElevatorPosition(RobotValues.STEP));
-		controlMiddleLeft.whenPressed(new SetElevatorPosition(RobotValues.TOTE_ONE_GRAB));
+		controlMiddleLeft.whenPressed(new SetElevatorPosition(RobotValues.FLOOR));
 		
-		controlBottomLeft.whenPressed(new SetElevatorPosition(RobotValues.SCORING));
+		controlBottomRight.whenPressed(new OneTote());
 		controlBottomMiddle.whenPressed(new DropAndLoadTote(true));
 		
 		primaryStickThree.whileHeld(new ActivateFlipper(true, true));
 		primaryStickFour.whileHeld(new ActivateFlipper(true, false));
 		primaryStickFive.whileHeld(new ActivateFlipper(false, true));
 		
-		primaryStickSix.whenPressed(new DriveForward(2, 1000));
+		primaryStickSix.whenPressed(new SlowSetPosition(RobotValues.CHUTE_STACK));
 	}
 }
 

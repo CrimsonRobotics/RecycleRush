@@ -62,10 +62,10 @@ public class DriveTrain extends Subsystem implements RobotMap {
 	}
 	
 	public void enable() {
-//		fLPID.enable();
-//		fRPID.enable();
-//		rLPID.enable();
-//		rRPID.enable();
+		fLPID.enable();
+		fRPID.enable();
+		rLPID.enable();
+		rRPID.enable();
 	}
 	
 	public void disable() {
@@ -105,6 +105,13 @@ public class DriveTrain extends Subsystem implements RobotMap {
 		rLMotor.set(speed);
 		fRMotor.set(-speed);
 		rRMotor.set(-speed);
+	}
+	
+	public void driveRightConstant(double speed) {
+		fLMotor.set(speed);
+		rLMotor.set(speed);
+		fRMotor.set(speed);
+		rRMotor.set(speed);
 	}
 
 	public void stopDriving() {

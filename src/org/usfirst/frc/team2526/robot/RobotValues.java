@@ -5,14 +5,17 @@ public class RobotValues {
 
 	public static final double FLOOR = 0, // Calibrated
 			TOTE_ONE_GRAB = 300,
-			TOTE_ONE = 500,
+//			TOTE_ONE = 500,
 			TOTE_TWO_GRAB = 450, 
-			TOTE_TWO = 1800, 
-			SCORING = 1000, 
+			TOTE_TWO = 1800, // good
+			
+			SECOND_THIRD = 2371,
+			SCORING = 600, 
 			RC_TOP_TOTE = 2500,
-			RC_HUG = 1100, 
-			CHUTE = 4500,
-			STEP = 900;
+			RC_HUG = 1080, // good
+			CHUTE = 4179, // good
+			CHUTE_STACK = 2360,
+			STEP = 600; // good
 
 	public static double MAX_POSITION = 5827;
 	
@@ -20,6 +23,7 @@ public class RobotValues {
 	public static final int TOTE_TO_OP_TOTE_DISTANCE = 1500;
 	public static final int TOTE_TO_AUTOZONE_DISTANCE = 1500;
 	
+	// 1142 WALL Stack
 	
 	
 	public static final double DRIVE_P = 0.4;
