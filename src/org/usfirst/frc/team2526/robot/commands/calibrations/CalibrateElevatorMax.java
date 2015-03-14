@@ -17,7 +17,7 @@ public class CalibrateElevatorMax extends SimpleCommand {
     }
 
     protected void execute() {
-    	Robot.elevator.shiftGoalUp();
+    	Robot.elevator.shiftGoalUp(true);
     }
 
     protected boolean isFinished() {
