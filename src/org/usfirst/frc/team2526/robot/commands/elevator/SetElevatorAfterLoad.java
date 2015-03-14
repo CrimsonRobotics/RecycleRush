@@ -1,23 +1,24 @@
 package org.usfirst.frc.team2526.robot.commands.elevator;
 
 import org.usfirst.frc.team2526.robot.Robot;
+import org.usfirst.frc.team2526.robot.RobotValues;
 import org.usfirst.frc.team2526.robot.commands.SimpleCommand;
 
 /**
  *
  */
-public class SetElevatorPosition extends SimpleCommand {
-	double position;
+public class SetElevatorAfterLoad extends SimpleCommand {
 
-	public SetElevatorPosition(double position) {
+    public SetElevatorAfterLoad() {
 		// Use requires() here to declare subsystem dependencies
 		super(Robot.elevator);
-		
-		this.position = position;
 	}
 
 	protected void initialize() {
-		Robot.elevator.moveToPositionTicks(position);
+		if (Robot.elevator.getOnStep())
+			Robot.elevator.moveToPositionTicks(RobotValues.STEP);
+		else
+			Robot.elevator.moveToPositionTicks(RobotValues.SCORING);
 	}
 
 	protected boolean isFinished() {

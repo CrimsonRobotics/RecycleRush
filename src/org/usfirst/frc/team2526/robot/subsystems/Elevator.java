@@ -1,7 +1,8 @@
 package org.usfirst.frc.team2526.robot.subsystems;
 
 import org.usfirst.frc.team2526.robot.RobotMap;
-import org.usfirst.frc.team2526.robot.commands.elevator.HoldElevator;
+import org.usfirst.frc.team2526.robot.RobotValues;
+import org.usfirst.frc.team2526.robot.commands.elevator.PIDInPlace;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -12,22 +13,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Elevator extends Subsystem {
-
-	public static double FLOOR = 0, GRAB = 300, SCORING = 700, TOTE = 1800;
-
+	
 	public CANTalon winch;
-
-	public DoubleSolenoid brakeSolenoid, stabilizeSolenoid;
+	public DoubleSolenoid stabilizeSolenoid;
+	double goal;
+	
+	boolean onStep = false;
 
 	public Elevator() {
 		super("Elevator");
 
-		brakeSolenoid = new DoubleSolenoid(RobotMap.PCM_MAIN, RobotMap.WINCH_BRAKE_A, RobotMap.WINCH_BRAKE_B);
 		stabilizeSolenoid = new DoubleSolenoid(RobotMap.PCM_MAIN, RobotMap.STABLE_ELEVATOR_A, RobotMap.STABLE_ELEVATOR_B);
 
 		winch = new CANTalon(RobotMap.WINCH_TALON);
 		
-		//usePID(true);
 		winch.changeControlMode(CANTalon.ControlMode.Position);
 		winch.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		winch.reverseOutput(true);
@@ -39,10 +38,6 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putNumber("RAMP", 1);
 		
 		updatePID();
-		
-
-		SmartDashboard.putNumber("maxPosition", 6000);
-		SmartDashboard.putNumber("setPosition", 1000);
 	}
 
 	public void updatePID() {
@@ -60,9 +55,13 @@ public class Elevator extends Subsystem {
 	public boolean isAtBottom() {
 		return winch.isFwdLimitSwitchClosed();
 	}
+	
+	public boolean isAt(double position) {
+		return Math.abs(getPosition() - position) < RobotValues.WINCH_TOLERANCE;
+	}
 
 	public boolean isAtTarget() {
-		return Math.abs(winch.getEncPosition() - winch.getSetpoint()) < 150;
+		return Math.abs(getPosition() - winch.getSetpoint()) < RobotValues.WINCH_TOLERANCE;
 	}
 
 	public void calibrateMin() {
@@ -70,6 +69,7 @@ public class Elevator extends Subsystem {
 	}
 
 	public void calibrateMax() {
+		RobotValues.MAX_POSITION = winch.getEncPosition();
 		SmartDashboard.putNumber("maxPosition", winch.getEncPosition());
 	}
 
@@ -77,44 +77,37 @@ public class Elevator extends Subsystem {
 		return winch.getEncPosition();
 	}
 
-	public boolean moveToPositionTicks(double position) {
-		double maxPosition = SmartDashboard.getNumber("maxPosition");
-		if (position < maxPosition && position > 0) {
-			winch.set(position);
-			return true;
-		}
-		return false;
-	}
-
-	public void setToSmartValue() {
-		moveToPositionTicks(SmartDashboard.getNumber("setPosition"));
+	public void moveToPositionTicks(double position) {
+		goal = position;
+		updateGoal();
 	}
 	
-	public void usePID(boolean pid) {
-		if (pid) 
-			winch.changeControlMode(CANTalon.ControlMode.Position);
-		else
-			winch.changeControlMode(CANTalon.ControlMode.PercentVbus);
+	public void moveTop() {
+		goal = RobotValues.MAX_POSITION;
+		updateGoal();
 	}
-
-	public void moveUp() {
-		winch.set(-0.5);
+	
+	public void moveBottom() {
+		goal = 0;
+		updateGoal();
 	}
-
-	public void moveDown() {
-		winch.set(0.5);
+	
+	public void setGoalToCurrent() {
+		goal = winch.getEncPosition();
 	}
-
-	public void stopElevator() {
-		winch.set(0);
+	
+	public void shiftGoalUp() {
+		goal += 50;
+		updateGoal();
 	}
-
-	public void applyBreak() {
-		brakeSolenoid.set(DoubleSolenoid.Value.kForward);
+	
+	public void shiftGoalDown() {
+		goal -= 50;
+		updateGoal();
 	}
-
-	public void releaseBreak() {
-		brakeSolenoid.set(DoubleSolenoid.Value.kReverse);
+	
+	public void updateGoal() {
+		winch.set(goal);
 	}
 
 	public void stabilizeTote() {
@@ -124,9 +117,27 @@ public class Elevator extends Subsystem {
 	public void releaseTote() {
 		stabilizeSolenoid.set(DoubleSolenoid.Value.kForward);
 	}
-
-	public void initDefaultCommand() {
-		setDefaultCommand(new HoldElevator());
+	
+	public boolean getOnStep() {
+		return onStep;
+	}
+	
+	public void setOnStep(boolean step) {
+		this.onStep = step; 
 	}
 
+	public void initDefaultCommand() {
+		//setDefaultCommand(new PIDInPlace());
+	}
+	
+	public void updatePneumatics() {
+		if (this.isAtBottom()) {
+			releaseTote();
+		}
+	}
+
+	public void update() {
+		updatePID();
+		updatePneumatics();
+	}
 }

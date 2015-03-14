@@ -1,11 +1,9 @@
 
 package org.usfirst.frc.team2526.robot;
 
-import org.usfirst.frc.team2526.robot.autonomous.ThreeTotesOnBin;
-import org.usfirst.frc.team2526.robot.commands.LoadTote;
-import org.usfirst.frc.team2526.robot.commands.StackTote;
-import org.usfirst.frc.team2526.robot.commands.UnloadTote;
-import org.usfirst.frc.team2526.robot.commands.elevator.SetElevatorPosition;
+import org.usfirst.frc.team2526.robot.autonomous.Autonomous;
+import org.usfirst.frc.team2526.robot.autonomous.RCAutonomous;
+import org.usfirst.frc.team2526.robot.autonomous.ToteAutonomous;
 import org.usfirst.frc.team2526.robot.commands.vision.VisionCommunications;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentArms;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentWheels;
@@ -18,6 +16,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -29,6 +28,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	Command autonomousCommand;
+	
+	SendableChooser autoChooser = new SendableChooser();
 	
 	public static DriveTrain driveTrain;
 	public static AlignmentWheels alignmentWheels;
@@ -56,19 +57,16 @@ public class Robot extends IterativeRobot {
 		
 		oi = new OI();
 		
-		autonomousCommand = new ThreeTotesOnBin();
+		autoChooser.addDefault("One Tote Out", new ToteAutonomous());
+		autoChooser.addObject("One RC", new RCAutonomous());
+		autoChooser.addObject("Two tote RC", new Autonomous());
+		
+		SmartDashboard.putData("AutoChooser", autoChooser);
 		
 		SmartDashboard.putData(driveTrain);
 		SmartDashboard.putData(alignmentWheels);
 		SmartDashboard.putData(elevator);
 		SmartDashboard.putData(flipper);
-		
-		SmartDashboard.putData(new LoadTote());
-		SmartDashboard.putData(new UnloadTote());
-		SmartDashboard.putData(new StackTote());
-		
-		
-		SmartDashboard.putData(new SetElevatorPosition(SmartDashboard.getNumber("setPosition")));
     }
 	
 	public void disabledPeriodic() {
@@ -76,6 +74,7 @@ public class Robot extends IterativeRobot {
 	}
 
     public void autonomousInit() {
+    	autonomousCommand = (Command) autoChooser.getSelected();
         // schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
     }
@@ -88,15 +87,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to 
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
-        
-//        while (true) {
-//        	SmartDashboard.putNumber("Current Position", elevator.getPosition());
-//        }
     }
 
     /**
@@ -113,7 +104,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         SmartDashboard.putNumber("Current Position", elevator.getPosition());
-        Robot.elevator.updatePID();
+        Robot.elevator.update(); 
         Robot.driveTrain.update();
     }
     

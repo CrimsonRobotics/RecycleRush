@@ -1,17 +1,15 @@
-package org.usfirst.frc.team2526.robot.commands.drive;
-
-import org.usfirst.frc.team2526.robot.Robot;
+package org.usfirst.frc.team2526.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class Drive extends Command {
+public class Spin extends Command {
 
-    public Drive() {
+    public Spin() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.driveTrain);
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
@@ -20,11 +18,6 @@ public class Drive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double straight = Robot.oi.getPrimaryStick().getY();
-    	double strafe = Robot.oi.getPrimaryStick().getX();
-    	double rotation = Robot.oi.getSecondaryStick().getX();
-    	
-    	Robot.driveTrain.driveWithMech(-rotation, -strafe, -straight);
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -19,7 +19,7 @@ public class Flipper extends Subsystem {
     }
 
     public void initDefaultCommand() {
-//    	this.setDefaultCommand(new RetractFlipper());
+    	//this.setDefaultCommand(new RetractFlipper());
     }
     
     public void extendLeft() {

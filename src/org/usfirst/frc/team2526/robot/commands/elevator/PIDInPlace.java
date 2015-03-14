@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2526.robot.commands.drive;
+package org.usfirst.frc.team2526.robot.commands.elevator;
 
 import org.usfirst.frc.team2526.robot.Robot;
 
@@ -7,24 +7,20 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Drive extends Command {
+public class PIDInPlace extends Command {
 
-    public Drive() {
-        // Use requires() here to declare subsystem dependencies
-        requires(Robot.driveTrain);
+    public PIDInPlace() {
+        requires(Robot.elevator);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.elevator.setGoalToCurrent();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double straight = Robot.oi.getPrimaryStick().getY();
-    	double strafe = Robot.oi.getPrimaryStick().getX();
-    	double rotation = Robot.oi.getSecondaryStick().getX();
-    	
-    	Robot.driveTrain.driveWithMech(-rotation, -strafe, -straight);
+    	Robot.elevator.updateGoal();
     }
 
     // Make this return true when this Command no longer needs to run execute()

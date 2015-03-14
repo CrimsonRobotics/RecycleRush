@@ -1,38 +1,32 @@
 package org.usfirst.frc.team2526.robot.commands.alignment;
 
 import org.usfirst.frc.team2526.robot.Robot;
-
-import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team2526.robot.commands.SimpleCommand;
 
 /**
  *
  */
-public class StartAlign extends Command {
-
-    public StartAlign() {
-        requires(Robot.alignmentWheels);
+public class StartAlign extends SimpleCommand {
+	boolean shouldEnd;
+    public StartAlign(boolean shouldEnd) {
+        super(Robot.alignmentWheels);
+        this.shouldEnd = shouldEnd;
     }
-
-    // Called just before this Command runs the first time
+    
     protected void initialize() {
     	Robot.alignmentWheels.startAlign();
     }
     
-
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {}
-
-    // Set to false because we never want it to stop running until the user end the command by letting go of the button
     protected boolean isFinished() {
-        return false;
+    	return !shouldEnd;
     }
-
-    // Called once after isFinished returns true
+    
+    protected void execute() {
+    	Robot.alignmentWheels.startAlign();
+    }
+    
     protected void end() {
-    	Robot.alignmentWheels.stopAlign();
+    	if (shouldEnd) Robot.alignmentWheels.stopAlign();
     }
 
-    protected void interrupted() {
-    	end(); //End the command if we are interrupted
-    }
 }

@@ -6,18 +6,17 @@ import org.usfirst.frc.team2526.robot.commands.SimpleCommand;
 /**
  *
  */
-public class ReverseAlign extends SimpleCommand {
+public class StopAlign extends SimpleCommand {
 
-    public ReverseAlign() {
+    public StopAlign() {
         super(Robot.alignmentWheels);
     }
 
     protected void initialize() {
-    	Robot.alignmentWheels.reverseAlign();
-    }
-
-    protected void end() {
     	Robot.alignmentWheels.stopAlign();
     }
-
+    
+    protected boolean isFinished() {
+    	return true;
+    }
 }

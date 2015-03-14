@@ -7,11 +7,15 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Drive extends Command {
-
-    public Drive() {
-        // Use requires() here to declare subsystem dependencies
+public class TimedRotate extends Command {
+boolean right;
+	
+    public TimedRotate(double time, boolean direction) {
+    	super(time);
+    	
         requires(Robot.driveTrain);
+        
+        this.right = direction;
     }
 
     // Called just before this Command runs the first time
@@ -20,24 +24,25 @@ public class Drive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double straight = Robot.oi.getPrimaryStick().getY();
-    	double strafe = Robot.oi.getPrimaryStick().getX();
-    	double rotation = Robot.oi.getSecondaryStick().getX();
-    	
-    	Robot.driveTrain.driveWithMech(-rotation, -strafe, -straight);
+    	if (right)
+    		Robot.driveTrain.driveRightConstant(0.3);
+    	else
+    		Robot.driveTrain.driveRightConstant(-0.3);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.driveTrain.stopDriving();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.driveTrain.stopDriving();
     }
 }
