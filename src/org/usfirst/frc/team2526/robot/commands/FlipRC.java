@@ -29,7 +29,7 @@ public class FlipRC extends CommandGroup {
     	
     	addParallel(new StartAlign(true));
     	addParallel(new CloseArm());
-    	addSequential(new WaitCommand(0.5));
+    	addSequential(new WaitCommand(0.2));
     }
     
 }

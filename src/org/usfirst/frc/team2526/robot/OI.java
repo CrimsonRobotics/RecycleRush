@@ -91,12 +91,12 @@ public class OI {
 		primaryStickNine.whileHeld(new RotateAlignment(false));
 		
 		secondaryStickFive.whenPressed(new StabilizeTote());
-		secondaryStickFour.whenPressed(new ReleaseTote());
 		
 		secondaryStickThree.whileHeld(new ElevatorUp());
 		secondaryStickTwo.whileHeld(new ElevatorDown());
 		
-		secondaryStickSeven.whenPressed(new CalibrateElevator());
+		primaryStickSix.whenPressed(new CalibrateElevator());
+		primaryStickSeven.whenPressed(new ReleaseTote());
 		
 		controlTopLeft.whenPressed(new LoadTote());
 		controlTopRight.whenPressed(new UnloadTote());

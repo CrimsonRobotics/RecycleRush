@@ -20,9 +20,7 @@ public class Autonomous extends CommandGroup {
     
 	
     public  Autonomous() {
-    	addSequential(new ShiftElevator(400));
-    	addSequential(new StabilizeTote());
-        addSequential(new SetElevatorPosition(RobotValues.RC_TOP_TOTE));
+        addSequential(new SetElevatorPosition(RobotValues.CHUTE));
         addSequential(new TimedDrive(0.2, true));
         addSequential(new UnloadTote());
         addSequential(new SetElevatorPosition(RobotValues.FLOOR));

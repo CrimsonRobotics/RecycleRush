@@ -4,11 +4,11 @@ public class RobotValues {
 	public final static int WINCH_TOLERANCE = 16;
 
 	public static final double FLOOR = 0, // Calibrated
-			TOTE_ONE_GRAB = 300,
+			TOTE_ONE_GRAB = 400,
 //			TOTE_ONE = 500,
 			TOTE_TWO_GRAB = 450, 
 			TOTE_TWO = 1800, // good
-			
+			AUTO_RC = 2300,
 			SECOND_THIRD = 2371,
 			SCORING = 600, 
 			RC_TOP_TOTE = 2500,

@@ -46,13 +46,13 @@ public class DropAndLoadTote extends CommandGroup {
 		addSequential(new WaitCommand(0.2));
 		
 		addParallel(new StabilizeTote());
-		addSequential(new WaitCommand(1));
+		addSequential(new WaitCommand(0.5));
         
         if (wall)
-        	addParallel(new SetElevatorPosition(RobotValues.CHUTE));
+        	addSequential(new SetElevatorPosition(RobotValues.CHUTE));
 		else
-			addParallel(new SetElevatorPosition(RobotValues.SCORING));
+			addSequential(new SetElevatorPosition(RobotValues.SCORING));
         addParallel(new StopAlign());
-        addSequential(new WaitCommand(0.5));
+        addSequential(new WaitCommand(0.1));
 	}
 }
