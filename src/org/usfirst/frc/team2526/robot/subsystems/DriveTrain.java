@@ -57,7 +57,6 @@ public class DriveTrain extends Subsystem implements RobotMap {
 		rRPID.setOutputRange(-0.4, 0.4);
 
 		drive = new RobotDrive(rLMotor, fLMotor, fRMotor, rRMotor);
-		SmartDashboard.putNumber("Power", 3);
 
 	}
 	

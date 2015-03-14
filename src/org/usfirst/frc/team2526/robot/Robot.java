@@ -38,16 +38,15 @@ public class Robot extends IterativeRobot {
 	public static Flipper flipper;
 	public static OI oi;
 	
-	Compressor compressor;
-	
 	public static VisionCommunications vision;
 
 
     public void robotInit() {
+    	enableDebug(true);
+    	
     	vision = new VisionCommunications();
     	
-		compressor = new Compressor(RobotMap.PCM_MAIN);
-		compressor.start();
+		new Compressor(RobotMap.PCM_MAIN).start();
 	
 		driveTrain = new DriveTrain();
 		alignmentWheels = new AlignmentWheels();
@@ -63,10 +62,12 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putData("AutoChooser", autoChooser);
 		
-		SmartDashboard.putData(driveTrain);
-		SmartDashboard.putData(alignmentWheels);
-		SmartDashboard.putData(elevator);
-		SmartDashboard.putData(flipper);
+		if (isDebug()) {
+			SmartDashboard.putData(driveTrain);
+			SmartDashboard.putData(alignmentWheels);
+			SmartDashboard.putData(elevator);
+			SmartDashboard.putData(flipper);
+		}
     }
 	
 	public void disabledPeriodic() {
@@ -75,7 +76,7 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
     	autonomousCommand = (Command) autoChooser.getSelected();
-        // schedule the autonomous command (example)
+    	
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
@@ -102,8 +103,10 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+    
         Scheduler.getInstance().run();
-        SmartDashboard.putNumber("Current Position", elevator.getPosition());
+        if (isDebug()) SmartDashboard.putNumber("Current Position", elevator.getPosition());
+        
         Robot.elevator.update(); 
         Robot.driveTrain.update();
     }
@@ -113,5 +116,17 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+    }
+    
+    
+    /* Debug Mode */
+    private static boolean debugMode;
+    
+    public boolean isDebug() {
+    	return debugMode;
+    }
+    
+    public static void enableDebug(boolean debug) {
+    	debugMode = debug;
     }
 }

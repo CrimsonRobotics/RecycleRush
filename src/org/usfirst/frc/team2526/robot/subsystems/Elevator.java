@@ -41,11 +41,13 @@ public class Elevator extends Subsystem {
 	}
 
 	public void updatePID() {
-		winch.setPID(SmartDashboard.getNumber("P", 1),
-				SmartDashboard.getNumber("I", 0), 
-				SmartDashboard.getNumber("D", 0),
-				SmartDashboard.getNumber("F", 0), 360,
-				SmartDashboard.getNumber("RAMP", 1), 0);
+		winch.setPID(RobotValues.WINCH_P,
+				RobotValues.WINCH_I, 
+				RobotValues.WINCH_D,
+				0, 
+				360,
+				RobotValues.WINCH_RAMP, 
+				0);
 	}
 
 	public boolean isAtTop() {
@@ -96,13 +98,19 @@ public class Elevator extends Subsystem {
 		goal = winch.getEncPosition();
 	}
 	
-	public void shiftGoalUp() {
-		goal += 50;
+	public void shiftGoalUp(boolean highSpeed) {
+		if (highSpeed)
+			goal += 100;
+		else
+			goal += 50;
 		updateGoal();
 	}
 	
-	public void shiftGoalDown() {
-		goal -= 50;
+	public void shiftGoalDown(boolean highSpeed) {
+		if (highSpeed)
+			goal -= 100;
+		else
+			goal -= 50;
 		updateGoal();
 	}
 	
