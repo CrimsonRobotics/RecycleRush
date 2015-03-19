@@ -1,7 +1,8 @@
 package org.usfirst.frc.team2526.robot.subsystems;
 
+import org.usfirst.frc.team2526.robot.Robot;
 import org.usfirst.frc.team2526.robot.RobotMap;
-import org.usfirst.frc.team2526.robot.commands.alignment.CloseArm;
+import org.usfirst.frc.team2526.robot.commands.alignment.OpenArm;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -18,16 +19,18 @@ public class AlignmentArms extends Subsystem {
 	}
 
 	protected void initDefaultCommand() {
-		this.setDefaultCommand(new CloseArm());
+		this.setDefaultCommand(new OpenArm());
 	}
 
 	
 	public void openArms() {
-		arms.set(true);
+		
+		arms.set(false);
 	}
 	
 	public void closeArms() {
-		arms.set(false);
+		if (Robot.elevator.getPosition() > 300)
+			arms.set(true);
 	}
 }
 

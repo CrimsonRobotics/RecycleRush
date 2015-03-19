@@ -18,7 +18,7 @@ public class ElevatorUp extends SimpleCommand {
 	}
     
     protected void execute() {
-    	Robot.elevator.shiftGoalUp(false);
+    	Robot.elevator.shiftGoalUp(true);
     }
     
 }

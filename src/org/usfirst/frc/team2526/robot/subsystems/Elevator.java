@@ -2,10 +2,8 @@ package org.usfirst.frc.team2526.robot.subsystems;
 
 import org.usfirst.frc.team2526.robot.RobotMap;
 import org.usfirst.frc.team2526.robot.RobotValues;
-import org.usfirst.frc.team2526.robot.commands.elevator.PIDInPlace;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -15,7 +13,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Elevator extends Subsystem {
 	
 	public CANTalon winch;
-	public DoubleSolenoid stabilizeSolenoid;
 	double goal;
 	
 	boolean onStep = false;
@@ -23,13 +20,14 @@ public class Elevator extends Subsystem {
 	public Elevator() {
 		super("Elevator");
 
-		stabilizeSolenoid = new DoubleSolenoid(RobotMap.PCM_MAIN, RobotMap.STABLE_ELEVATOR_A, RobotMap.STABLE_ELEVATOR_B);
 
 		winch = new CANTalon(RobotMap.WINCH_TALON);
 		
 		winch.changeControlMode(CANTalon.ControlMode.Position);
 		winch.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-		winch.reverseOutput(true);
+		
+		//winch.reverseOutput(true);
+		winch.reverseSensor(true);
 		
 		SmartDashboard.putNumber("P", 1);
 		SmartDashboard.putNumber("I", 0);
@@ -118,14 +116,6 @@ public class Elevator extends Subsystem {
 		winch.set(goal);
 	}
 
-	public void stabilizeTote() {
-		stabilizeSolenoid.set(DoubleSolenoid.Value.kReverse);
-	}
-
-	public void releaseTote() {
-		stabilizeSolenoid.set(DoubleSolenoid.Value.kForward);
-	}
-	
 	public boolean getOnStep() {
 		return onStep;
 	}
@@ -138,14 +128,12 @@ public class Elevator extends Subsystem {
 		//setDefaultCommand(new PIDInPlace());
 	}
 	
-	public void updatePneumatics() {
-		if (this.isAtBottom()) {
-			releaseTote();
-		}
+	public void updateArms() {
+		
 	}
-
+	
 	public void update() {
 		updatePID();
-		updatePneumatics();
+		updateArms();
 	}
 }

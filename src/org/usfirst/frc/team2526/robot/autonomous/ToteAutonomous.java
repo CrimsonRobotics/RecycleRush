@@ -26,6 +26,5 @@ public class ToteAutonomous extends CommandGroup {
     	addSequential(new TimedRotate(1.55, true));
     	addSequential(new TimedDrive(4.2, true));
     	addSequential(new StopAlign());
-    	//addSequential(new AutoPilotDrive(4200, 3));
     }
 }

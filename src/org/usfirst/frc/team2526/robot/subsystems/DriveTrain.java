@@ -136,7 +136,7 @@ public class DriveTrain extends Subsystem implements RobotMap {
 	public void driveWithMech(double velocityY, double velocityX,
 			double rotation) {
 
-		double power = SmartDashboard.getNumber("Power");
+		double power = 2;
 
 		int signY = velocityY > 0 ? 1 : -1;
 		velocityY = Math.pow(Math.abs(velocityY), power) * signY;
@@ -159,32 +159,8 @@ public class DriveTrain extends Subsystem implements RobotMap {
 		return (fLPID.finished() && fRPID.finished() && rLPID.finished() && rRPID.finished());
 	}
 
-//	public void driveWithExponentialMech(double velocityY, double velocityX,
-//			double rotation) {
-//
-//		double power = SmartDashboard.getNumber("Power");
-//		int signY = velocityY > 0 ? 1 : -1;
-//		velocityY = Math.pow(Math.abs(velocityY), power) * signY;
-//		int signX = velocityX > 0 ? 1 : -1;
-//		velocityX = Math.pow(Math.abs(velocityX), power) * signX;
-//
-//		int signR = rotation > 0 ? 1 : -1;
-//		rotation = Math.pow(Math.abs(rotation), power) * signR;
-//
-//		double desiredFL = -velocityY + rotation + velocityX;
-//		double desiredRL = -velocityY + rotation - velocityX;
-//		double desiredFR = -velocityY - rotation - velocityX;
-//		double desiredRR = -velocityY - rotation + velocityX;
-//
-//		fLMotor.set(desiredFL);
-//		rLMotor.set(desiredRL);
-//		fRMotor.set(desiredFR);
-//		rRMotor.set(desiredRR);
-//	}
-
 	public void update() {
 		SmartDashboard.putNumber("Encoders: ", getCurrentPosition());
-		SmartDashboard
-				.putNumber("Encoder velocity: ", rLMotor.getEncVelocity());
+		SmartDashboard.putNumber("Encoder velocity: ", rLMotor.getEncVelocity());
 	}
 }

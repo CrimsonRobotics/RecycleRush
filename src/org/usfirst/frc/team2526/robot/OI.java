@@ -4,7 +4,7 @@ import org.usfirst.frc.team2526.robot.commands.ActivateFlipper;
 import org.usfirst.frc.team2526.robot.commands.DropAndLoadTote;
 import org.usfirst.frc.team2526.robot.commands.LoadTote;
 import org.usfirst.frc.team2526.robot.commands.UnloadTote;
-import org.usfirst.frc.team2526.robot.commands.alignment.OpenArm;
+import org.usfirst.frc.team2526.robot.commands.alignment.CloseArm;
 import org.usfirst.frc.team2526.robot.commands.alignment.ReverseAlign;
 import org.usfirst.frc.team2526.robot.commands.alignment.RotateAlignment;
 import org.usfirst.frc.team2526.robot.commands.alignment.StartAlign;
@@ -12,10 +12,8 @@ import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevator;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorDown;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorUp;
 import org.usfirst.frc.team2526.robot.commands.elevator.OneTote;
-import org.usfirst.frc.team2526.robot.commands.elevator.ReleaseTote;
 import org.usfirst.frc.team2526.robot.commands.elevator.SetElevatorPosition;
 import org.usfirst.frc.team2526.robot.commands.elevator.SlowSetPosition;
-import org.usfirst.frc.team2526.robot.commands.elevator.StabilizeTote;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -85,18 +83,16 @@ public class OI {
 	public OI() {
 		primaryTriggerStick.whileHeld(new StartAlign(true));
 		
-		secondaryTriggerStick.whileHeld(new OpenArm());
+		secondaryTriggerStick.whileHeld(new CloseArm());
 		primaryStickTwo.whileHeld(new ReverseAlign());
 		primaryStickEight.whileHeld(new RotateAlignment(true));
 		primaryStickNine.whileHeld(new RotateAlignment(false));
 		
-		secondaryStickFive.whenPressed(new StabilizeTote());
 		
 		secondaryStickThree.whileHeld(new ElevatorUp());
 		secondaryStickTwo.whileHeld(new ElevatorDown());
 		
 		primaryStickSix.whenPressed(new CalibrateElevator());
-		primaryStickSeven.whenPressed(new ReleaseTote());
 		
 		controlTopLeft.whenPressed(new LoadTote());
 		controlTopRight.whenPressed(new UnloadTote());
