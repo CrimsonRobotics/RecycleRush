@@ -21,10 +21,10 @@ public class ToteAutonomous extends CommandGroup {
     	addParallel(new StartAlign(false));
     	addParallel(new LoadTote());
     	addSequential(new WaitCommand(1));
-    	addParallel(new SetElevatorPosition(RobotValues.SCORING));
+    	addParallel(new SetElevatorPosition(RobotValues.TOTE_TWO));
     	addSequential(new WaitCommand(0.5));
-    	addSequential(new TimedRotate(1.55, true));
-    	addSequential(new TimedDrive(4.2, true));
+    	addSequential(new TimedRotate(1.8, true)); //1.55
+    	addSequential(new TimedDrive(4.5, true)); //4.2
     	addSequential(new StopAlign());
     }
 }

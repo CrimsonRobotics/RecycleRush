@@ -29,11 +29,8 @@ public interface RobotMap {
      ******************/  
 	public static final int FLIPPER_RIGHT = 0;
 	public static final int FLIPPER_LEFT = 1;
-//	public static final int WINCH_BRAKE_A = 2;
-//	public static final int WINCH_BRAKE_B = 3;
-	public static final int ALIGNMENT_ARM = 4;
-	public static final int STABLE_ELEVATOR_A = 5;
-	public static final int STABLE_ELEVATOR_B = 6;
+	public static final int ARMS_A = 2;
+	public static final int ARMS_B = 3;
 	// End Pneumatic Channels
 
 	/******************

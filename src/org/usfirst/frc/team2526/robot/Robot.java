@@ -68,6 +68,8 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putData(elevator);
 			SmartDashboard.putData(flipper);
 		}
+		
+		autonomousCommand = new Autonomous();
     }
 	
 	public void disabledPeriodic() {
@@ -75,7 +77,7 @@ public class Robot extends IterativeRobot {
 	}
 
     public void autonomousInit() {
-    	autonomousCommand = (Command) autoChooser.getSelected();
+    	//autonomousCommand = (Command) autoChooser.getSelected();
     	
         if (autonomousCommand != null) autonomousCommand.start();
     }
@@ -105,7 +107,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     
         Scheduler.getInstance().run();
-        if (isDebug()) SmartDashboard.putNumber("Current Position", elevator.getPosition());
+        SmartDashboard.putNumber("Current Position", elevator.getPosition());
         
         Robot.elevator.update(); 
         Robot.driveTrain.update();

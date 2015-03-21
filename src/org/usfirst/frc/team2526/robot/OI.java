@@ -9,6 +9,7 @@ import org.usfirst.frc.team2526.robot.commands.alignment.ReverseAlign;
 import org.usfirst.frc.team2526.robot.commands.alignment.RotateAlignment;
 import org.usfirst.frc.team2526.robot.commands.alignment.StartAlign;
 import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevator;
+import org.usfirst.frc.team2526.robot.commands.drive.TimedStrafe;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorDown;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorUp;
 import org.usfirst.frc.team2526.robot.commands.elevator.OneTote;
@@ -93,6 +94,7 @@ public class OI {
 		secondaryStickTwo.whileHeld(new ElevatorDown());
 		
 		primaryStickSix.whenPressed(new CalibrateElevator());
+		//primaryStickSeven.whenPressed(new TimedStrafe());
 		
 		controlTopLeft.whenPressed(new LoadTote());
 		controlTopRight.whenPressed(new UnloadTote());

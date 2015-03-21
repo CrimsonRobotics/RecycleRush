@@ -12,7 +12,7 @@ public class ReverseAlign extends SimpleCommand {
         super(Robot.alignmentWheels);
     }
 
-    protected void initialize() {
+	protected void initialize() {
     	Robot.alignmentWheels.reverseAlign();
     }
 

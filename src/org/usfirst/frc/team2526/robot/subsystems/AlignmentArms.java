@@ -4,7 +4,7 @@ import org.usfirst.frc.team2526.robot.Robot;
 import org.usfirst.frc.team2526.robot.RobotMap;
 import org.usfirst.frc.team2526.robot.commands.alignment.OpenArm;
 
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -12,10 +12,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class AlignmentArms extends Subsystem {
 	
-	Solenoid arms;
+	DoubleSolenoid arms;
 	
 	public AlignmentArms() {
-		arms = new Solenoid(RobotMap.PCM_MAIN, RobotMap.ALIGNMENT_ARM);
+		arms = new DoubleSolenoid(RobotMap.PCM_MAIN, RobotMap.ARMS_A, RobotMap.ARMS_B);
 	}
 
 	protected void initDefaultCommand() {
@@ -24,13 +24,14 @@ public class AlignmentArms extends Subsystem {
 
 	
 	public void openArms() {
-		
-		arms.set(false);
+		arms.set(DoubleSolenoid.Value.kForward);
 	}
 	
 	public void closeArms() {
-		if (Robot.elevator.getPosition() > 300)
-			arms.set(true);
+		if (Robot.elevator.getPosition() > 1500)
+			arms.set(DoubleSolenoid.Value.kReverse);
+		else
+			arms.set(DoubleSolenoid.Value.kForward);
 	}
 }
 

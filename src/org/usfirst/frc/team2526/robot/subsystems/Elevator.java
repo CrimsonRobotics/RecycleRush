@@ -26,8 +26,8 @@ public class Elevator extends Subsystem {
 		winch.changeControlMode(CANTalon.ControlMode.Position);
 		winch.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		
-		//winch.reverseOutput(true);
-		winch.reverseSensor(true);
+		winch.reverseOutput(true);
+		//winch.reverseSensor(true);
 		
 		SmartDashboard.putNumber("P", 1);
 		SmartDashboard.putNumber("I", 0);

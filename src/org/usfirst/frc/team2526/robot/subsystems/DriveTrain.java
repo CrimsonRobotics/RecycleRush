@@ -106,6 +106,10 @@ public class DriveTrain extends Subsystem implements RobotMap {
 		rRMotor.set(-speed);
 	}
 	
+	public void strafeConstant(double speed) {
+		drive.mecanumDrive_Cartesian(speed, 0, 0, 0);
+	}
+	
 	public void driveRightConstant(double speed) {
 		fLMotor.set(speed);
 		rLMotor.set(speed);
