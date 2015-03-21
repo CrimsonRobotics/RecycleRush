@@ -2,9 +2,9 @@
 package org.usfirst.frc.team2526.robot;
 
 import org.usfirst.frc.team2526.robot.autonomous.Autonomous;
-import org.usfirst.frc.team2526.robot.autonomous.RCAutonomous;
+import org.usfirst.frc.team2526.robot.autonomous.StationaryToteAutonomous;
 import org.usfirst.frc.team2526.robot.autonomous.ToteAutonomous;
-import org.usfirst.frc.team2526.robot.commands.vision.VisionCommunications;
+import org.usfirst.frc.team2526.robot.commands.vision.VisionProcessing;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentArms;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentWheels;
 import org.usfirst.frc.team2526.robot.subsystems.DriveTrain;
@@ -38,13 +38,13 @@ public class Robot extends IterativeRobot {
 	public static Flipper flipper;
 	public static OI oi;
 	
-	public static VisionCommunications vision;
-
-
+	public static VisionProcessing vision;
+	
     public void robotInit() {
     	enableDebug(true);
     	
-    	vision = new VisionCommunications();
+    	vision = new VisionProcessing();
+    	vision.init();
     	
 		new Compressor(RobotMap.PCM_MAIN).start();
 	
@@ -56,8 +56,8 @@ public class Robot extends IterativeRobot {
 		
 		oi = new OI();
 		
-		autoChooser.addDefault("One Tote Out", new ToteAutonomous());
-		autoChooser.addObject("One RC", new RCAutonomous());
+		autoChooser.addDefault("One tote to Autozone", new ToteAutonomous());
+		autoChooser.addObject("One tote", new StationaryToteAutonomous());
 		autoChooser.addObject("Two tote RC", new Autonomous());
 		
 		SmartDashboard.putData("AutoChooser", autoChooser);
@@ -78,7 +78,7 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
     	//autonomousCommand = (Command) autoChooser.getSelected();
-    	
+    	vision.start();
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
@@ -87,6 +87,9 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        
+        if (vision.isActive())
+        	vision.processFrame();
     }
 
     public void teleopInit() {
@@ -98,7 +101,8 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
-    	
+    	if (vision.isActive())
+    		vision.stop();
     }
 
     /**
@@ -116,8 +120,18 @@ public class Robot extends IterativeRobot {
     /**
      * This function is called periodically during test mode
      */
+    public void testInit() {
+        LiveWindow.run();
+        vision.start();
+    }
+    
+    /**
+     * This function is called periodically during test mode
+     */
     public void testPeriodic() {
         LiveWindow.run();
+        if (vision.isActive())
+        	vision.processFrame();
     }
     
     
