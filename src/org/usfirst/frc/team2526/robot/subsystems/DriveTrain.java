@@ -154,9 +154,8 @@ public class DriveTrain extends Subsystem implements RobotMap {
 		SmartDashboard.putNumber("Y", velocityY);
 		SmartDashboard.putNumber("X", velocityX);
 		SmartDashboard.putNumber("R", rotation);
-
+		
 		drive.mecanumDrive_Cartesian(velocityX, velocityY, rotation, 0);
-
 	}
 
 	public boolean isDone() {

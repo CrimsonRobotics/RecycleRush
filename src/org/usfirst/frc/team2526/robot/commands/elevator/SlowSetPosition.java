@@ -18,9 +18,9 @@ public class SlowSetPosition extends SimpleCommand {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (Robot.elevator.getPosition() > position) {
-    		Robot.elevator.shiftGoalDown(false);
+    		Robot.elevator.shiftGoalDown(true);
     	} else {
-    		Robot.elevator.shiftGoalUp(false);
+    		Robot.elevator.shiftGoalUp(true);
     	}
     }
 

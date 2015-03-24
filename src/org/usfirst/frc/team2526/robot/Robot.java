@@ -40,6 +40,8 @@ public class Robot extends IterativeRobot {
 	
 	public static VisionProcessing vision;
 	
+	int timeClock;
+	
     public void robotInit() {
     	enableDebug(true);
     	
@@ -56,12 +58,13 @@ public class Robot extends IterativeRobot {
 		
 		oi = new OI();
 		
+		//autonomousCommand = new ToteAutonomous();
 		autoChooser.addDefault("One tote to Autozone", new ToteAutonomous());
 		autoChooser.addObject("One tote", new StationaryToteAutonomous());
 		autoChooser.addObject("Two tote RC", new Autonomous());
 		
 		SmartDashboard.putData("AutoChooser", autoChooser);
-		
+
 		if (isDebug()) {
 			SmartDashboard.putData(driveTrain);
 			SmartDashboard.putData(alignmentWheels);
@@ -69,7 +72,7 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putData(flipper);
 		}
 		
-		autonomousCommand = new Autonomous();
+		
     }
 	
 	public void disabledPeriodic() {
@@ -77,8 +80,8 @@ public class Robot extends IterativeRobot {
 	}
 
     public void autonomousInit() {
-    	//autonomousCommand = (Command) autoChooser.getSelected();
-    	vision.start();
+    	autonomousCommand = (Command) autoChooser.getSelected();
+    	//vision.start();
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
@@ -88,11 +91,14 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
         
-        if (vision.isActive())
-        	vision.processFrame();
+//        if (vision.isActive() && timeClock % 10 == 0) {
+//        	timeClock++;
+//        	vision.processFrame();
+//        }
     }
 
     public void teleopInit() {
+    	//vision.start();
         if (autonomousCommand != null) autonomousCommand.cancel();
     }
 
@@ -113,8 +119,13 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         SmartDashboard.putNumber("Current Position", elevator.getPosition());
         
-        Robot.elevator.update(); 
-        Robot.driveTrain.update();
+        elevator.update(); 
+        driveTrain.update();
+//        if (vision.isActive() && timeClock % 10 == 0) {
+//        	timeClock++;
+//        	
+//        	vision.processFrame();
+//        }
     }
     
     /**
@@ -130,8 +141,7 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
-        if (vision.isActive())
-        	vision.processFrame();
+        
     }
     
     

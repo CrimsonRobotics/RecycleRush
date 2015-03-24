@@ -9,10 +9,8 @@ import org.usfirst.frc.team2526.robot.commands.alignment.ReverseAlign;
 import org.usfirst.frc.team2526.robot.commands.alignment.RotateAlignment;
 import org.usfirst.frc.team2526.robot.commands.alignment.StartAlign;
 import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevator;
-import org.usfirst.frc.team2526.robot.commands.drive.TimedStrafe;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorDown;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorUp;
-import org.usfirst.frc.team2526.robot.commands.elevator.OneTote;
 import org.usfirst.frc.team2526.robot.commands.elevator.SetElevatorPosition;
 import org.usfirst.frc.team2526.robot.commands.elevator.SlowSetPosition;
 
@@ -105,7 +103,7 @@ public class OI {
 		controlMiddleMiddle.whenPressed(new SetElevatorPosition(RobotValues.STEP));
 		controlMiddleLeft.whenPressed(new SetElevatorPosition(RobotValues.FLOOR));
 		
-		controlBottomRight.whenPressed(new OneTote());
+		controlBottomRight.whenPressed(new SetElevatorPosition(RobotValues.TOTE_TWO));
 		controlBottomMiddle.whenPressed(new DropAndLoadTote(true));
 		
 		primaryStickThree.whileHeld(new ActivateFlipper(true, true));

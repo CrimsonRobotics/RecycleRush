@@ -5,7 +5,7 @@ public class RobotValues {
 
 	public static final double FLOOR = 0, // Calibrated
 			TOTE_ONE_GRAB = 1100,
-			TOTE_TWO = 1800,
+			TOTE_TWO = 2500,
 			AUTO_RC = 2300,
 			SECOND_THIRD = 2371,
 			SCORING = 600, 
