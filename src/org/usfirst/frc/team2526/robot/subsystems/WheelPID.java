@@ -3,7 +3,6 @@ package org.usfirst.frc.team2526.robot.subsystems;
 import org.usfirst.frc.team2526.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
