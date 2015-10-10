@@ -1,21 +1,14 @@
 package org.usfirst.frc.team2526.robot;
 
 import org.usfirst.frc.team2526.robot.commands.ActivateFlipper;
-import org.usfirst.frc.team2526.robot.commands.DropAndLoadTote;
 import org.usfirst.frc.team2526.robot.commands.ExtendRCGrabber;
-import org.usfirst.frc.team2526.robot.commands.LoadTote;
 import org.usfirst.frc.team2526.robot.commands.RetractRCGrabber;
-import org.usfirst.frc.team2526.robot.commands.UnloadTote;
 import org.usfirst.frc.team2526.robot.commands.alignment.CloseArm;
 import org.usfirst.frc.team2526.robot.commands.alignment.ReverseAlign;
 import org.usfirst.frc.team2526.robot.commands.alignment.RotateAlignment;
 import org.usfirst.frc.team2526.robot.commands.alignment.StartAlign;
-import org.usfirst.frc.team2526.robot.commands.calibrations.CalibrateElevator;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorDown;
 import org.usfirst.frc.team2526.robot.commands.elevator.ElevatorUp;
-import org.usfirst.frc.team2526.robot.commands.elevator.OneTote;
-import org.usfirst.frc.team2526.robot.commands.elevator.SetElevatorPosition;
-import org.usfirst.frc.team2526.robot.commands.elevator.SlowSetPosition;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -94,19 +87,7 @@ public class OI {
 		secondaryStickThree.whileHeld(new ElevatorUp());
 		secondaryStickTwo.whileHeld(new ElevatorDown());
 		
-		primaryStickSix.whenPressed(new CalibrateElevator());
-		//primaryStickSeven.whenPressed(new TimedStrafe());
 		
-		controlTopLeft.whenPressed(new LoadTote());
-		controlTopRight.whenPressed(new UnloadTote());
-		controlTopMiddle.whenPressed(new DropAndLoadTote(false));
-		//controlBottomLeft.whenPressed(new SetElevatorPosition(RobotValues.SCORING));
-		
-		controlMiddleRight.whenPressed(new SetElevatorPosition(RobotValues.CHUTE));
-		controlMiddleMiddle.whenPressed(new SetElevatorPosition(RobotValues.STEP));
-		controlMiddleLeft.whenPressed(new SetElevatorPosition(RobotValues.FLOOR));
-		
-		controlBottomRight.whenPressed(new OneTote());
 		controlBottomMiddle.whenPressed(new RetractRCGrabber());
 		controlBottomLeft.whenPressed(new ExtendRCGrabber());
 		
@@ -114,7 +95,6 @@ public class OI {
 		
 		primaryStickThree.whileHeld(new ActivateFlipper());
 		
-		primaryStickSix.whenPressed(new SlowSetPosition(RobotValues.CHUTE_STACK));
 	}
 }
 

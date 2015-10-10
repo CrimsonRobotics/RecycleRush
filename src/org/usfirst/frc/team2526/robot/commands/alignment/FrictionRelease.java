@@ -15,16 +15,16 @@ public class FrictionRelease extends SimpleCommand {
     }
     
     protected void execute() {
-    	if (Robot.elevator.isAt(RobotValues.STEP)) {
+    	
     		Robot.alignmentWheels.startSlowAlign();
     	}
-    }
+    
     
     protected void end() {
     	Robot.alignmentWheels.stopAlign();
     }
 
     protected boolean isFinished() {
-        return Robot.elevator.isAtTarget() || isTimedOut();
+        return isTimedOut();
     }
 }

@@ -28,10 +28,9 @@ public class AlignmentArms extends Subsystem {
 	}
 	
 	public void closeArms() {
-		if (Robot.elevator.getPosition() > 1500)
+		
 			arms.set(DoubleSolenoid.Value.kReverse);
-		else
-			arms.set(DoubleSolenoid.Value.kForward);
+	
 	}
 }
 
