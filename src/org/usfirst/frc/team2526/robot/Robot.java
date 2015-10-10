@@ -4,6 +4,7 @@ import org.usfirst.frc.team2526.robot.autonomous.RCFastAutonomous;
 import org.usfirst.frc.team2526.robot.autonomous.RCSetAutonomous;
 import org.usfirst.frc.team2526.robot.autonomous.ToteAutonomous;
 import org.usfirst.frc.team2526.robot.autonomous.ToteStayAutonomous;
+import org.usfirst.frc.team2526.robot.commands.LoadTote;
 import org.usfirst.frc.team2526.robot.commands.SimpleCommand;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentArms;
 import org.usfirst.frc.team2526.robot.subsystems.AlignmentWheels;
@@ -52,7 +53,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		
 		autoChooser.addDefault("One Tote to Zone", new ToteAutonomous());
-		autoChooser.addDefault("One Tote and Stay", new ToteStayAutonomous());
+		autoChooser.addDefault("One Tote and Stay", new LoadTote());
 		autoChooser.addObject("One RC fast", new RCFastAutonomous());
 		autoChooser.addObject("One RC Set", new RCSetAutonomous());
 		
