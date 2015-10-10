@@ -116,6 +116,8 @@ public class Robot extends IterativeRobot {
 
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Current Position", elevator.getPosition());
+		SmartDashboard.putNumber("Current Percentage", elevator.getPosition()/RobotValues.MAX_POSITION);
+
 
 		Robot.elevator.update();
 		Robot.driveTrain.update();

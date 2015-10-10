@@ -2,6 +2,7 @@ package org.usfirst.frc.team2526.robot.subsystems;
 
 import org.usfirst.frc.team2526.robot.Robot;
 import org.usfirst.frc.team2526.robot.RobotMap;
+import org.usfirst.frc.team2526.robot.RobotValues;
 import org.usfirst.frc.team2526.robot.commands.alignment.OpenArm;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -28,7 +29,7 @@ public class AlignmentArms extends Subsystem {
 	}
 	
 	public void closeArms() {
-		if (Robot.elevator.getPosition() > 1500)
+		if (Robot.elevator.getPosition() > (RobotValues.ARM_SAFETY*RobotValues.MAX_POSITION))
 			arms.set(DoubleSolenoid.Value.kReverse);
 		else
 			arms.set(DoubleSolenoid.Value.kForward);

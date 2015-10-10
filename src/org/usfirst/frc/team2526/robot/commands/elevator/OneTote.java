@@ -21,7 +21,7 @@ public class OneTote extends CommandGroup {
         // To run multiple commands at the same time,
         // use addParallel()
     	addParallel(new StartAlign(true));
-    	addParallel(new SetElevatorPosition(RobotValues.TOTE_TWO));
+    	addParallel(new SetElevatorPosition(RobotValues.TOTE_TWO*RobotValues.MAX_POSITION));
         addSequential(new WaitCommand(0.3));
         addSequential(new StopAlign());
         // Command1 and Command2 will run in parallel.

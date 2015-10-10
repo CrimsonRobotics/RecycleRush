@@ -20,7 +20,7 @@ public class DropAndLoadTote extends CommandGroup {
 	public DropAndLoadTote(boolean wall) {
 		addParallel(new StartAlign(false));
 		if (wall)
-			addSequential(new SlowSetPosition(RobotValues.CHUTE_STACK+300));
+			addSequential(new SlowSetPosition((RobotValues.CHUTE_STACK+0.075)*RobotValues.MAX_POSITION));
 		else
 			addParallel(new ShiftElevator(-450));
 		
@@ -32,7 +32,7 @@ public class DropAndLoadTote extends CommandGroup {
         //addSequential(new WaitCommand(1.1));
         
 		if (wall)
-			addParallel(new SetElevatorPosition(RobotValues.TOTE_TWO-800));
+			addParallel(new SetElevatorPosition((RobotValues.TOTE_TWO-0.2)*RobotValues.MAX_POSITION));
 		else
 			addParallel(new SetElevatorPosition(RobotValues.FLOOR));
 		
@@ -43,9 +43,9 @@ public class DropAndLoadTote extends CommandGroup {
 		addSequential(new WaitCommand(0.2));
         
         if (wall)
-        	addSequential(new SetElevatorPosition(RobotValues.CHUTE));
+        	addSequential(new SetElevatorPosition(RobotValues.CHUTE*RobotValues.MAX_POSITION));
 		else
-			addSequential(new SetElevatorPosition(RobotValues.SCORING));
+			addSequential(new SetElevatorPosition(RobotValues.SCORING*RobotValues.MAX_POSITION));
         addParallel(new StopAlign());
         addSequential(new WaitCommand(0.1));
 	}

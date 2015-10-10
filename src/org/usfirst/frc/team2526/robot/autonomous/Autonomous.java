@@ -22,7 +22,7 @@ public class Autonomous extends CommandGroup {
     
 	
     public  Autonomous() {
-    	addParallel(new SetElevatorPosition(RobotValues.TOTE_TWO));
+    	addParallel(new SetElevatorPosition(RobotValues.TOTE_TWO*RobotValues.MAX_POSITION));
         addSequential(new TimedStrafe(1, false));
 
         addParallel(new CloseArm());
@@ -33,7 +33,7 @@ public class Autonomous extends CommandGroup {
         addSequential(new WaitCommand(3));
         addSequential(new TimedRotate(3.6, true)); //180 degrees
         
-        addParallel(new SetElevatorPosition(RobotValues.TOTE_TWO));
+        addParallel(new SetElevatorPosition(RobotValues.TOTE_TWO*RobotValues.MAX_POSITION));
         addSequential(new TimedDrive(3, true));
         
         addParallel(new LoadTote());

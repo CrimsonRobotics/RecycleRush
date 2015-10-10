@@ -15,7 +15,7 @@ public class FrictionRelease extends SimpleCommand {
     }
     
     protected void execute() {
-    	if (Robot.elevator.isAt(RobotValues.STEP)) {
+    	if (Robot.elevator.isAt(RobotValues.STEP*RobotValues.MAX_POSITION)) {
     		Robot.alignmentWheels.startSlowAlign();
     	}
     }

@@ -102,9 +102,9 @@ public class OI {
 		controlTopMiddle.whenPressed(new DropAndLoadTote(false));
 		//controlBottomLeft.whenPressed(new SetElevatorPosition(RobotValues.SCORING));
 		
-		controlMiddleRight.whenPressed(new SetElevatorPosition(RobotValues.CHUTE));
-		controlMiddleMiddle.whenPressed(new SetElevatorPosition(RobotValues.STEP));
-		controlMiddleLeft.whenPressed(new SetElevatorPosition(RobotValues.FLOOR));
+		controlMiddleRight.whenPressed(new SetElevatorPosition(RobotValues.CHUTE*RobotValues.MAX_POSITION));
+		controlMiddleMiddle.whenPressed(new SetElevatorPosition(RobotValues.STEP*RobotValues.MAX_POSITION));
+		controlMiddleLeft.whenPressed(new SetElevatorPosition(RobotValues.FLOOR*RobotValues.MAX_POSITION));
 		
 		controlBottomRight.whenPressed(new OneTote());
 		controlBottomMiddle.whenPressed(new RetractRCGrabber());
@@ -114,7 +114,7 @@ public class OI {
 		
 		primaryStickThree.whileHeld(new ActivateFlipper());
 		
-		primaryStickSix.whenPressed(new SlowSetPosition(RobotValues.CHUTE_STACK));
+		primaryStickSix.whenPressed(new SlowSetPosition(RobotValues.CHUTE_STACK*RobotValues.MAX_POSITION));
 	}
 }
 

@@ -17,7 +17,7 @@ public class FlipRC extends CommandGroup {
 
     public FlipRC() {
     	addParallel(new StartAlign(false));
-    	addSequential(new SetElevatorPosition(RobotValues.RC_HUG));
+    	addSequential(new SetElevatorPosition(RobotValues.RC_HUG*RobotValues.MAX_POSITION));
     	addSequential(new OpenArm());
     	// If arms close soon after, check subsystem default command
     	addSequential(new PIDAutoPilotDrive(-400, 2));

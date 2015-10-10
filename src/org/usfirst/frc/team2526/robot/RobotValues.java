@@ -4,18 +4,20 @@ public class RobotValues {
 	public final static int WINCH_TOLERANCE = 150;
 
 	public static final double FLOOR = 0, // Calibrated
-			TOTE_ONE_GRAB = 1100,
-			TOTE_TWO = 2228,
-			AUTO_RC = 2300,
-			SECOND_THIRD = 2371,
-			SCORING = 600, 
-			RC_TOP_TOTE = 2500,
-			RC_HUG = 1080,
-			CHUTE = 4179,
-			CHUTE_STACK = 2360,
-			STEP = 600;
+			TOTE_ONE_GRAB = 0.21575,
+			TOTE_TWO = 0.45,
+			AUTO_RC = 0.451,
+			SECOND_THIRD = 0.465,
+			SCORING = 0.11775, 
+			RC_TOP_TOTE = 0.49025,
+			RC_HUG = 0.21175,
+			CHUTE = 0.8195,
+			CHUTE_STACK = 0.46275,
+			STEP = 0.11775,
+			ARM_SAFETY = 0.29;
+	
 
-	public static double MAX_POSITION = 5100;
+	public static double MAX_POSITION = 4000;
 	
 	public static final int RC_TO_TOTE_DISTANCE = 1000;
 	public static final int TOTE_TO_OP_TOTE_DISTANCE = 1500;

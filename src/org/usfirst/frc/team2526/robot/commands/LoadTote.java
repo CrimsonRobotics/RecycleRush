@@ -24,7 +24,7 @@ public class LoadTote extends CommandGroup {
 		
 		addSequential(new SetElevatorPosition(RobotValues.FLOOR));
 		addParallel(new StopAlign());
-		addSequential(new SetElevatorPosition(RobotValues.TOTE_TWO));
+		addSequential(new SetElevatorPosition(RobotValues.TOTE_TWO*RobotValues.MAX_POSITION));
 		addSequential(new WaitCommand(0.3));
 	}
 

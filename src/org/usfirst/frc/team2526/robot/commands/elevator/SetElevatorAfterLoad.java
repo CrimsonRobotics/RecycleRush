@@ -16,9 +16,9 @@ public class SetElevatorAfterLoad extends SimpleCommand {
 
 	protected void initialize() {
 		if (Robot.elevator.getOnStep())
-			Robot.elevator.moveToPositionTicks(RobotValues.STEP);
+			Robot.elevator.moveToPositionTicks(RobotValues.STEP*RobotValues.MAX_POSITION);
 		else
-			Robot.elevator.moveToPositionTicks(RobotValues.SCORING);
+			Robot.elevator.moveToPositionTicks(RobotValues.SCORING*RobotValues.MAX_POSITION);
 	}
 
 	protected boolean isFinished() {
