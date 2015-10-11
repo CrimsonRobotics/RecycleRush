@@ -24,7 +24,7 @@ public class ToteAutonomous extends CommandGroup {
     	addParallel(new SetElevatorPosition(RobotValues.TOTE_TWO*RobotValues.MAX_POSITION));
     	addSequential(new WaitCommand(0.5));
     	addSequential(new TimedRotate(1.55, true)); //1.55
-    	addSequential(new TimedDrive(4.5, true)); //4.2
+    	addSequential(new TimedDrive(4.1, true)); //4.2
     	addSequential(new StopAlign());
     }
 }
