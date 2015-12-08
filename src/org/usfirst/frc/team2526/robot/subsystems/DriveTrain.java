@@ -51,10 +51,10 @@ public class DriveTrain extends Subsystem implements RobotMap {
 		LiveWindow.addActuator("Drive Train", "Back Right", rRPID.getPIDController());
 		
 		
-		fLPID.setOutputRange(-0.4, 0.4);
-		fRPID.setOutputRange(-0.4, 0.4);
-		rLPID.setOutputRange(-0.4, 0.4);
-		rRPID.setOutputRange(-0.4, 0.4);
+		fLPID.setOutputRange(-0.32, 0.32);
+		fRPID.setOutputRange(-0.32, 0.32);
+		rLPID.setOutputRange(-0.32, 0.32);
+		rRPID.setOutputRange(-0.32, 0.32);
 
 		drive = new RobotDrive(rLMotor, fLMotor, fRMotor, rRMotor);
 

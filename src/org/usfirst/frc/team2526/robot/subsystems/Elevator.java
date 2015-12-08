@@ -98,17 +98,17 @@ public class Elevator extends Subsystem {
 	
 	public void shiftGoalUp(boolean highSpeed) {
 		if (highSpeed)
-			goal += 100;
+			goal += 75;
 		else
-			goal += 50;
+			goal += 35;
 		updateGoal();
 	}
 	
 	public void shiftGoalDown(boolean highSpeed) {
 		if (highSpeed)
-			goal -= 100;
+			goal -= 80;
 		else
-			goal -= 50;
+			goal -= 35;
 		updateGoal();
 	}
 	
